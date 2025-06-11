@@ -17,7 +17,7 @@ data class User (
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int?,
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     var email: String,
 
     @Column(nullable = false)

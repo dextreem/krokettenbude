@@ -35,6 +35,8 @@ dependencies {
 
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+
+	implementation("io.jsonwebtoken:jjwt:0.12.6")
 }
 
 kotlin {

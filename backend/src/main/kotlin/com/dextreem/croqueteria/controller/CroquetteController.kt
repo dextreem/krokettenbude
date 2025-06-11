@@ -4,6 +4,7 @@ import com.dextreem.croqueteria.request.CroquetteRequest
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.service.CroquetteService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -28,7 +29,7 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a croquette", description = "Creates a new croquette.")
-    fun addCroquette(@RequestBody @Valid croquetteRequest: CroquetteRequest) {
+    fun addCroquette(@RequestBody @Valid croquetteRequest: CroquetteRequest) : CroquetteResponse {
         return croquetteService.addCroquette(croquetteRequest)
     }
 
@@ -37,10 +38,10 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @Operation(
         summary = "Get all croquettes", description = "Retrieves all croquettes with optional filters."
     )
+    @SecurityRequirements
     fun retrieveAllCroquettes(@RequestParam country: String?): List<CroquetteResponse> {
         // TODO: Add other request params
         return croquetteService.retrieveAllCroquettes(country)
-//        return  listOf()
     }
 
     @GetMapping("/{croquetteId}")
@@ -48,6 +49,7 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @Operation(
         summary = "Get a single croquette", description = "Retrieves a single croquette by its ID."
     )
+    @SecurityRequirements
     fun retrieveCroquetteById(@PathVariable("croquette_id") croquetteId: Int?): CroquetteResponse {
         // TODO: Add other request params
         return croquetteService.retrieveCroquetteById(croquetteId)

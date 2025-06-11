@@ -4,6 +4,7 @@ import com.dextreem.croqueteria.request.RatingRequest
 import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.service.RatingService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -41,6 +42,7 @@ class RatingController(val ratingService: RatingService) {
         summary = "Get all ratings",
         description = "Retrieves all ratings, optionally for a certain croquette."
     )
+    @SecurityRequirements
     fun retrieveAllRatings(@RequestParam("croquette_id") croquetteId: Int?): List<RatingResponse> {
         return ratingService.retrieveAllRatings(croquetteId)
     }
@@ -51,6 +53,7 @@ class RatingController(val ratingService: RatingService) {
         summary = "Get a single rating",
         description = "Retrieves a single comment by its ID."
     )
+    @SecurityRequirements
     fun retrieveRatingById(@PathVariable("rating_id") ratingId: Int?): RatingResponse {
         return ratingService.retrieveRatingById(ratingId)
     }
