@@ -6,6 +6,7 @@ import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
 import com.dextreem.croqueteria.service.UserService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -33,6 +34,7 @@ class UserController(val userService: UserService) {
         summary = "Create a new user",
         description = "Creates a new user and assigns the respective role."
     )
+    @SecurityRequirements
     fun addUser(@RequestBody @Valid userRequest: UserRequest): UserResponse {
         return userService.addUser(userRequest)
     }
@@ -43,6 +45,7 @@ class UserController(val userService: UserService) {
         summary = "Create a new user",
         description = "Creates a new user and assigns the respective role."
     )
+    @SecurityRequirements
     fun login(@RequestBody @Valid loginRequest: LoginRequest): LoginResponse {
         return userService.login(loginRequest)
     }

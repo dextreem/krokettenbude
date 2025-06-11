@@ -22,8 +22,6 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
-
-
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(val userRepository: UserRepository, val jwtAuthFilter: JwtAuthFilter) {
@@ -96,9 +94,7 @@ class SecurityConfig(val userRepository: UserRepository, val jwtAuthFilter: JwtA
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .httpBasic { httpBasicCustomizer -> httpBasicCustomizer.disable() }
-            .csrf { csrf ->
-                csrf.ignoringRequestMatchers("/h2-console/**") // disable CSRF for h2 console
-            }
+            .csrf { csrf -> csrf.disable() }
             .exceptionHandling({ exceptionHandling ->
                 exceptionHandling
                     .authenticationEntryPoint(authenticationEntryPoint())

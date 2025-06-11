@@ -1,5 +1,6 @@
 package com.dextreem.croqueteria.service
 
+import com.dextreem.croqueteria.entity.User
 import com.dextreem.croqueteria.repository.UserRepository
 import com.dextreem.croqueteria.request.LoginRequest
 import com.dextreem.croqueteria.request.UserRequest
@@ -7,6 +8,7 @@ import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
 import mu.KLogging
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 class UserServiceImpl(
     val userRepository: UserRepository,
     val authenticationManager: AuthenticationManager,
+    val passwordEncoder: PasswordEncoder,
     val jwtService: JwtService
 ) :
     UserService {
@@ -21,7 +24,13 @@ class UserServiceImpl(
 
     @Transactional
     override fun addUser(userRequest: UserRequest): UserResponse {
-        throw Exception("not yet implemented")
+        if(isEmailTaken(userRequest.email)){
+            throw IllegalArgumentException("Email already taken!")
+        }
+
+        val user = buildUser(userRequest)
+        val savedUser = userRepository.save<User>(user)
+        return buildUserResponse(savedUser)
     }
 
     @Transactional(readOnly = true)
@@ -47,5 +56,29 @@ class UserServiceImpl(
     @Transactional
     override fun deleteUser(userId: Int) {
         throw Exception("not yet implemented")
+    }
+
+    private fun isEmailTaken(email:String): Boolean {
+        return userRepository.findByEmail(email).isPresent
+    }
+
+    private fun buildUser(userRequest: UserRequest) : User{
+        return User(
+            id = null,
+            email = userRequest.email,
+            password = passwordEncoder.encode(userRequest.password),
+            role = userRequest.role,
+            createdAt = null,
+            updatedAt = null
+        )
+
+    }
+
+    private fun buildUserResponse(user: User) : UserResponse{
+        return UserResponse(
+            id = user.id,
+            email = user.email,
+            role = user.role
+        )
     }
 }

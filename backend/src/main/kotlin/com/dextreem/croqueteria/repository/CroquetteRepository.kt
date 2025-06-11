@@ -4,7 +4,9 @@ import com.dextreem.croqueteria.request.CroquetteRequest
 import com.dextreem.croqueteria.entity.Croquette
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
 
+@Repository
 interface CroquetteRepository : CrudRepository<Croquette, Int> {
     @Query("""
         SELECT 

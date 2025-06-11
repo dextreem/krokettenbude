@@ -1,7 +1,9 @@
 package com.dextreem.croqueteria.request
 
+import com.dextreem.croqueteria.entity.User
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
+import org.springframework.security.crypto.password.PasswordEncoder
 
 
 data class UserRequest(
