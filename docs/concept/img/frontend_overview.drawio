@@ -1,0 +1,109 @@
+<mxfile host="65bd71144e">
+    <diagram id="Y_ety9bIh2Id_RFlkVxl" name="Page-1">
+        <mxGraphModel dx="761" dy="989" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="40" width="760" height="540" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="40" width="760" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="logout" style="rounded=1;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="750" y="52" width="45.5" height="16.88" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Hello, holy@prince.com" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="45.44" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Croqueteria" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="45" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Copyright" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="550" width="760" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="165" y="145" width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="18">
+                    <mxGeometry width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#D45B07;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.container_registry_image;" vertex="1" parent="18">
+                    <mxGeometry x="15" y="10" width="54" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Title (Country)" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="18">
+                    <mxGeometry x="95" y="10" width="125" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Short description" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="18">
+                    <mxGeometry x="95" y="34" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Mean Rating" style="dashed=0;aspect=fixed;verticalLabelPosition=middle;verticalAlign=middle;align=right;shape=mxgraph.gmdl.star;strokeColor=none;fillColor=#737373;shadow=0;sketch=0;labelPosition=left;" vertex="1" parent="18">
+                    <mxGeometry x="485" y="50" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="165" y="245" width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="39">
+                    <mxGeometry width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#D45B07;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.container_registry_image;" vertex="1" parent="39">
+                    <mxGeometry x="15" y="10" width="54" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="Title (Country)" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="39">
+                    <mxGeometry x="95" y="10" width="125" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="Short description" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="39">
+                    <mxGeometry x="95" y="34" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="Mean Rating" style="dashed=0;aspect=fixed;verticalLabelPosition=middle;verticalAlign=middle;align=right;shape=mxgraph.gmdl.star;strokeColor=none;fillColor=#737373;shadow=0;sketch=0;labelPosition=left;" vertex="1" parent="39">
+                    <mxGeometry x="485" y="50" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="165" y="345" width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="45">
+                    <mxGeometry width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#D45B07;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.container_registry_image;" vertex="1" parent="45">
+                    <mxGeometry x="15" y="10" width="54" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="Title (Country)" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="45">
+                    <mxGeometry x="95" y="10" width="125" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="Short description" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="45">
+                    <mxGeometry x="95" y="34" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="Mean Rating" style="dashed=0;aspect=fixed;verticalLabelPosition=middle;verticalAlign=middle;align=right;shape=mxgraph.gmdl.star;strokeColor=none;fillColor=#737373;shadow=0;sketch=0;labelPosition=left;" vertex="1" parent="45">
+                    <mxGeometry x="485" y="50" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="165" y="445" width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="51">
+                    <mxGeometry width="520" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#D45B07;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.container_registry_image;" vertex="1" parent="51">
+                    <mxGeometry x="15" y="10" width="54" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="Title (Country)" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="51">
+                    <mxGeometry x="95" y="10" width="125" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="Short description" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="51">
+                    <mxGeometry x="95" y="34" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="Mean Rating" style="dashed=0;aspect=fixed;verticalLabelPosition=middle;verticalAlign=middle;align=right;shape=mxgraph.gmdl.star;strokeColor=none;fillColor=#737373;shadow=0;sketch=0;labelPosition=left;" vertex="1" parent="51">
+                    <mxGeometry x="485" y="50" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="Search" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#CED4DA;strokeWidth=1;fillColor=#E9ECEF;fontColor=#505050;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=10;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="515" y="100" width="170" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="Filter" style="rounded=1;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="100" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="Sort By" style="rounded=1;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="100" width="60" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
