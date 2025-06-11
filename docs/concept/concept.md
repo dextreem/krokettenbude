@@ -39,17 +39,16 @@ Below is a full list of all entities that need to be represented in the API.
 <details>
  <summary>Croquettes</summary>
 
-> | Field          | Type         | Description                                                      |
-> | -------------- | ------------ | ---------------------------------------------------------------- |
-> | id             | Long Int     | Primary identifier.                                              |
-> | country        | String       | Home of this type of croquette .                                 |
-> | name           | String       | The name of the croquette, if available.                         |
-> | description    | String       | Describes the croquettes and their ingrediences.                 |
-> | crunchiness    | Int          | How crunchy is the croquette on a 1-5 scale?                     |
-> | spiciness      | Int          | How spicy is the croquette on a 1-5 scale?                       |
-> | vegan          | Boolean      | Is it vegan?                                                     |
-> | form           | Enum<String> | cylindric, disk, ball, oval, or other.                           |
-> | mean_rating_id | Long Int     | Reference to efficiently calculate mean rating of the croquette. |
+> | Field       | Type         | Description                                      |
+> | ----------- | ------------ | ------------------------------------------------ |
+> | id          | Long Int     | Primary identifier.                              |
+> | country     | String       | Home of this type of croquette .                 |
+> | name        | String       | The name of the croquette, if available.         |
+> | description | String       | Describes the croquettes and their ingrediences. |
+> | crunchiness | Int          | How crunchy is the croquette on a 1-5 scale?     |
+> | spiciness   | Int          | How spicy is the croquette on a 1-5 scale?       |
+> | vegan       | Boolean      | Is it vegan?                                     |
+> | form        | Enum<String> | cylindric, disk, ball, oval, or other.           |
 
 </details>
 
@@ -62,18 +61,6 @@ Below is a full list of all entities that need to be represented in the API.
 > | corquette_id | Long Int | Foreign key, linking to the croquette.                |
 > | use_id       | Long Int | Foreign key, linking the user.                        |
 > | rating       | Int      | 1-5 rating of a certain user for a certain croquette. |
-
-</details>
-
-<details>
- <summary>MeanRating</summary>
-
-> | Field          | Type     | Description                                          |
-> | -------------- | -------- | ---------------------------------------------------- |
-> | id             | Long Int | Primary identifier.                                  |
-> | corquette_id   | Long Int | Foreign key, linking to the croquette.               |
-> | rating_sum     | Int      | Sum of all ratings added for a certain croquette.    |
-> | num_of_ratings | Int      | Number of all ratings added for a certain croquette. |
 
 </details>
 
@@ -143,12 +130,12 @@ These are all endpoints that need to exposed by the API.
 </details>
 <details><summary> /ratings</summary>
 
-> | Request | Endpoint | Role | Description                                                               |
-> | ------- | -------- | ---- | ------------------------------------------------------------------------- |
-> | GET     | `/{id?}` | Any  | Returns all (filtered) ratings or a single one if `id` is provided.       |
-> | POST    | `/`      | User | Adds a new croquette rating. Triggers updating MeanRating entity as well. |
-> | PUT     | `/{id}`  | User | Update an existing rating referenced by `id`.                             |
-> | DELETE  | `/{id}`  | User | Deletes an existing rating, referenced by `id`.                           |
+> | Request | Endpoint | Role | Description                                                         |
+> | ------- | -------- | ---- | ------------------------------------------------------------------- |
+> | GET     | `/{id?}` | Any  | Returns all (filtered) ratings or a single one if `id` is provided. |
+> | POST    | `/`      | User | Adds a new croquette rating.                                        |
+> | PUT     | `/{id}`  | User | Update an existing rating referenced by `id`.                       |
+> | DELETE  | `/{id}`  | User | Deletes an existing rating, referenced by `id`.                     |
 
 - Fields to filter: `croquette_id`
 
