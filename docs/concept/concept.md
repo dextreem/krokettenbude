@@ -37,7 +37,7 @@ Requirements were assembled by the challenge itself and requirements that emerge
 Below is a full list of all entities that need to be represented in the API.
 
 <details>
- <summary>Croquettes</summary>
+ <summary>Croquette</summary>
 
 > | Field       | Type     | Description                                        |
 > | ----------- | -------- | -------------------------------------------------- |
@@ -54,7 +54,7 @@ Below is a full list of all entities that need to be represented in the API.
 </details>
 
 <details>
- <summary>Ratings</summary>
+ <summary>Rating</summary>
 
 > | Field        | Type     | Description                                           |
 > | ------------ | -------- | ----------------------------------------------------- |
