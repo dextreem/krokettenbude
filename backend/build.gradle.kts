@@ -32,6 +32,8 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 }
 

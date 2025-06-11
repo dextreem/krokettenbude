@@ -16,7 +16,11 @@ class UserService(val userRepository: UserRepository) {
         throw Exception("not yet implemented")
     }
 
-    fun retrieveAllUsers(userId: Int?): List<UserResponse> {
+    fun retrieveAllUsers(userRole: String?): List<UserResponse> {
+        throw Exception("not yet implemented")
+    }
+
+    fun retrieveUserById(userId: Int?): List<UserResponse> {
         throw Exception("not yet implemented")
     }
 
@@ -24,7 +28,7 @@ class UserService(val userRepository: UserRepository) {
         throw Exception("not yet implemented")
     }
 
-    fun deleteCroquette(userId: Int) {
+    fun deleteUser(userId: Int) {
         throw Exception("not yet implemented")
     }
 }

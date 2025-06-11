@@ -14,7 +14,11 @@ class CommentService(val commentRepository: CommentRepository) {
         throw Exception("not yet implemented")
     }
 
-    fun retrieveAllComments(commentId: Int?, croquetteId: Int?): List<CommentResponse> {
+    fun retrieveAllComments(croquetteId: Int?): List<CommentResponse> {
+        throw Exception("not yet implemented")
+    }
+
+    fun retrieveCommentById(commentId: Int?): CommentResponse {
         throw Exception("not yet implemented")
     }
 

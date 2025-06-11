@@ -3,6 +3,8 @@ package com.dextreem.croqueteria.controller
 import com.dextreem.croqueteria.request.CroquetteRequest
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.service.CroquetteService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
@@ -18,40 +20,56 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/v1/croquettes")
+@RequestMapping("/api/v1/croquettes")
 @Validated
+@Tag(name = "Croquette Rest API Endpoints", description = "Operations related to croquettes.")
 class CroquetteController(val croquetteService: CroquetteService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create a croquette", description = "Creates a new croquette.")
     fun addCroquette(@RequestBody @Valid croquetteRequest: CroquetteRequest) {
         return croquetteService.addCroquette(croquetteRequest)
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(
+        summary = "Get all croquettes", description = "Retrieves all croquettes with optional filters."
+    )
+    fun retrieveAllCroquettes(@RequestParam country: String?): List<CroquetteResponse> {
+        // TODO: Add other request params
+        return croquetteService.retrieveAllCroquettes(country)
+//        return  listOf()
+    }
+
     @GetMapping("/{croquetteId}")
     @ResponseStatus(HttpStatus.OK)
-    fun retrieveAllCroquettes(
-        @PathVariable("croquette_id") croquetteId: Int?,
-        @RequestParam country: String?
-    ): List<CroquetteResponse> {
+    @Operation(
+        summary = "Get a single croquette", description = "Retrieves a single croquette by its ID."
+    )
+    fun retrieveCroquetteById(@PathVariable("croquette_id") croquetteId: Int?): CroquetteResponse {
         // TODO: Add other request params
-        return croquetteService.retrieveAllCroquettes(croquetteId, country)
+        return croquetteService.retrieveCroquetteById(croquetteId)
     }
 
     @PutMapping("/{croquette_id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(
+        summary = "Update a croquette", description = "Updates a single croquette identified by its ID."
+    )
     fun updateCroquette(
-        @PathVariable("croquette_id") croquetteId: Int,
-        @RequestBody croquetteRequest: CroquetteRequest
+        @PathVariable("croquette_id") croquetteId: Int, @RequestBody croquetteRequest: CroquetteRequest
     ) {
         return croquetteService.updateCroquette(croquetteId, croquetteRequest)
     }
 
     @DeleteMapping("/{croquette_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteCroquette(
-        @PathVariable("croquette_id") croquetteId: Int,
-    ) {
+    @Operation(
+        summary = "Delete a croquette", description = "Deletes a single comment identified by its ID"
+    )
+    fun deleteCroquette(@PathVariable("croquette_id") croquetteId: Int) {
         croquetteService.deleteCroquette(croquetteId)
     }
 

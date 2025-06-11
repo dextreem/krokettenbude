@@ -60,7 +60,7 @@ Below is a full list of all entities that need to be represented in the API.
 > | ------------ | -------- | ----------------------------------------------------- |
 > | id           | Long Int | Primary identifier.                                   |
 > | corquette_id | Long Int | Foreign key, linking to the croquette.                |
-> | use_id       | Long Int | Foreign key, linking the user.                        |
+> | user_id      | Long Int | Foreign key, linking the user.                        |
 > | rating       | Int      | 1-5 rating of a certain user for a certain croquette. |
 
 </details>
@@ -71,8 +71,8 @@ Below is a full list of all entities that need to be represented in the API.
 > | Field        | Type      | Description                                      |
 > | ------------ | --------- | ------------------------------------------------ |
 > | id           | Long Int  | Primary identifier.                              |
-> | corquette_id | Long Int  | Foreign key, linking to the croquette.           |
-> | use_id       | Long Int  | Foreign key, linking the user.                   |
+> | croquette_id | Long Int  | Foreign key, linking to the croquette.           |
+> | user_id      | Long Int  | Foreign key, linking the user.                   |
 > | comment      | String    | Comment of a certain user to a certain croquette |
 > | created_at   | Timestamp | Timestamp of creation.                           |
 

@@ -14,7 +14,11 @@ class CroquetteService(val croquetteRepository: CroquetteRepository, ratingServi
         throw Exception("Not yet implemented")
     }
 
-    fun retrieveAllCroquettes(croquetteId: Int?, country: String?): List<CroquetteResponse> {
+    fun retrieveAllCroquettes(country: String?): List<CroquetteResponse> {
+        throw Exception("Not yet implemented")
+    }
+
+    fun retrieveCroquetteById(croquetteId: Int?): CroquetteResponse {
         throw Exception("Not yet implemented")
     }
 

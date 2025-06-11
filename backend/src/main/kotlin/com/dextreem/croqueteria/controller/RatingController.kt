@@ -3,6 +3,8 @@ package com.dextreem.croqueteria.controller
 import com.dextreem.croqueteria.request.RatingRequest
 import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.service.RatingService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
@@ -18,27 +20,47 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/v1/ratings")
+@RequestMapping("/api/v1/ratings")
 @Validated
+@Tag(name = "Rating Rest API Endpoints", description = "Operations related to ratings")
 class RatingController(val ratingService: RatingService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(
+        summary = "Create a rating",
+        description = "Creates a rating for a croquette and a user."
+    )
     fun addRating(@RequestBody @Valid ratingRequest: RatingRequest) {
         return ratingService.addRating(ratingRequest)
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(
+        summary = "Get all ratings",
+        description = "Retrieves all ratings, optionally for a certain croquette."
+    )
+    fun retrieveAllRatings(@RequestParam("croquette_id") croquetteId: Int?): List<RatingResponse> {
+        return ratingService.retrieveAllRatings(croquetteId)
+    }
+
     @GetMapping("/{rating_id}")
     @ResponseStatus(HttpStatus.OK)
-    fun retrieveAllRatings(
-        @PathVariable("rating_id") ratingId: Int?,
-        @RequestParam("croquette_id") croquetteId: Int?,
-    ): List<RatingResponse> {
-        return ratingService.retrieveAllRatings(ratingId, croquetteId)
+    @Operation(
+        summary = "Get a single rating",
+        description = "Retrieves a single comment by its ID."
+    )
+    fun retrieveRatingById(@PathVariable("rating_id") ratingId: Int?): RatingResponse {
+        return ratingService.retrieveRatingById(ratingId)
     }
 
     @PutMapping("/{rating_id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(
+        summary = "Update a single rating",
+        description = "Updates a single comment by its ID."
+    )
     fun updateRating(
         @PathVariable("rating_id") ratingId: Int,
         @RequestBody ratingRequest: RatingRequest
@@ -48,10 +70,12 @@ class RatingController(val ratingService: RatingService) {
 
     @DeleteMapping("/{rating_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteCroquette(
-        @PathVariable("rating_id") ratingId: Int,
-    ) {
-        ratingService.deleteCroquette(ratingId)
+    @Operation(
+        summary = "Delete a single rating",
+        description = "Deletes a single comment by its ID."
+    )
+    fun deleteRating(@PathVariable("rating_id") ratingId: Int) {
+        ratingService.deleteRating(ratingId)
     }
 
 }

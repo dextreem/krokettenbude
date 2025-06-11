@@ -3,6 +3,8 @@ package com.dextreem.croqueteria.controller
 import com.dextreem.croqueteria.request.UserRequest
 import com.dextreem.croqueteria.response.UserResponse
 import com.dextreem.croqueteria.service.UserService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
@@ -13,30 +15,54 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/api/v1/users")
 @Validated
+@Tag(name = "User Rest API Endpoints", description = "Operations related to comments.")
 class UserController(val userService: UserService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(
+        summary = "Create a new user",
+        description = "Creates a new user and assigns the respective role."
+    )
     fun addUser(@RequestBody @Valid userRequest: UserRequest) {
         return userService.addUser(userRequest)
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(
+        summary = "Get all users",
+        description = "Retrieves a single user by its ID"
+    )
+    fun retrieveAllUsers(@RequestParam("user_role") userRole: String?): List<UserResponse> {
+        return userService.retrieveAllUsers(userRole)
+    }
+
     @GetMapping("/{user_id}")
     @ResponseStatus(HttpStatus.OK)
-    fun retrieveAllUsers(
+    @Operation(
+        summary = "Get a single rating",
+        description = "Retrieves a single comment by its ID"
+    )
+    fun retrieveUserById(
         @PathVariable("user_id") userId: Int?,
     ): List<UserResponse> {
-        return userService.retrieveAllUsers(userId)
+        return userService.retrieveUserById(userId)
     }
 
     @PutMapping("/{user_id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(
+        summary = "Update a single user",
+        description = "Updates a single user by its ID"
+    )
     fun updateUser(
         @PathVariable("user_id") userId: Int,
         @RequestBody userRequest: UserRequest
@@ -44,12 +70,16 @@ class UserController(val userService: UserService) {
         return userService.updateUser(userId, userRequest)
     }
 
+    @Operation(
+        summary = "Delete a single user",
+        description = "Deletes a single user by its ID"
+    )
     @DeleteMapping("/{user_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteCroquette(
+    fun deleteUser(
         @PathVariable("user_id") userId: Int,
     ) {
-        userService.deleteCroquette(userId)
+        userService.deleteUser(userId)
     }
 
 }

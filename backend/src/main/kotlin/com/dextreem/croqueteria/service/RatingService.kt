@@ -16,7 +16,11 @@ class RatingService(val ratingRepository: RatingRepository) {
         throw Exception("not yet implemented")
     }
 
-    fun retrieveAllRatings(ratingId: Int?, croquetteId: Int?): List<RatingResponse> {
+    fun retrieveAllRatings(croquetteId: Int?): List<RatingResponse> {
+        throw Exception("not yet implemented")
+    }
+
+    fun retrieveRatingById(ratingId: Int?): RatingResponse {
         throw Exception("not yet implemented")
     }
 
@@ -24,7 +28,7 @@ class RatingService(val ratingRepository: RatingRepository) {
         throw Exception("not yet implemented")
     }
 
-    fun deleteCroquette(ratingId: Int) {
+    fun deleteRating(ratingId: Int) {
         throw Exception("not yet implemented")
     }
 }
