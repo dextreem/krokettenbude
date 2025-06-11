@@ -39,16 +39,17 @@ Below is a full list of all entities that need to be represented in the API.
 <details>
  <summary>Croquettes</summary>
 
-> | Field       | Type         | Description                                      |
-> | ----------- | ------------ | ------------------------------------------------ |
-> | id          | Long Int     | Primary identifier.                              |
-> | country     | String       | Home of this type of croquette .                 |
-> | name        | String       | The name of the croquette, if available.         |
-> | description | String       | Describes the croquettes and their ingrediences. |
-> | crunchiness | Int          | How crunchy is the croquette on a 1-5 scale?     |
-> | spiciness   | Int          | How spicy is the croquette on a 1-5 scale?       |
-> | vegan       | Boolean      | Is it vegan?                                     |
-> | form        | Enum<String> | cylindric, disk, ball, oval, or other.           |
+> | Field       | Type     | Description                                        |
+> | ----------- | -------- | -------------------------------------------------- |
+> | id          | Long Int | Primary identifier.                                |
+> | country     | String   | Home of this type of croquette .                   |
+> | name        | String   | The name of the croquette, if available.           |
+> | description | String   | Describes the croquettes and their ingrediences.   |
+> | crunchiness | Int      | How crunchy is the croquette on a 1-5 scale?       |
+> | spiciness   | Int      | How spicy is the croquette on a 1-5 scale?         |
+> | vegan       | Boolean  | Is it vegan?                                       |
+> | form        | String   | cylindric, disk, ball, oval, or other.             |
+> | imageUrl?   | String   | Optional url pointing to an image of the croquette |
 
 </details>
 
