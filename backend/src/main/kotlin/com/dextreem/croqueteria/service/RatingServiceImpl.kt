@@ -8,31 +8,31 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class RatingService(val ratingRepository: RatingRepository) {
+class RatingServiceImpl(val ratingRepository: RatingRepository): RatingService {
     companion object : KLogging()
 
     @Transactional
-    fun addRating(ratingRequest: RatingRequest) {
+    override fun addRating(ratingRequest: RatingRequest) : RatingResponse {
         throw Exception("not yet implemented")
     }
 
     @Transactional(readOnly = true)
-    fun retrieveAllRatings(croquetteId: Int?): List<RatingResponse> {
+    override fun retrieveAllRatings(croquetteId: Int?): List<RatingResponse> {
         throw Exception("not yet implemented")
     }
 
     @Transactional(readOnly = true)
-    fun retrieveRatingById(ratingId: Int?): RatingResponse {
+    override fun retrieveRatingById(ratingId: Int?): RatingResponse {
         throw Exception("not yet implemented")
     }
 
     @Transactional
-    fun updateRating(ratingId: Int, ratingRequest: RatingRequest) {
+    override fun updateRating(ratingId: Int, ratingRequest: RatingRequest) {
         throw Exception("not yet implemented")
     }
 
     @Transactional
-    fun deleteRating(ratingId: Int) {
+    override fun deleteRating(ratingId: Int) {
         throw Exception("not yet implemented")
     }
 }

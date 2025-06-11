@@ -3,7 +3,7 @@ package com.dextreem.croqueteria.service
 import com.dextreem.croqueteria.request.RatingRequest
 import com.dextreem.croqueteria.response.RatingResponse
 
-interface RatingServiceImpl {
+interface RatingService {
     fun addRating(ratingRequest: RatingRequest): RatingResponse
     fun retrieveAllRatings(croquetteId: Int?): List<RatingResponse>
     fun retrieveRatingById(ratingId: Int?): RatingResponse

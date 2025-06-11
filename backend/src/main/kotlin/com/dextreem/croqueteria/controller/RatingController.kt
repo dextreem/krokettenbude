@@ -32,7 +32,7 @@ class RatingController(val ratingService: RatingService) {
         summary = "Create a rating",
         description = "Creates a rating for a croquette and a user."
     )
-    fun addRating(@RequestBody @Valid ratingRequest: RatingRequest) {
+    fun addRating(@RequestBody @Valid ratingRequest: RatingRequest) : RatingResponse {
         return ratingService.addRating(ratingRequest)
     }
 
