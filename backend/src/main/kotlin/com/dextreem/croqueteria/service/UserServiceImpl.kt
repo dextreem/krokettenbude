@@ -6,7 +6,8 @@ import com.dextreem.croqueteria.exception.AccessForbiddenException
 import com.dextreem.croqueteria.exception.ResourceNotFoundException
 import com.dextreem.croqueteria.repository.UserRepository
 import com.dextreem.croqueteria.request.LoginRequest
-import com.dextreem.croqueteria.request.UserRequest
+import com.dextreem.croqueteria.request.UserCreateRequest
+import com.dextreem.croqueteria.request.UserUpdateRequest
 import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
@@ -32,13 +33,13 @@ class UserServiceImpl(
     companion object : KLogging()
 
     @Transactional
-    override fun addUser(userRequest: UserRequest): UserResponse {
-        logger.info("Try to create new user ${userRequest.email}.")
-        if (isEmailTaken(userRequest.email!!)) {
+    override fun addUser(userCreateRequest: UserCreateRequest): UserResponse {
+        logger.info("Try to create new user ${userCreateRequest.email}.")
+        if (isEmailTaken(userCreateRequest.email!!)) {
             throw IllegalArgumentException("Email already taken!")
         }
 
-        val user = buildNewUser(userRequest)
+        val user = buildNewUser(userCreateRequest)
         val savedUser = userRepository.save<User>(user)
 
         logger.info("User ${savedUser.username} successfully created.")
@@ -82,13 +83,13 @@ class UserServiceImpl(
     }
 
     @Transactional
-    override fun updateUser(userId: Int, userRequest: UserRequest): UserResponse {
+    override fun updateUser(userId: Int, userUpdateRequest: UserUpdateRequest): UserResponse {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested to update user with ID $userId")
         if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
             throw AccessForbiddenException("Not allowed to modify other user profiles as a non-manager!")
         }
-        val user = mergeToUserIfExist(userId, userRequest)
+        val user = mergeToUserIfExist(userId, userUpdateRequest)
         val updatedUser = userRepository.save(user)
         return buildUserResponse(updatedUser)
     }
@@ -109,34 +110,26 @@ class UserServiceImpl(
         return userRepository.findByEmail(email).isPresent
     }
 
-    // !! is okay since called from fully validated request only
-    private fun buildNewUser(userRequest: UserRequest): User {
+    private fun buildNewUser(userCreateRequest: UserCreateRequest): User {
         return User(
             id = null,
-            email = userRequest.email!!,
-            password = passwordEncoder.encode(userRequest.password!!),
-            role = UserRole.fromString(userRequest.role!!)
-                ?: throw IllegalArgumentException("Invalid user role ${userRequest.role}"),
+            email = userCreateRequest.email,
+            password = passwordEncoder.encode(userCreateRequest.password),
+            role = UserRole.fromString(userCreateRequest.role)
+                ?: throw IllegalArgumentException("Invalid user role ${userCreateRequest.role}"),
             createdAt = null,
             updatedAt = null
         )
     }
 
-    private fun mergeToUserIfExist(userId: Int, userRequest: UserRequest): User {
+    private fun mergeToUserIfExist(userId: Int, userUpdateRequest: UserUpdateRequest): User {
         val user = userRepository.findById(userId).orElseThrow {
             ResourceNotFoundException("User with ID $userId not found!")
         }
 
-        userRequest.email?.let {
-            if (it != user.getUsername() && isEmailTaken(it)) {
-                throw IllegalArgumentException("Email already taken!")
-            }
-            user.setEmail(it)
-        }
+        userUpdateRequest.password?.let { user.setPassword(passwordEncoder.encode(it)) }
 
-        userRequest.password?.let { user.setPassword(passwordEncoder.encode(it)) }
-
-        userRequest.role?.let {
+        userUpdateRequest.role?.let {
             val roleEnum = UserRole.fromString(it)
                 ?: throw IllegalArgumentException("Invalid user role: $it")
             user.role = roleEnum

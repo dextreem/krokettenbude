@@ -1,6 +1,7 @@
 package com.dextreem.croqueteria.controller
 
-import com.dextreem.croqueteria.request.CroquetteRequest
+import com.dextreem.croqueteria.request.CroquetteCreateRequest
+import com.dextreem.croqueteria.request.CroquetteUpdateRequest
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.service.CroquetteService
 import io.swagger.v3.oas.annotations.Operation
@@ -29,8 +30,8 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a croquette", description = "Creates a new croquette.")
-    fun addCroquette(@RequestBody @Valid croquetteRequest: CroquetteRequest) : CroquetteResponse {
-        return croquetteService.addCroquette(croquetteRequest)
+    fun addCroquette(@RequestBody @Valid croquetteCreateRequest: CroquetteCreateRequest) : CroquetteResponse {
+        return croquetteService.addCroquette(croquetteCreateRequest)
     }
 
     @GetMapping
@@ -60,9 +61,9 @@ class CroquetteController(val croquetteService: CroquetteService) {
         summary = "Update a croquette", description = "Updates a single croquette identified by its ID."
     )
     fun updateCroquette(
-        @PathVariable("croquette_id") croquetteId: Int, @RequestBody croquetteRequest: CroquetteRequest
+        @PathVariable("croquette_id") croquetteId: Int, @RequestBody croquetteUpdateRequest: CroquetteUpdateRequest
     ) : CroquetteResponse {
-        return croquetteService.updateCroquette(croquetteId, croquetteRequest)
+        return croquetteService.updateCroquette(croquetteId, croquetteUpdateRequest)
     }
 
     @DeleteMapping("/{croquette_id}")

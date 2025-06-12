@@ -1,8 +1,8 @@
 package com.dextreem.croqueteria.controller
 
 import com.dextreem.croqueteria.request.LoginRequest
-import com.dextreem.croqueteria.request.OnCreate
-import com.dextreem.croqueteria.request.UserRequest
+import com.dextreem.croqueteria.request.UserCreateRequest
+import com.dextreem.croqueteria.request.UserUpdateRequest
 import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
 import com.dextreem.croqueteria.service.UserService
@@ -36,8 +36,8 @@ class UserController(val userService: UserService) {
         description = "Creates a new user and assigns the respective role."
     )
     @SecurityRequirements
-    fun addUser(@RequestBody @Valid @Validated(OnCreate::class) userRequest: UserRequest): UserResponse {
-        return userService.addUser(userRequest)
+    fun addUser(@RequestBody @Valid userCreateRequest: UserCreateRequest): UserResponse {
+        return userService.addUser(userCreateRequest)
     }
 
     @PostMapping("/login")
@@ -81,9 +81,9 @@ class UserController(val userService: UserService) {
     )
     fun updateUser(
         @PathVariable("user_id") userId: Int,
-        @Validated(OnCreate::class) @RequestBody userRequest: UserRequest
+         @RequestBody userUpdateRequest: UserUpdateRequest
     ): UserResponse {
-        return userService.updateUser(userId, userRequest)
+        return userService.updateUser(userId, userUpdateRequest)
     }
 
     @Operation(

@@ -5,7 +5,8 @@ import com.dextreem.croqueteria.entity.CroquetteForm
 import com.dextreem.croqueteria.entity.User
 import com.dextreem.croqueteria.exception.ResourceNotFoundException
 import com.dextreem.croqueteria.repository.CroquetteRepository
-import com.dextreem.croqueteria.request.CroquetteRequest
+import com.dextreem.croqueteria.request.CroquetteCreateRequest
+import com.dextreem.croqueteria.request.CroquetteUpdateRequest
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
 import mu.KLogging
@@ -23,8 +24,8 @@ class CroquetteServiceImpl(
     companion object : KLogging()
 
     @Transactional
-    override fun addCroquette(croquetteRequest: CroquetteRequest): CroquetteResponse {
-        val croquette = buildNewCroquette(croquetteRequest)
+    override fun addCroquette(croquetteCreateRequest: CroquetteCreateRequest): CroquetteResponse {
+        val croquette = buildNewCroquette(croquetteCreateRequest)
         val savedCroquette = croquetteRepository.save(croquette)
         return buildCroquetteResponse(savedCroquette)
     }
@@ -48,10 +49,10 @@ class CroquetteServiceImpl(
     }
 
     @Transactional
-    override fun updateCroquette(croquetteId: Int, croquetteRequest: CroquetteRequest) : CroquetteResponse {
+    override fun updateCroquette(croquetteId: Int, croquetteUpdateRequest: CroquetteUpdateRequest) : CroquetteResponse {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested to update croquette with ID $croquetteId")
-        val croquette = mergeToCroquetteIfExists(croquetteId, croquetteRequest)
+        val croquette = mergeToCroquetteIfExists(croquetteId, croquetteUpdateRequest)
         val updatedUser = croquetteRepository.save(croquette)
         return buildCroquetteResponse(updatedUser)
     }
@@ -65,40 +66,40 @@ class CroquetteServiceImpl(
         logger.info("Croquette ${croquette.name} (ID: $croquetteId) deleted by user ${actorUser.username}")
     }
 
-    private fun buildNewCroquette(croquetteRequest: CroquetteRequest): Croquette {
+    private fun buildNewCroquette(croquetteCreateRequest: CroquetteCreateRequest): Croquette {
         return Croquette(
             id = null,
-            country = croquetteRequest.country ?: "croquettistan",
-            name = croquetteRequest.name ?: "Croquette Deluxe",
-            description = croquetteRequest.description ?: "The worlds best croquette",
-            crunchiness = croquetteRequest.crunchiness ?: 5,
-            spiciness = croquetteRequest.spiciness ?: 5,
-            vegan = croquetteRequest.vegan ?: false,
-            form = CroquetteForm.fromString(croquetteRequest.form ?: "cylindric")
-                ?: throw IllegalArgumentException("Unknown form of croquette: ${croquetteRequest.form}"),
-            imageUrl = croquetteRequest.imageUrl ?: "",
+            country = croquetteCreateRequest.country,
+            name = croquetteCreateRequest.name ,
+            description = croquetteCreateRequest.description ,
+            spiciness = croquetteCreateRequest.spiciness,
+            crunchiness = croquetteCreateRequest.crunchiness,
+            vegan = croquetteCreateRequest.vegan,
+            form = CroquetteForm.fromString(croquetteCreateRequest.form)
+                ?: throw IllegalArgumentException("Unknown form of croquette: ${croquetteCreateRequest.form}"),
+            imageUrl = croquetteCreateRequest.imageUrl,
             createdAt = Date(),
             updatedAt = Date(),
         )
     }
 
-    private fun mergeToCroquetteIfExists(croquetteId: Int, croquetteRequest: CroquetteRequest): Croquette {
+    private fun mergeToCroquetteIfExists(croquetteId: Int, croquetteUpdateRequest: CroquetteUpdateRequest): Croquette {
         val croquette = croquetteRepository.findById(croquetteId).orElseThrow {
             ResourceNotFoundException("Croquette with ID $croquetteId not found!")
         }
 
-        croquetteRequest.name?.let { croquette.name = it }
-        croquetteRequest.country?.let { croquette.country = it }
-        croquetteRequest.description?.let { croquette.description = it }
-        croquetteRequest.crunchiness?.let { croquette.crunchiness = it }
-        croquetteRequest.spiciness?.let { croquette.spiciness = it }
-        croquetteRequest.vegan?.let { croquette.vegan = it }
-        croquetteRequest.form?.let {
+        croquetteUpdateRequest.name?.let { croquette.name = it }
+        croquetteUpdateRequest.country?.let { croquette.country = it }
+        croquetteUpdateRequest.description?.let { croquette.description = it }
+        croquetteUpdateRequest.crunchiness?.let { croquette.crunchiness = it }
+        croquetteUpdateRequest.spiciness?.let { croquette.spiciness = it }
+        croquetteUpdateRequest.vegan?.let { croquette.vegan = it }
+        croquetteUpdateRequest.form?.let {
             val formEnum = CroquetteForm.fromString(it)
                 ?: throw IllegalArgumentException("Invalid croquette form: $it")
             croquette.form = formEnum
         }
-        croquetteRequest.imageUrl?.let { croquette.imageUrl = it }
+        croquetteUpdateRequest.imageUrl?.let { croquette.imageUrl = it }
 
         return croquette
     }
