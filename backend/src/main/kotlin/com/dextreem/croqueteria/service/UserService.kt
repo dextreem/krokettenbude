@@ -9,7 +9,7 @@ interface UserService {
     fun addUser(userRequest: UserRequest): UserResponse
     fun login(loginRequest: LoginRequest): LoginResponse
     fun retrieveAllUsers(userRole: String?): List<UserResponse>
-    fun retrieveUserById(userId: Int?): List<UserResponse>
-    fun updateUser(userId: Int, userRequest: UserRequest)
+    fun retrieveUserById(userId: Int): UserResponse
+    fun updateUser(userId: Int, userRequest: UserRequest): UserResponse
     fun deleteUser(userId: Int)
 }

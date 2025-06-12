@@ -1,18 +1,15 @@
 package com.dextreem.croqueteria.config
 
+import com.dextreem.croqueteria.config.entrypoint.CustomAccessDeniedHandler
 import com.dextreem.croqueteria.repository.UserRepository
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -24,19 +21,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(val userRepository: UserRepository, val jwtAuthFilter: JwtAuthFilter) {
+class SecurityConfig(
+    val userRepository: UserRepository,
+    val jwtAuthFilter: JwtAuthFilter,
+    val customAccessDeniedHandler: CustomAccessDeniedHandler,
+    val customAuthenticationEntryPoint: AuthenticationEntryPoint
+) {
 
     @Bean
     fun userDetailsService(): UserDetailsService {
         return UserDetailsService { username ->
-            val user = userRepository.findByEmail(username)
+            userRepository.findByEmail(username)
                 .orElseThrow { UsernameNotFoundException("User not found") }
-
-            org.springframework.security.core.userdetails.User(
-                user.email,
-                user.password,
-                listOf() // or user.roles.map { SimpleGrantedAuthority(it.name) }
-            )
         }
     }
 
@@ -49,16 +45,6 @@ class SecurityConfig(val userRepository: UserRepository, val jwtAuthFilter: JwtA
     @Throws(Exception::class)
     fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager? {
         return config.getAuthenticationManager()
-    }
-
-    @Bean
-    fun authenticationEntryPoint(): AuthenticationEntryPoint {
-        return AuthenticationEntryPoint { request: HttpServletRequest?, response: HttpServletResponse?, ex: AuthenticationException? ->
-            response!!.status = HttpStatus.UNAUTHORIZED.value()
-            response.contentType = "application/json"
-            response.setHeader("WWW-Authenticate", "")
-            response.writer.write("{\"error\": \"Unauthorized access\"}")
-        }
     }
 
     @Bean
@@ -78,9 +64,9 @@ class SecurityConfig(val userRepository: UserRepository, val jwtAuthFilter: JwtA
                         "/api/v1/comments/**"
                     ).permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/croquettes/**").hasRole("manager")
-                    .requestMatchers(HttpMethod.PUT, "/api/v1/croquettes/**").hasRole("manager")
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/croquettes/**").hasRole("manager")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/croquettes/**").hasRole("MANAGER")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/croquettes/**").hasRole("MANAGER")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(
                         "/docs",
                         "/v3/api-docs/**",
@@ -95,10 +81,10 @@ class SecurityConfig(val userRepository: UserRepository, val jwtAuthFilter: JwtA
             }
             .httpBasic { httpBasicCustomizer -> httpBasicCustomizer.disable() }
             .csrf { csrf -> csrf.disable() }
-            .exceptionHandling({ exceptionHandling ->
-                exceptionHandling
-                    .authenticationEntryPoint(authenticationEntryPoint())
-            })
+            .exceptionHandling {
+                it.authenticationEntryPoint(customAuthenticationEntryPoint )
+                it.accessDeniedHandler(customAccessDeniedHandler)
+            }
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()

@@ -1,6 +1,5 @@
 package com.dextreem.croqueteria.repository
 
-import com.dextreem.croqueteria.request.CroquetteRequest
 import com.dextreem.croqueteria.entity.Croquette
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
@@ -26,5 +25,7 @@ interface CroquetteRepository : CrudRepository<Croquette, Int> {
         LEFT JOIN Rating r ON c.id = r.croquette.id 
         GROUP BY c.id, c.name, c.description, c.imageUrl
     """)
-    fun findAllWithAverageRating(): List<CroquetteRequest>
+    fun findAllWithAverageRating(): List<Croquette>
+
+    fun findByCountry(country: String): List<Croquette>
 }

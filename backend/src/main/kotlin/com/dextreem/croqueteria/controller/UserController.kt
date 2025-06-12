@@ -1,6 +1,7 @@
 package com.dextreem.croqueteria.controller
 
 import com.dextreem.croqueteria.request.LoginRequest
+import com.dextreem.croqueteria.request.OnCreate
 import com.dextreem.croqueteria.request.UserRequest
 import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
@@ -35,7 +36,7 @@ class UserController(val userService: UserService) {
         description = "Creates a new user and assigns the respective role."
     )
     @SecurityRequirements
-    fun addUser(@RequestBody @Valid userRequest: UserRequest): UserResponse {
+    fun addUser(@RequestBody @Valid @Validated(OnCreate::class) userRequest: UserRequest): UserResponse {
         return userService.addUser(userRequest)
     }
 
@@ -63,12 +64,12 @@ class UserController(val userService: UserService) {
     @GetMapping("/{user_id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-        summary = "Get a single rating",
-        description = "Retrieves a single comment by its ID"
+        summary = "Get a single user",
+        description = "Retrieves a single user by its ID"
     )
     fun retrieveUserById(
-        @PathVariable("user_id") userId: Int?,
-    ): List<UserResponse> {
+        @PathVariable("user_id") userId: Int,
+    ): UserResponse {
         return userService.retrieveUserById(userId)
     }
 
@@ -80,8 +81,8 @@ class UserController(val userService: UserService) {
     )
     fun updateUser(
         @PathVariable("user_id") userId: Int,
-        @RequestBody userRequest: UserRequest
-    ) {
+        @Validated(OnCreate::class) @RequestBody userRequest: UserRequest
+    ): UserResponse {
         return userService.updateUser(userId, userRequest)
     }
 

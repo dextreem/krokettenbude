@@ -1,0 +1,10 @@
+package com.dextreem.croqueteria.entity
+
+enum class UserRole(val authority: String) {
+    USER("ROLE_USER"),
+    MANAGER("ROLE_MANAGER");
+
+    companion object {
+        fun fromString(role: String): UserRole? = entries.find { it.name.equals(role, ignoreCase = true) }
+    }
+}

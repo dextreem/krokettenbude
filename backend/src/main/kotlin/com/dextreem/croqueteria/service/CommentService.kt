@@ -2,7 +2,6 @@ package com.dextreem.croqueteria.service
 
 import com.dextreem.croqueteria.request.CommentRequest
 import com.dextreem.croqueteria.response.CommentResponse
-import mu.KLogging
 
 interface CommentService {
 
