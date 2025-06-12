@@ -7,30 +7,35 @@ import jakarta.validation.constraints.Size
 
 
 data class CroquetteRequest(
-    @NotEmpty(message = "Name is mandatory")
+    @NotEmpty(message = "Name is mandatory", groups = [OnCreate::class])
     @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters.")
-    var name: String,
+    var name: String? = null,
 
-    @NotEmpty(message = "Country is mandatory")
+    @NotEmpty(message = "Country is mandatory", groups = [OnCreate::class])
     @Size(min = 3, max = 15, message = "Country must be between 3 and 15 characters.")
-    var country: String,
+    var country: String? = null,
 
-    @NotEmpty(message = "Description is mandatory")
+    @NotEmpty(message = "Description is mandatory", groups = [OnCreate::class])
     @Size(min = 3, max = 10000, message = "Description must be between 3 and 10.000 characters.")
-    var description: String,
+    var description: String? = null,
 
-    @NotEmpty(message = "Crunchiness is mandatory")
+    @NotEmpty(message = "Crunchiness is mandatory", groups = [OnCreate::class])
     @Min(1, message = "Crunchiness must be at least 1.")
     @Max(5, message = "Crunchiness cannot exceed 5.")
-    var crunchiness: Int,
+    var crunchiness: Int? = null,
 
-    @NotEmpty(message = "Spiciness is mandatory")
+    @NotEmpty(message = "Spiciness is mandatory", groups = [OnCreate::class])
     @Min(1, message = "Spiciness must be at least 1.")
     @Max(5, message = "Spiciness cannot exceed 5.")
-    var spiciness: Int,
+    var spiciness: Int? = null,
 
-    var vegan: Boolean = false,
-    var form: String = "cylindric", // TODO: Custom form verifier
-    var imageUrl: String = "",
+    @NotEmpty(message = "Vegan is mandatory", groups = [OnCreate::class])
+    var vegan: Boolean? = null,
+
+    @NotEmpty(message = "Form is mandatory", groups = [OnCreate::class])
+    var form: String? = null, // TODO: Custom form verifier
+
+    @NotEmpty(message = "ImgaeUrl is mandatory", groups = [OnCreate::class])
+    var imageUrl: String? = null,
 
     )

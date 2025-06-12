@@ -44,14 +44,13 @@ class CroquetteController(val croquetteService: CroquetteService) {
         return croquetteService.retrieveAllCroquettes(country)
     }
 
-    @GetMapping("/{croquetteId}")
+    @GetMapping("/{croquette_id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(
         summary = "Get a single croquette", description = "Retrieves a single croquette by its ID."
     )
     @SecurityRequirements
-    fun retrieveCroquetteById(@PathVariable("croquette_id") croquetteId: Int?): CroquetteResponse {
-        // TODO: Add other request params
+    fun retrieveCroquetteById(@PathVariable("croquette_id") croquetteId: Int): CroquetteResponse {
         return croquetteService.retrieveCroquetteById(croquetteId)
     }
 
@@ -62,7 +61,7 @@ class CroquetteController(val croquetteService: CroquetteService) {
     )
     fun updateCroquette(
         @PathVariable("croquette_id") croquetteId: Int, @RequestBody croquetteRequest: CroquetteRequest
-    ) {
+    ) : CroquetteResponse {
         return croquetteService.updateCroquette(croquetteId, croquetteRequest)
     }
 

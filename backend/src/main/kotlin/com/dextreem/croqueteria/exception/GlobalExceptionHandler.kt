@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest
 import mu.KLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -19,9 +20,9 @@ class GlobalExceptionHandler {
     fun handleIllegalArgument(ex: IllegalArgumentException, req: HttpServletRequest): ResponseEntity<ApiErrorResponse> =
         buildApiErrorResponse(HttpStatus.BAD_REQUEST, ex.message, req)
 
-    @ExceptionHandler(ResourceNotFoundException::class)
-    fun handleNotFound(ex: ResourceNotFoundException, req: HttpServletRequest): ResponseEntity<ApiErrorResponse> =
-        buildApiErrorResponse(HttpStatus.NOT_FOUND, ex.message, req)
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadable(ex: HttpMessageNotReadableException, req: HttpServletRequest): ResponseEntity<ApiErrorResponse> =
+        buildApiErrorResponse(HttpStatus.BAD_REQUEST, ex.message, req)
 
     @ExceptionHandler(BadCredentialsException::class)
     fun handleBadCredentials(ex: BadCredentialsException, req: HttpServletRequest): ResponseEntity<ApiErrorResponse> =
@@ -39,4 +40,11 @@ class GlobalExceptionHandler {
         return buildApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error occured", req)
     }
 
+    @ExceptionHandler(AccessForbiddenException::class)
+    fun handleNotFound(ex: AccessForbiddenException, req: HttpServletRequest): ResponseEntity<ApiErrorResponse> =
+        buildApiErrorResponse(HttpStatus.FORBIDDEN, ex.message, req)
+
+    @ExceptionHandler(ResourceNotFoundException::class)
+    fun handleNotFound(ex: ResourceNotFoundException, req: HttpServletRequest): ResponseEntity<ApiErrorResponse> =
+        buildApiErrorResponse(HttpStatus.NOT_FOUND, ex.message, req)
 }

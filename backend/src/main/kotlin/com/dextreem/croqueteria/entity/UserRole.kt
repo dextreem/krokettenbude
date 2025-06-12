@@ -1,6 +1,7 @@
 package com.dextreem.croqueteria.entity
 
 enum class UserRole(val authority: String) {
+    ANON("ROLE_ANON"),
     USER("ROLE_USER"),
     MANAGER("ROLE_MANAGER");
 

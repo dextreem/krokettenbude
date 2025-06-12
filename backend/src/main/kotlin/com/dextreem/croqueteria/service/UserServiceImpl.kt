@@ -2,6 +2,7 @@ package com.dextreem.croqueteria.service
 
 import com.dextreem.croqueteria.entity.User
 import com.dextreem.croqueteria.entity.UserRole
+import com.dextreem.croqueteria.exception.AccessForbiddenException
 import com.dextreem.croqueteria.exception.ResourceNotFoundException
 import com.dextreem.croqueteria.repository.UserRepository
 import com.dextreem.croqueteria.request.LoginRequest
@@ -37,7 +38,7 @@ class UserServiceImpl(
             throw IllegalArgumentException("Email already taken!")
         }
 
-        val user = buildUser(userRequest)
+        val user = buildNewUser(userRequest)
         val savedUser = userRepository.save<User>(user)
 
         logger.info("User ${savedUser.username} successfully created.")
@@ -73,18 +74,55 @@ class UserServiceImpl(
     override fun retrieveUserById(userId: Int): UserResponse {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested user with ID $userId")
-        val user: Optional<User> = userRepository.findById(userId)
-        if (!user.isPresent) {
-            throw ResourceNotFoundException("User with ID $userId not found!")
+        val user = retrieveExistingUserById((userId))
+        if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
+            throw AccessForbiddenException("Not allowed to retrieve other user profiles as a non-manager!")
         }
-        return buildUserResponse(user.get())
+        return buildUserResponse(user)
     }
 
     @Transactional
     override fun updateUser(userId: Int, userRequest: UserRequest): UserResponse {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested to update user with ID $userId")
+        if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
+            throw AccessForbiddenException("Not allowed to modify other user profiles as a non-manager!")
+        }
+        val user = mergeToUserIfExist(userId, userRequest)
+        val updatedUser = userRepository.save(user)
+        return buildUserResponse(updatedUser)
+    }
 
+    @Transactional
+    override fun deleteUser(userId: Int) {
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        logger.info("User ${actorUser.username} tries to delete user with ID $userId")
+        if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
+            throw AccessForbiddenException("Not allowed to delete other user profiles as a non-manager!")
+        }
+        val user: User = retrieveExistingUserById(userId)
+        userRepository.delete(user)
+        logger.info("User ${user.username} (ID: $userId) deleted by user ${actorUser.username}")
+    }
+
+    private fun isEmailTaken(email: String): Boolean {
+        return userRepository.findByEmail(email).isPresent
+    }
+
+    // !! is okay since called from fully validated request only
+    private fun buildNewUser(userRequest: UserRequest): User {
+        return User(
+            id = null,
+            email = userRequest.email!!,
+            password = passwordEncoder.encode(userRequest.password!!),
+            role = UserRole.fromString(userRequest.role!!)
+                ?: throw IllegalArgumentException("Invalid user role ${userRequest.role}"),
+            createdAt = null,
+            updatedAt = null
+        )
+    }
+
+    private fun mergeToUserIfExist(userId: Int, userRequest: UserRequest): User {
         val user = userRepository.findById(userId).orElseThrow {
             ResourceNotFoundException("User with ID $userId not found!")
         }
@@ -96,43 +134,14 @@ class UserServiceImpl(
             user.setEmail(it)
         }
 
-        userRequest.password?.let {
-            user.setPassword(passwordEncoder.encode(it))
-        }
+        userRequest.password?.let { user.setPassword(passwordEncoder.encode(it)) }
 
         userRequest.role?.let {
             val roleEnum = UserRole.fromString(it)
                 ?: throw IllegalArgumentException("Invalid user role: $it")
             user.role = roleEnum
         }
-
-        val updatedUser = userRepository.save(user)
-        return buildUserResponse(updatedUser)
-    }
-
-    @Transactional
-    override fun deleteUser(userId: Int) {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
-        logger.info("User ${actorUser.username} tries to delete user with ID $userId")
-        val user: User = retrieveExistingUserById(userId)
-        userRepository.delete(user)
-        logger.info("User ${user.username} (ID: $userId) deleted by user ${actorUser.username}")
-    }
-
-    private fun isEmailTaken(email: String): Boolean {
-        return userRepository.findByEmail(email).isPresent
-    }
-
-    private fun buildUser(userRequest: UserRequest): User {
-        return User(
-            id = null,
-            email = userRequest.email!!,
-            password = passwordEncoder.encode(userRequest.password!!),
-            role = UserRole.fromString(userRequest.role!!)
-                ?: throw IllegalArgumentException("Invalid user role ${userRequest.role}"),
-            createdAt = null,
-            updatedAt = null
-        )
+        return user
     }
 
     private fun buildUserResponse(user: User): UserResponse {
