@@ -59,6 +59,9 @@ class CroquetteController(val croquetteService: CroquetteService) {
         @Parameter(description = "Filter by crunchiness, multiple allowed")
         @RequestParam(required = false) crunchiness: List<Int>?,
 
+        @Parameter(description = "Filter by spiciness, multiple allowed")
+        @RequestParam(required = false) spiciness: List<Int>?,
+
         @Parameter(description = "Filter by minimum average rating")
         @RequestParam(required = false) minAverageRating: Double?,
 
@@ -77,6 +80,7 @@ class CroquetteController(val croquetteService: CroquetteService) {
             nameContains = nameContains,
             descriptionContains = descriptionContains,
             crunchiness = crunchiness,
+            spiciness = spiciness,
             minAverageRating = minAverageRating,
             vegan = vegan,
             sortBy = sortBy,

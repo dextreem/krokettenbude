@@ -18,6 +18,7 @@ data class CroquetteFilter (
     val country: String? = null,
     val descriptionContains: String? = null,
     val crunchiness: List<Int>? = null,
+    val spiciness: List<Int>? = null,
     val minAverageRating: Double? = null,
     val vegan: Boolean? = null,
     val sortBy: CroquetteSortBy? = null,

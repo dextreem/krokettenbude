@@ -15,13 +15,19 @@ object CroquetteSpecification {
             filter.crunchiness
                 ?.takeIf { it.isNotEmpty() }
                 ?.let { predicates += root.get<Int>("crunchiness").`in`(it) }
+            filter.spiciness
+                ?.takeIf { it.isNotEmpty() }
+                ?.let { predicates += root.get<Int>("spiciness").`in`(it) }
             filter.descriptionContains?.let { searchWord ->
                 predicates += cb.like(cb.lower(root.get("description")), "%${searchWord.lowercase()}%")
             }
             filter.nameContains?.let { searchWord ->
                 predicates += cb.like(cb.lower(root.get("name")), "%${searchWord.lowercase()}%")
             }
-            //TODO: Average rating!
+            filter.minAverageRating?.let { minRating ->
+                predicates += cb.greaterThanOrEqualTo(root.get<Double>("averageRating"), minRating)
+            }
+
             cb.and(*predicates.toTypedArray())
         }
     }
