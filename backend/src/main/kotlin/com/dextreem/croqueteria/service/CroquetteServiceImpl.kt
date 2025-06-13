@@ -6,10 +6,14 @@ import com.dextreem.croqueteria.entity.User
 import com.dextreem.croqueteria.exception.ResourceNotFoundException
 import com.dextreem.croqueteria.repository.CroquetteRepository
 import com.dextreem.croqueteria.request.CroquetteCreateRequest
+import com.dextreem.croqueteria.request.CroquetteFilter
 import com.dextreem.croqueteria.request.CroquetteUpdateRequest
+import com.dextreem.croqueteria.request.SortDirection
+import com.dextreem.croqueteria.request.spec.CroquetteSpecification
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
 import mu.KLogging
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Date
@@ -31,13 +35,21 @@ class CroquetteServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun retrieveAllCroquettes(country: String?): List<CroquetteResponse> {
-        val actorUser : User = findAuthenticatedUser.getAuthenticatedUser(true)
-        logger.info("User ${actorUser.username}  requested all croquettes. Country: $country")
-        if (country != null) {
-            return croquetteRepository.findByCountry(country).map { buildCroquetteResponse(it) }
-        }
-        return croquetteRepository.findAll().map { buildCroquetteResponse(it) }
+    override fun retrieveAllCroquettes(croquetteFilter: CroquetteFilter?): List<CroquetteResponse> {
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
+        logger.info("User ${actorUser.username} requested all croquettes.")
+
+        val filter = croquetteFilter ?: CroquetteFilter()
+        val spec = CroquetteSpecification.build(filter)
+        val sortBy = filter.sortBy?.fieldName ?: "createdAt"
+        val direction = filter.sortDirection ?: SortDirection.DESC
+        val sort = Sort.by(
+            if (direction == SortDirection.ASC) Sort.Direction.ASC else Sort.Direction.DESC,
+            sortBy
+        )
+
+        val croquettes = croquetteRepository.findAll(spec, sort)
+        return croquettes.map { buildCroquetteResponse(it) }
     }
 
     @Transactional(readOnly = true)
