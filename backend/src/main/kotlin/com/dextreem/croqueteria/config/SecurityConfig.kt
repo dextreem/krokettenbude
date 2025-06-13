@@ -63,7 +63,7 @@ class SecurityConfig(
                         "/api/v1/ratings/**",
                         "/api/v1/comments/**"
                     ).permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/users/**", "/api/v1/recommendations/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(HttpMethod.PUT, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/croquettes/**").hasRole("MANAGER")
@@ -82,7 +82,7 @@ class SecurityConfig(
             .httpBasic { httpBasicCustomizer -> httpBasicCustomizer.disable() }
             .csrf { csrf -> csrf.disable() }
             .exceptionHandling {
-                it.authenticationEntryPoint(customAuthenticationEntryPoint )
+                it.authenticationEntryPoint(customAuthenticationEntryPoint)
                 it.accessDeniedHandler(customAccessDeniedHandler)
             }
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)

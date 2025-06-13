@@ -2,7 +2,7 @@ package com.dextreem.croqueteria.response
 
 import java.util.Date
 
-data class CroquetteResponse(
+data class CroquetteRecommendationResponse (
     val id: Int?,
     val name: String,
     var country: String,
@@ -14,5 +14,6 @@ data class CroquetteResponse(
     var imageUrl: String = "",
     var createdAt: Date,
     var updatedAt: Date,
-    var averageRating: Double?
+    var averageRating: Double?,
+    var score: Int?
 )
