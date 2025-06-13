@@ -9,12 +9,13 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.Formula
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.Date
 
 @Entity
-@Table(name="CROQUETTES")
-data class Croquette (
+@Table(name = "CROQUETTES")
+data class Croquette(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int?,
@@ -41,7 +42,7 @@ data class Croquette (
     @Column(nullable = false)
     var form: CroquetteForm,
 
-    @Column(name="image_url")
+    @Column(name = "image_url")
     var imageUrl: String,
 
     @CreationTimestamp
@@ -50,5 +51,8 @@ data class Croquette (
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    var updatedAt: Date
+    var updatedAt: Date,
+
+    @Formula("(SELECT AVG(r.rating) FROM RATINGS r WHERE r.croquette_id = id)")
+    var averageRating: Double? = null
 )

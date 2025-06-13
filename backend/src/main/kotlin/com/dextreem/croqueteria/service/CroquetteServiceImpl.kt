@@ -137,7 +137,7 @@ class CroquetteServiceImpl(
                 imageUrl = it.imageUrl,
                 createdAt = it.createdAt,
                 updatedAt = it.updatedAt,
-                averageRating = null
+                averageRating = it.averageRating
             )
         }
     }
