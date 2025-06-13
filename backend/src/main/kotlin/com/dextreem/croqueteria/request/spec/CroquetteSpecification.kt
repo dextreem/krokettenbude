@@ -12,6 +12,7 @@ object CroquetteSpecification {
 
             filter.country?.let { predicates += cb.equal(cb.lower(root.get("country")), it.lowercase()) }
             filter.vegan?.let { predicates += cb.equal(root.get<Boolean>("vegan"), it) }
+            filter.form?.let { predicates += cb.equal(root.get<String>("form"), it) }
             filter.crunchiness
                 ?.takeIf { it.isNotEmpty() }
                 ?.let { predicates += root.get<Int>("crunchiness").`in`(it) }

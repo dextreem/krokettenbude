@@ -1,5 +1,6 @@
 package com.dextreem.croqueteria.controller
 
+import com.dextreem.croqueteria.entity.CroquetteForm
 import com.dextreem.croqueteria.request.CroquetteCreateRequest
 import com.dextreem.croqueteria.request.CroquetteFilter
 import com.dextreem.croqueteria.request.CroquetteSortBy
@@ -68,6 +69,9 @@ class CroquetteController(val croquetteService: CroquetteService) {
         @Parameter(description = "Filter by vegan")
         @RequestParam(required = false) vegan: Boolean?,
 
+        @Parameter(description = "Filter by form")
+        @RequestParam(required = false) form: CroquetteForm?,
+
         @Parameter(description = "Sort by field")
         @RequestParam(required = false) sortBy: CroquetteSortBy?,
 
@@ -81,6 +85,7 @@ class CroquetteController(val croquetteService: CroquetteService) {
             descriptionContains = descriptionContains,
             crunchiness = crunchiness,
             spiciness = spiciness,
+            form = form,
             minAverageRating = minAverageRating,
             vegan = vegan,
             sortBy = sortBy,
