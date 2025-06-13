@@ -1,6 +1,7 @@
 package com.dextreem.croqueteria.controller
 
-import com.dextreem.croqueteria.request.CommentRequest
+import com.dextreem.croqueteria.request.CommentCreateRequest
+import com.dextreem.croqueteria.request.CommentUpdateRequest
 import com.dextreem.croqueteria.response.CommentResponse
 import com.dextreem.croqueteria.service.CommentService
 import io.swagger.v3.oas.annotations.Operation
@@ -30,8 +31,8 @@ class CommentController(val commentService: CommentService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a comment", description = "Creates a comment for a croquette and a user.")
-    fun addComment(@RequestBody @Valid commentRequest: CommentRequest) : CommentResponse {
-        return commentService.addComment(commentRequest)
+    fun addComment(@RequestBody @Valid commentCreateRequest: CommentCreateRequest): CommentResponse {
+        return commentService.addComment(commentCreateRequest)
     }
 
     @GetMapping
@@ -56,7 +57,7 @@ class CommentController(val commentService: CommentService) {
         description = "Retrieves a single comment by its ID."
     )
     @SecurityRequirements
-    fun retrieveCommentById(@PathVariable("comment_id") commentId: Int?): CommentResponse {
+    fun retrieveCommentById(@PathVariable("comment_id") commentId: Int): CommentResponse {
         return commentService.retrieveCommentById(commentId)
     }
 
@@ -65,9 +66,9 @@ class CommentController(val commentService: CommentService) {
     @Operation(summary = "Update a comment", description = "Updates a single comment identified by its ID.")
     fun updateComment(
         @PathVariable("comment_id") commentId: Int,
-        @RequestBody commentRequest: CommentRequest
-    ) {
-        return commentService.updateComment(commentId, commentRequest)
+        @RequestBody commentUpdateRequest: CommentUpdateRequest
+    ): CommentResponse {
+        return commentService.updateComment(commentId, commentUpdateRequest)
     }
 
     @DeleteMapping("/{comment_id}")

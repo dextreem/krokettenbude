@@ -35,7 +35,7 @@ class UserServiceImpl(
     @Transactional
     override fun addUser(userCreateRequest: UserCreateRequest): UserResponse {
         logger.info("Try to create new user ${userCreateRequest.email}.")
-        if (isEmailTaken(userCreateRequest.email!!)) {
+        if (isEmailTaken(userCreateRequest.email)) {
             throw IllegalArgumentException("Email already taken!")
         }
 
@@ -67,7 +67,11 @@ class UserServiceImpl(
     @Transactional(readOnly = true)
     override fun retrieveAllUsers(userRole: String?): List<UserResponse> {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
-        logger.info("User ${actorUser.username} requested all users")
+        logger.info("User ${actorUser.username} requested all users. Role: $userRole")
+        if(userRole != null){
+            return userRepository.findByRole(userRole).map{buildUserResponse((it))}
+        }
+        logger.info("Retrieved all users. Returning.")
         return userRepository.findAll().map { buildUserResponse(it) }
     }
 
@@ -75,10 +79,11 @@ class UserServiceImpl(
     override fun retrieveUserById(userId: Int): UserResponse {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested user with ID $userId")
-        val user = retrieveExistingUserById((userId))
+        val user = retrieveExistingUserById(userId)
         if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
             throw AccessForbiddenException("Not allowed to retrieve other user profiles as a non-manager!")
         }
+        logger.info("Retrieved user $userId. Returning")
         return buildUserResponse(user)
     }
 
@@ -91,6 +96,7 @@ class UserServiceImpl(
         }
         val user = mergeToUserIfExist(userId, userUpdateRequest)
         val updatedUser = userRepository.save(user)
+        logger.info("User $userId successfully added.")
         return buildUserResponse(updatedUser)
     }
 

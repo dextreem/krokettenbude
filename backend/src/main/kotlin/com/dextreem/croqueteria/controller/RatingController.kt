@@ -1,6 +1,7 @@
 package com.dextreem.croqueteria.controller
 
-import com.dextreem.croqueteria.request.RatingRequest
+import com.dextreem.croqueteria.request.RatingCreateRequest
+import com.dextreem.croqueteria.request.RatingUpdateRequest
 import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.service.RatingService
 import io.swagger.v3.oas.annotations.Operation
@@ -32,8 +33,8 @@ class RatingController(val ratingService: RatingService) {
         summary = "Create a rating",
         description = "Creates a rating for a croquette and a user."
     )
-    fun addRating(@RequestBody @Valid ratingRequest: RatingRequest) : RatingResponse {
-        return ratingService.addRating(ratingRequest)
+    fun addRating(@RequestBody @Valid ratingCreateRequest: RatingCreateRequest) : RatingResponse {
+        return ratingService.addRating(ratingCreateRequest)
     }
 
     @GetMapping
@@ -54,7 +55,7 @@ class RatingController(val ratingService: RatingService) {
         description = "Retrieves a single comment by its ID."
     )
     @SecurityRequirements
-    fun retrieveRatingById(@PathVariable("rating_id") ratingId: Int?): RatingResponse {
+    fun retrieveRatingById(@PathVariable("rating_id") ratingId: Int): RatingResponse {
         return ratingService.retrieveRatingById(ratingId)
     }
 
@@ -66,9 +67,9 @@ class RatingController(val ratingService: RatingService) {
     )
     fun updateRating(
         @PathVariable("rating_id") ratingId: Int,
-        @RequestBody ratingRequest: RatingRequest
-    ) {
-        return ratingService.updateRating(ratingId, ratingRequest)
+        @RequestBody ratingUpdateRequest: RatingUpdateRequest
+    ) : RatingResponse {
+        return ratingService.updateRating(ratingId, ratingUpdateRequest)
     }
 
     @DeleteMapping("/{rating_id}")

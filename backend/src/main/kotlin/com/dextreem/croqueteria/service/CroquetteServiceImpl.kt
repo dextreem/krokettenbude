@@ -29,8 +29,12 @@ class CroquetteServiceImpl(
 
     @Transactional
     override fun addCroquette(croquetteCreateRequest: CroquetteCreateRequest): CroquetteResponse {
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        logger.info("User ${actorUser.username} wants to create new croquette.")
+
         val croquette = buildNewCroquette(croquetteCreateRequest)
         val savedCroquette = croquetteRepository.save(croquette)
+        logger.info("Croquette ${croquette.name} successfully created!")
         return buildCroquetteResponse(savedCroquette)
     }
 
@@ -49,6 +53,7 @@ class CroquetteServiceImpl(
         )
 
         val croquettes = croquetteRepository.findAll(spec, sort)
+        logger.info("Retrieved all delicious croquettes. Returning.")
         return croquettes.map { buildCroquetteResponse(it) }
     }
 
@@ -57,6 +62,7 @@ class CroquetteServiceImpl(
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
         logger.info("User ${actorUser.username} requested croquette with ID $croquetteId")
         val croquette = retrieveExistingCroquetteById(croquetteId)
+        logger.info("Retrieved croquette ${croquette.name}. Returning.")
         return buildCroquetteResponse(croquette)
     }
 
@@ -66,6 +72,7 @@ class CroquetteServiceImpl(
         logger.info("User ${actorUser.username} requested to update croquette with ID $croquetteId")
         val croquette = mergeToCroquetteIfExists(croquetteId, croquetteUpdateRequest)
         val updatedUser = croquetteRepository.save(croquette)
+        logger.info("Croquette ${croquette.name} successfully updated.")
         return buildCroquetteResponse(updatedUser)
     }
 
