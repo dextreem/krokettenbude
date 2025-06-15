@@ -27,7 +27,7 @@ import java.util.Date
 data class Rating (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int?,
+    var id: Int? = null,
 
     @Column(nullable = false)
     var rating: Int,
@@ -42,9 +42,9 @@ data class Rating (
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    var createdAt: Date,
+    var createdAt: Date? = null,
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    var updatedAt: Date
+    var updatedAt: Date? = null
 )

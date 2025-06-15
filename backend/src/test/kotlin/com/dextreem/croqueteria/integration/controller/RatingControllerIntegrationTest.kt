@@ -1,18 +1,18 @@
 package com.dextreem.croqueteria.integration.controller
 
-import com.dextreem.croqueteria.entity.Comment
 import com.dextreem.croqueteria.entity.Croquette
+import com.dextreem.croqueteria.entity.Rating
 import com.dextreem.croqueteria.entity.User
-import com.dextreem.croqueteria.integration.utils.commentEntityList
 import com.dextreem.croqueteria.integration.utils.createAuthToken
 import com.dextreem.croqueteria.integration.utils.croquetteEntityList
+import com.dextreem.croqueteria.integration.utils.ratingEntityList
 import com.dextreem.croqueteria.integration.utils.userEntityList
-import com.dextreem.croqueteria.repository.CommentRepository
 import com.dextreem.croqueteria.repository.CroquetteRepository
+import com.dextreem.croqueteria.repository.RatingRepository
 import com.dextreem.croqueteria.repository.UserRepository
-import com.dextreem.croqueteria.request.CommentCreateRequest
-import com.dextreem.croqueteria.request.CommentUpdateRequest
-import com.dextreem.croqueteria.response.CommentResponse
+import com.dextreem.croqueteria.request.RatingUpdateRequest
+import com.dextreem.croqueteria.request.RatingCreateRequest
+import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.service.JwtService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -33,16 +33,17 @@ import kotlin.test.assertTrue
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
 @Tag("integration")
-class CommentControllerIntegrationTest {
+class RatingControllerIntegrationTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
 
     @Autowired
-    lateinit var commentRepository: CommentRepository
+    lateinit var ratingRepository: RatingRepository
 
     @Autowired
     lateinit var userRepository: UserRepository
+
 
     @Autowired
     lateinit var croquetteRepository: CroquetteRepository
@@ -50,73 +51,73 @@ class CommentControllerIntegrationTest {
     @Autowired
     lateinit var jwtService: JwtService
 
-    val endpoint = "/api/v1/comments"
+    val endpoint = "/api/v1/ratings"
 
     lateinit var savedUsers: List<User>
     lateinit var savedCroquettes: List<Croquette>
-    lateinit var savedComments: List<Comment>
+    lateinit var savedRatings: List<Rating>
 
     @BeforeEach
     fun setup() {
-        commentRepository.deleteAll()
+        ratingRepository.deleteAll()
         userRepository.deleteAll()
         croquetteRepository.deleteAll()
 
         savedUsers = userRepository.saveAll(userEntityList()).toList()
         savedCroquettes = croquetteRepository.saveAll(croquetteEntityList()).toList()
-        savedComments = commentRepository.saveAll(commentEntityList(savedUsers, savedCroquettes)).toList()
+        savedRatings = ratingRepository.saveAll(ratingEntityList(savedUsers, savedCroquettes)).toList()
     }
 
     @AfterEach
     fun clearDBs(){
-        commentRepository.deleteAll()
+        ratingRepository.deleteAll()
         userRepository.deleteAll()
         croquetteRepository.deleteAll()
     }
 
     @Test
-    fun addComment() {
+    fun addRating() {
         val token = createAuthToken(savedUsers.first(), jwtService)
 
-        val commentCreateRequest = CommentCreateRequest(
+        val ratingCreateRequest = RatingCreateRequest(
             croquetteId = savedCroquettes.first().id!!,
-            comment = "Some Comment"
+            rating = 5
         )
 
-        val savedComment = webTestClient
+        val savedRating = webTestClient
             .post()
             .uri(endpoint)
             .header("Authorization", "Bearer $token")
-            .bodyValue(commentCreateRequest)
+            .bodyValue(ratingCreateRequest)
             .exchange()
             .expectStatus().isCreated
-            .expectBody(CommentResponse::class.java)
+            .expectBody(RatingResponse::class.java)
             .returnResult()
             .responseBody
 
-        assertEquals(savedComments.size + 1, commentRepository.findAll().map { it }.size)
-        assertTrue(savedComment?.id != null)
+        assertEquals(savedRatings.size + 1, ratingRepository.findAll().map { it }.size)
+        assertTrue(savedRating?.id != null)
     }
 
     @Test
-    fun addCommentUnauthorized() {
-        val commentCreateRequest = CommentCreateRequest(
+    fun addRatingUnauthorized() {
+        val ratingCreateRequest = RatingCreateRequest(
             croquetteId = 42,
-            comment = "Some Comment"
+            rating = 4
         )
 
         webTestClient
             .post()
             .uri(endpoint)
-            .bodyValue(commentCreateRequest)
+            .bodyValue(ratingCreateRequest)
             .exchange()
             .expectStatus().isUnauthorized
 
-        assertEquals(savedComments.size, commentRepository.findAll().toList().size)
+        assertEquals(savedRatings.size, ratingRepository.findAll().toList().size)
     }
 
     @Test
-    fun getAllComments() {
+    fun getAllRatings() {
         val result = webTestClient
             .get()
             .uri(endpoint)
@@ -126,12 +127,12 @@ class CommentControllerIntegrationTest {
             .returnResult()
             .responseBody
 
-        assertEquals(savedComments.size, result?.size)
+        assertEquals(savedRatings.size, result?.size)
     }
 
     @Test
-    fun getAllCommentsForCroquette() {
-        val croquetteId = savedComments.first().croquette?.id ?: fail("Issue while setting up demo comments")
+    fun getAllRatingsForCroquette() {
+        val croquetteId = savedRatings.first().croquette?.id ?: fail("Issue while setting up demo ratings")
 
         val uri = UriComponentsBuilder.fromUriString(endpoint)
             .queryParam("croquette_id", croquetteId)
@@ -144,137 +145,137 @@ class CommentControllerIntegrationTest {
             .expectStatus().isOk
             .expectBody(List::class.java)
             .returnResult()
-            .responseBody ?: listOf<CommentResponse>()
+            .responseBody ?: listOf<RatingResponse>()
 
         assertTrue(result.isNotEmpty())
-        assertEquals(savedComments.filter { it.croquette?.id == croquetteId }.size, result.size)
+        assertEquals(savedRatings.filter { it.croquette?.id == croquetteId }.size, result.size)
     }
 
     @Test
-    fun updateComment() {
+    fun updateRating() {
         val user = savedUsers.first()
         val token = createAuthToken(user, jwtService)
-        val commentId =
-            savedComments.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo comments")
+        val ratingId =
+            savedRatings.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo ratings")
 
-        val commentUpdate = CommentUpdateRequest(
-            comment = "Some modified comment"
+        val ratingUpdate = RatingUpdateRequest(
+            rating = 4
         )
 
         val result = webTestClient
             .put()
-            .uri("$endpoint/$commentId")
-            .bodyValue(commentUpdate)
+            .uri("$endpoint/$ratingId")
+            .bodyValue(ratingUpdate)
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
-            .expectBody(CommentResponse::class.java)
+            .expectBody(RatingResponse::class.java)
             .returnResult()
             .responseBody
 
-        val commentInDb = commentRepository.findById(commentId)
-        assertTrue(commentInDb.isPresent)
-        assertEquals(commentUpdate.comment, commentInDb.get().comment)
-        assertEquals(commentUpdate.comment, result?.comment)
+        val ratingInDb = ratingRepository.findById(ratingId)
+        assertTrue(ratingInDb.isPresent)
+        assertEquals(ratingUpdate.rating, ratingInDb.get().rating)
+        assertEquals(ratingUpdate.rating, result?.rating)
     }
 
 
     @Test
-    fun updateCommentForbidden() {
+    fun updateRatingForbidden() {
         val user = savedUsers.first()
         val token = createAuthToken(user, jwtService)
-        val commentId =
-            savedComments.find { it.user?.id != user.id }?.id ?: fail("Issue while setting up demo comments")
+        val ratingId =
+            savedRatings.find { it.user?.id != user.id }?.id ?: fail("Issue while setting up demo ratings")
 
-        val commentUpdate = CommentUpdateRequest(
-            comment = "Some modified comment"
+        val ratingUpdate = RatingUpdateRequest(
+            rating = 3
         )
 
         webTestClient
             .put()
-            .uri("$endpoint/$commentId")
-            .bodyValue(commentUpdate)
+            .uri("$endpoint/$ratingId")
+            .bodyValue(ratingUpdate)
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isForbidden
 
-        val commentInDb = commentRepository.findById(commentId)
-        assertTrue(commentInDb.isPresent)
-        assertNotEquals(commentUpdate.comment, commentInDb.get().comment)
+        val ratingInDb = ratingRepository.findById(ratingId)
+        assertTrue(ratingInDb.isPresent)
+        assertNotEquals(ratingUpdate.rating, ratingInDb.get().rating)
     }
 
     @Test
-    fun updateCommentUnauthorized() {
-        val commentId = savedComments.first().id ?: fail("Issue while setting up demo comments")
+    fun updateRatingUnauthorized() {
+        val ratingId = savedRatings.first().id ?: fail("Issue while setting up demo ratings")
 
-        val commentUpdate = CommentUpdateRequest(
-            comment = "Some modified comment"
+        val ratingUpdate = RatingUpdateRequest(
+            rating = 4
         )
         webTestClient
             .put()
-            .uri("$endpoint/$commentId")
-            .bodyValue(commentUpdate)
+            .uri("$endpoint/$ratingId")
+            .bodyValue(ratingUpdate)
             .exchange()
             .expectStatus().isUnauthorized
 
-        val commentInDb = commentRepository.findById(commentId)
-        assertTrue(commentInDb.isPresent)
-        assertNotEquals(commentUpdate.comment, commentInDb.get().comment)
+        val ratingInDb = ratingRepository.findById(ratingId)
+        assertTrue(ratingInDb.isPresent)
+        assertNotEquals(ratingUpdate.rating, ratingInDb.get().rating)
     }
 
     @Test
-    fun deleteComment() {
+    fun deleteRating() {
         val user = savedUsers.first()
         val token = createAuthToken(user, jwtService)
-        val commentId =
-            savedComments.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo comments")
+        val ratingId =
+            savedRatings.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo ratings")
 
 
         webTestClient
             .delete()
-            .uri("$endpoint/$commentId")
+            .uri("$endpoint/$ratingId")
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isNoContent
-            .expectBody(CommentResponse::class.java)
+            .expectBody(RatingResponse::class.java)
             .returnResult()
             .responseBody
 
-        val commentInDb = commentRepository.findById(commentId)
-        assertTrue(!commentInDb.isPresent)
-        assertEquals(savedComments.size - 1, commentRepository.findAll().toList().size)
+        val ratingInDb = ratingRepository.findById(ratingId)
+        assertTrue(!ratingInDb.isPresent)
+        assertEquals(savedRatings.size - 1, ratingRepository.findAll().toList().size)
     }
 
     @Test
-    fun deleteCommentForbidden() {
+    fun deleteRatingForbidden() {
         val user = savedUsers.first()
         val token = createAuthToken(user, jwtService)
-        val commentId =
-            savedComments.find { it.user?.id != user.id }?.id ?: fail("Issue while setting up demo comments")
+        val ratingId =
+            savedRatings.find { it.user?.id != user.id }?.id ?: fail("Issue while setting up demo ratings")
 
 
         webTestClient
             .delete()
-            .uri("$endpoint/$commentId")
+            .uri("$endpoint/$ratingId")
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isForbidden
 
-        val commentInDb = commentRepository.findById(commentId)
-        assertTrue(commentInDb.isPresent)
+        val ratingInDb = ratingRepository.findById(ratingId)
+        assertTrue(ratingInDb.isPresent)
     }
 
     @Test
-    fun deleteCommentUnauthorized() {
-        val commentId = savedComments.first().id ?: fail("Issue while setting up demo comments")
+    fun deleteRatingUnauthorized() {
+        val ratingId = savedRatings.first().id ?: fail("Issue while setting up demo ratings")
 
         webTestClient
             .delete()
-            .uri("$endpoint/$commentId")
+            .uri("$endpoint/$ratingId")
             .exchange()
             .expectStatus().isUnauthorized
 
-        val commentInDb = commentRepository.findById(commentId)
-        assertTrue(commentInDb.isPresent)
+        val ratingInDb = ratingRepository.findById(ratingId)
+        assertTrue(ratingInDb.isPresent)
     }
 }

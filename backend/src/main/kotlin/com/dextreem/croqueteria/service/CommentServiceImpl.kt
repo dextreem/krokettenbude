@@ -39,7 +39,7 @@ class CommentServiceImpl(
 
     @Transactional(readOnly = true)
     override fun retrieveAllComments(croquetteId: Int?): List<CommentResponse> {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
         logger.info("User ${actorUser.username} requested all comments. Croquette ID: $croquetteId")
         if (croquetteId != null) {
             val croquette = findExistingEntityById.findCroquette(croquetteId)
@@ -51,7 +51,7 @@ class CommentServiceImpl(
 
     @Transactional(readOnly = true)
     override fun retrieveCommentById(commentId: Int): CommentResponse {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
         logger.info("User ${actorUser.username} requested comment with ID $commentId")
         val comment = findExistingEntityById.findComment(commentId)
         if (actorUser.id != comment.user?.id && actorUser.role != UserRole.MANAGER) {

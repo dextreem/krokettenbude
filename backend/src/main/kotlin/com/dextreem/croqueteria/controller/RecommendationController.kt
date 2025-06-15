@@ -1,6 +1,5 @@
 package com.dextreem.croqueteria.controller
 
-import com.dextreem.croqueteria.entity.Croquette
 import com.dextreem.croqueteria.request.CroquetteRecommendationRequest
 import com.dextreem.croqueteria.response.CroquetteRecommendationResponse
 import com.dextreem.croqueteria.service.RecommendationService
@@ -19,5 +18,14 @@ class RecommendationController(
         @RequestBody request: CroquetteRecommendationRequest
     ): List<CroquetteRecommendationResponse> {
         return recommendationService.recommendCroquettes(request)
+    }
+
+    @PostMapping("/text")
+    @SecurityRequirements
+    fun recommendCroquettesByText(
+        @RequestBody request: CroquetteRecommendationRequest
+    ): List<CroquetteRecommendationResponse> {
+        // TODO
+        throw Error("Not yet implemented")
     }
 }

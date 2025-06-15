@@ -23,7 +23,7 @@ import java.util.Date
 data class Croquette(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int?,
+    var id: Int? = null,
 
     @Column(nullable = false)
     var country: String,
@@ -52,11 +52,11 @@ data class Croquette(
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    var createdAt: Date,
+    var createdAt: Date? = null,
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    var updatedAt: Date,
+    var updatedAt: Date? = null,
 
     @Formula("(SELECT AVG(r.rating) FROM RATINGS r WHERE r.croquette_id = id)")
     var averageRating: Double? = null

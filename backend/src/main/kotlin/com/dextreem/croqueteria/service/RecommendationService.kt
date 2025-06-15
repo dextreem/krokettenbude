@@ -39,5 +39,6 @@ class RecommendationService(
             }
             .sortedBy { it.score }
             .take(10)
+            .toList()
     }
 }

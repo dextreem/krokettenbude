@@ -43,7 +43,7 @@ class RatingServiceImpl(
 
     @Transactional(readOnly = true)
     override fun retrieveAllRatings(croquetteId: Int?): List<RatingResponse> {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
         logger.info("User ${actorUser.username} requested all ratings. Croquette ID: $croquetteId")
         if (croquetteId != null) {
             val croquette = findExistingEntityById.findCroquette(croquetteId)
@@ -55,7 +55,7 @@ class RatingServiceImpl(
 
     @Transactional(readOnly = true)
     override fun retrieveRatingById(ratingId: Int): RatingResponse {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
         logger.info("User ${actorUser.username} requested rating with ID $ratingId")
         val rating = findExistingEntityById.findRating(ratingId)
         if (actorUser.id != rating.user?.id && actorUser.role != UserRole.MANAGER) {

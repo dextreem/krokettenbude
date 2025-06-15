@@ -12,8 +12,8 @@ data class CroquetteRecommendationResponse (
     var vegan: Boolean = false,
     var form: String = "cylindric",
     var imageUrl: String = "",
-    var createdAt: Date,
-    var updatedAt: Date,
+    var createdAt: Date?,
+    var updatedAt: Date?,
     var averageRating: Double?,
     var score: Int?
 )
