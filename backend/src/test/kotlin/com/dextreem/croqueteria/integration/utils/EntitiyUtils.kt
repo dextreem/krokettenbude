@@ -6,19 +6,23 @@ import com.dextreem.croqueteria.entity.CroquetteForm
 import com.dextreem.croqueteria.entity.Rating
 import com.dextreem.croqueteria.entity.User
 import com.dextreem.croqueteria.entity.UserRole
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
-fun userEntityList() : List<User> = listOf(
-    User(
-        email = "gerald@riva.com",
-        password = "wheresCiri",
-        role = UserRole.MANAGER,
-    ),
-    User(
-        email = "cirilla@cintra.com",
-        password = "hereIam",
-        role = UserRole.USER,
-    ),
-)
+fun userEntityList() : List<User> {
+    val passwordEncoder = BCryptPasswordEncoder()
+    return listOf(
+        User(
+            email = "geralt@riva.com",
+            password = passwordEncoder.encode("wheresCiri"),
+            role = UserRole.MANAGER,
+        ),
+        User(
+            email = "cirilla@cintra.com",
+            password = passwordEncoder.encode("hereIamGeralt"),
+            role = UserRole.USER,
+        ),
+    )
+}
 
 fun croquetteEntityList() : List<Croquette> = listOf(
     Croquette(

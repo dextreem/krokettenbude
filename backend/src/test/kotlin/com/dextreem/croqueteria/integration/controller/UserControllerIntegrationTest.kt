@@ -6,8 +6,10 @@ import com.dextreem.croqueteria.integration.utils.createAuthToken
 import com.dextreem.croqueteria.integration.utils.userEntityList
 import com.dextreem.croqueteria.repository.CroquetteRepository
 import com.dextreem.croqueteria.repository.UserRepository
+import com.dextreem.croqueteria.request.LoginRequest
 import com.dextreem.croqueteria.request.UserUpdateRequest
 import com.dextreem.croqueteria.request.UserCreateRequest
+import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
 import com.dextreem.croqueteria.service.JwtService
 import org.junit.jupiter.api.AfterEach
@@ -20,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import java.nio.file.attribute.UserPrincipalLookupService
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -79,24 +82,37 @@ class UserControllerIntegrationTest {
 
     @Test
     fun login() {
-        val userCreateRequest = UserCreateRequest(
-            email = "some@user.com",
-            password = "somepassword",
-            role = UserRole.USER.name
+        val userLoginRequest = LoginRequest(
+            email = "geralt@riva.com",
+            password = "wheresCiri"
         )
 
         val savedUser = webTestClient
             .post()
-            .uri(endpoint)
-            .bodyValue(userCreateRequest)
+            .uri("$endpoint/login")
+            .bodyValue(userLoginRequest)
             .exchange()
-            .expectStatus().isCreated
-            .expectBody(UserResponse::class.java)
+            .expectStatus().isOk
+            .expectBody(LoginResponse::class.java)
             .returnResult()
             .responseBody
 
-        assertEquals(savedUsers.size + 1, userRepository.findAll().map { it }.size)
-        assertTrue(savedUser?.id != null)
+        assertTrue(savedUser?.token != null && savedUser.token.startsWith("ey"))
+    }
+
+    @Test
+    fun loginBadCred() {
+        val userLoginRequest = LoginRequest(
+            email = "geralt@riva.com",
+            password = "whereDidYouComeAndWhereDidYouGo?"
+        )
+
+        val savedUser = webTestClient
+            .post()
+            .uri("$endpoint/login")
+            .bodyValue(userLoginRequest)
+            .exchange()
+            .expectStatus().isUnauthorized
     }
 
     @Test

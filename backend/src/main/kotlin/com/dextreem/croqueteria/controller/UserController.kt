@@ -41,10 +41,10 @@ class UserController(val userService: UserService) {
     }
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @Operation(
         summary = "Create a new user",
-        description = "Creates a new user and assigns the respective role."
+        description = "Logs in a user and returns a JWT upon success."
     )
     @SecurityRequirements
     fun login(@RequestBody @Valid loginRequest: LoginRequest): LoginResponse {
