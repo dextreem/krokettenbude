@@ -78,6 +78,28 @@ class UserControllerIntegrationTest {
     }
 
     @Test
+    fun login() {
+        val userCreateRequest = UserCreateRequest(
+            email = "some@user.com",
+            password = "somepassword",
+            role = UserRole.USER.name
+        )
+
+        val savedUser = webTestClient
+            .post()
+            .uri(endpoint)
+            .bodyValue(userCreateRequest)
+            .exchange()
+            .expectStatus().isCreated
+            .expectBody(UserResponse::class.java)
+            .returnResult()
+            .responseBody
+
+        assertEquals(savedUsers.size + 1, userRepository.findAll().map { it }.size)
+        assertTrue(savedUser?.id != null)
+    }
+
+    @Test
     fun getAllUsersManager() {
         val user = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
