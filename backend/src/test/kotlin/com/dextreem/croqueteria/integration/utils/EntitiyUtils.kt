@@ -57,7 +57,7 @@ fun croquetteEntityList() : List<Croquette> = listOf(
         description = "Japanese korokke—mashed potatoes mixed with ground beef/pork and onions, patty‑shaped, coated in panko breadcrumbs, and fried to a crispy, fluffy finish.",
         crunchiness = 4,
         spiciness = 2,
-        vegan = false,
+        vegan = true,
         form = CroquetteForm.DISK,
         imageUrl = ""
     ),
@@ -67,7 +67,7 @@ fun croquetteEntityList() : List<Croquette> = listOf(
         description = "Dutch kroket—a meat ragout filling (typically beef) encased in breadcrumbs and deep‑fried, often served in a bun with mustard or as street food.",
         crunchiness = 5,
         spiciness = 1,
-        vegan = false,
+        vegan = true,
         form = CroquetteForm.CYLINDRIC,
         imageUrl = ""
     ),

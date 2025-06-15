@@ -88,7 +88,7 @@ class UserControllerIntegrationTest {
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
-            .expectBody(List::class.java)
+            .expectBodyList(UserResponse::class.java)
             .returnResult()
             .responseBody
 
@@ -106,7 +106,7 @@ class UserControllerIntegrationTest {
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
-            .expectBody(List::class.java)
+            .expectBodyList(UserResponse::class.java)
             .returnResult()
             .responseBody
 

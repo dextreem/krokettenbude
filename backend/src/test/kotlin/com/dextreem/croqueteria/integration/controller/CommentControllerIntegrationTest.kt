@@ -122,7 +122,7 @@ class CommentControllerIntegrationTest {
             .uri(endpoint)
             .exchange()
             .expectStatus().isOk
-            .expectBody(List::class.java)
+            .expectBodyList(CommentResponse::class.java)
             .returnResult()
             .responseBody
 
@@ -142,7 +142,7 @@ class CommentControllerIntegrationTest {
             .uri(uri)
             .exchange()
             .expectStatus().isOk
-            .expectBody(List::class.java)
+            .expectBodyList(CommentResponse::class.java)
             .returnResult()
             .responseBody ?: listOf<CommentResponse>()
 

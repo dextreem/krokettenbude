@@ -44,7 +44,6 @@ class RatingControllerIntegrationTest {
     @Autowired
     lateinit var userRepository: UserRepository
 
-
     @Autowired
     lateinit var croquetteRepository: CroquetteRepository
 
@@ -123,7 +122,7 @@ class RatingControllerIntegrationTest {
             .uri(endpoint)
             .exchange()
             .expectStatus().isOk
-            .expectBody(List::class.java)
+            .expectBodyList(RatingResponse::class.java)
             .returnResult()
             .responseBody
 
@@ -143,7 +142,7 @@ class RatingControllerIntegrationTest {
             .uri(uri)
             .exchange()
             .expectStatus().isOk
-            .expectBody(List::class.java)
+            .expectBodyList(RatingResponse::class.java)
             .returnResult()
             .responseBody ?: listOf<RatingResponse>()
 
