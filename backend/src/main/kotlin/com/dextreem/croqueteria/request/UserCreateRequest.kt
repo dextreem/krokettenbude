@@ -1,21 +1,19 @@
 package com.dextreem.croqueteria.request
 
-import jakarta.validation.constraints.NotEmpty
+import com.dextreem.croqueteria.entity.UserRole
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-
 data class UserCreateRequest(
-    @NotEmpty(message = "Email is mandatory")
-    @Size(min = 3, max = 30, message = "Email must be between 3 and 30 characters.")
+    @field:NotBlank(message = "Email is mandatory")
+    @field:Size(min = 3, max = 30, message = "Email must be between 3 and 30 characters.")
+    @field:Email(message = "Email format is invalid")
     val email: String,
-    // TODO: Custom email verifier
 
-    @NotEmpty(message = "Password is mandatory")
-    @Size(min = 8, max = 1000, message = "Password must be between 8 and 1000 characters.")
+    @field:NotBlank(message = "Password is mandatory")
+    @field:Size(min = 8, max = 1000, message = "Password must be between 8 and 1000 characters.")
     val password: String,
 
-    @NotEmpty(message = "Role is mandatory")
-    @Size(min = 8, max = 1000, message = "Role must be between 8 and 1000 characters.")
-    val role: String
-    // TODO: Custom role verifier
+    val role: UserRole
 )

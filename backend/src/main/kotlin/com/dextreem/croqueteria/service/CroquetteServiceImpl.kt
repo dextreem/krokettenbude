@@ -94,8 +94,7 @@ class CroquetteServiceImpl(
             spiciness = croquetteCreateRequest.spiciness,
             crunchiness = croquetteCreateRequest.crunchiness,
             vegan = croquetteCreateRequest.vegan,
-            form = CroquetteForm.fromString(croquetteCreateRequest.form)
-                ?: throw IllegalArgumentException("Unknown form of croquette: ${croquetteCreateRequest.form}"),
+            form = croquetteCreateRequest.form,
             imageUrl = croquetteCreateRequest.imageUrl,
             createdAt = Date(),
             updatedAt = Date(),
@@ -113,11 +112,7 @@ class CroquetteServiceImpl(
         croquetteUpdateRequest.crunchiness?.let { croquette.crunchiness = it }
         croquetteUpdateRequest.spiciness?.let { croquette.spiciness = it }
         croquetteUpdateRequest.vegan?.let { croquette.vegan = it }
-        croquetteUpdateRequest.form?.let {
-            val formEnum = CroquetteForm.fromString(it)
-                ?: throw IllegalArgumentException("Invalid croquette form: $it")
-            croquette.form = formEnum
-        }
+        croquetteUpdateRequest.form?.let { croquette.form = it}
         croquetteUpdateRequest.imageUrl?.let { croquette.imageUrl = it }
 
         return croquette

@@ -1,41 +1,39 @@
 package com.dextreem.croqueteria.request
 
+import com.dextreem.croqueteria.entity.CroquetteForm
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
-
+import jakarta.validation.constraints.NotNull
 
 data class CroquetteCreateRequest(
-    @NotEmpty(message = "Name is mandatory")
-    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters.")
+    @field:NotBlank(message = "Name is mandatory")
+    @field:Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters.")
     var name: String,
 
-    @NotEmpty(message = "Country is mandatory")
-    @Size(min = 3, max = 15, message = "Country must be between 3 and 15 characters.")
+    @field:NotBlank(message = "Country is mandatory")
+    @field:Size(min = 3, max = 15, message = "Country must be between 3 and 15 characters.")
     var country: String,
 
-    @NotEmpty(message = "Description is mandatory")
-    @Size(min = 3, max = 10000, message = "Description must be between 3 and 10.000 characters.")
+    @field:NotBlank(message = "Description is mandatory")
+    @field:Size(min = 3, max = 10000, message = "Description must be between 3 and 10.000 characters.")
     var description: String,
 
-    @NotEmpty(message = "Crunchiness is mandatory")
-    @Min(1, message = "Crunchiness must be at least 1.")
-    @Max(5, message = "Crunchiness cannot exceed 5.")
+    @field:Min(value = 1, message = "Crunchiness must be at least 1.")
+    @field:Max(value = 5, message = "Crunchiness cannot exceed 5.")
     var crunchiness: Int,
 
-    @NotEmpty(message = "Spiciness is mandatory")
-    @Min(1, message = "Spiciness must be at least 1.")
-    @Max(5, message = "Spiciness cannot exceed 5.")
+    @field:Min(value = 1, message = "Spiciness must be at least 1.")
+    @field:Max(value = 5, message = "Spiciness cannot exceed 5.")
     var spiciness: Int,
 
-    @NotEmpty(message = "Vegan is mandatory")
+    @field:NotNull(message = "Vegan is mandatory")
     var vegan: Boolean,
 
-    @NotEmpty(message = "Form is mandatory")
-    var form: String, // TODO: Custom form verifier
+    @field:NotNull(message = "Form is mandatory")
+    var form: CroquetteForm,
 
-    @NotEmpty(message = "ImgaeUrl is mandatory")
+    @field:NotBlank(message = "ImageUrl is mandatory")
     var imageUrl: String,
-
-    )
+)

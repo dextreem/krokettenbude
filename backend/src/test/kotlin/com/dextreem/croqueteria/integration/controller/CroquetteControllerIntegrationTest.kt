@@ -88,8 +88,8 @@ class CroquetteControllerIntegrationTest {
             crunchiness = 5,
             spiciness = 5,
             vegan = true,
-            form = CroquetteForm.BALL.name,
-            imageUrl = ""
+            form = CroquetteForm.BALL,
+            imageUrl = "https://pathToImage"
         )
 
         val savedCroquette = webTestClient
@@ -119,7 +119,7 @@ class CroquetteControllerIntegrationTest {
             crunchiness = 5,
             spiciness = 5,
             vegan = true,
-            form = CroquetteForm.BALL.name,
+            form = CroquetteForm.BALL,
             imageUrl = ""
         )
 
@@ -143,7 +143,7 @@ class CroquetteControllerIntegrationTest {
             crunchiness = 5,
             spiciness = 5,
             vegan = true,
-            form = CroquetteForm.BALL.name,
+            form = CroquetteForm.BALL,
             imageUrl = ""
         )
 

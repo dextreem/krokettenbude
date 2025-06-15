@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotEmpty
 
 
 data class RatingCreateRequest (
-    @NotBlank(message = "CroquetteId must not be null")
     val croquetteId: Int,
 
     @NotEmpty(message = "Rating is mandatory")

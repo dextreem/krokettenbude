@@ -4,7 +4,6 @@ import com.dextreem.croqueteria.entity.User
 import com.dextreem.croqueteria.entity.UserRole
 import com.dextreem.croqueteria.integration.utils.createAuthToken
 import com.dextreem.croqueteria.integration.utils.userEntityList
-import com.dextreem.croqueteria.repository.CroquetteRepository
 import com.dextreem.croqueteria.repository.UserRepository
 import com.dextreem.croqueteria.request.LoginRequest
 import com.dextreem.croqueteria.request.UserUpdateRequest
@@ -22,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
-import java.nio.file.attribute.UserPrincipalLookupService
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -63,7 +61,7 @@ class UserControllerIntegrationTest {
         val userCreateRequest = UserCreateRequest(
             email = "some@user.com",
             password = "somepassword",
-            role = UserRole.USER.name
+            role = UserRole.USER
         )
 
         val savedUser = webTestClient

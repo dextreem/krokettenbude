@@ -68,8 +68,8 @@ class UserServiceImpl(
     override fun retrieveAllUsers(userRole: String?): List<UserResponse> {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested all users. Role: $userRole")
-        if(userRole != null){
-            return userRepository.findByRole(userRole).map{buildUserResponse((it))}
+        if (userRole != null) {
+            return userRepository.findByRole(userRole).map { buildUserResponse((it)) }
         }
         logger.info("Retrieved all users. Returning.")
         return userRepository.findAll().map { buildUserResponse(it) }
@@ -80,7 +80,7 @@ class UserServiceImpl(
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested user with ID $userId")
         val user = retrieveExistingUserById(userId)
-        if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
+        if (actorUser.id != userId && actorUser.role != UserRole.MANAGER) {
             throw AccessForbiddenException("Not allowed to retrieve other user profiles as a non-manager!")
         }
         logger.info("Retrieved user $userId. Returning")
@@ -91,7 +91,7 @@ class UserServiceImpl(
     override fun updateUser(userId: Int, userUpdateRequest: UserUpdateRequest): UserResponse {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested to update user with ID $userId")
-        if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
+        if (actorUser.id != userId && actorUser.role != UserRole.MANAGER) {
             throw AccessForbiddenException("Not allowed to modify other user profiles as a non-manager!")
         }
         val user = mergeToUserIfExist(userId, userUpdateRequest)
@@ -104,7 +104,7 @@ class UserServiceImpl(
     override fun deleteUser(userId: Int) {
         val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} tries to delete user with ID $userId")
-        if(actorUser.id != userId && actorUser.role != UserRole.MANAGER){
+        if (actorUser.id != userId && actorUser.role != UserRole.MANAGER) {
             throw AccessForbiddenException("Not allowed to delete other user profiles as a non-manager!")
         }
         val user: User = retrieveExistingUserById(userId)
@@ -121,8 +121,7 @@ class UserServiceImpl(
             id = null,
             email = userCreateRequest.email,
             password = passwordEncoder.encode(userCreateRequest.password),
-            role = UserRole.fromString(userCreateRequest.role)
-                ?: throw IllegalArgumentException("Invalid user role ${userCreateRequest.role}"),
+            role = userCreateRequest.role,
             createdAt = null,
             updatedAt = null
         )
@@ -134,12 +133,7 @@ class UserServiceImpl(
         }
 
         userUpdateRequest.password?.let { user.setPassword(passwordEncoder.encode(it)) }
-
-        userUpdateRequest.role?.let {
-            val roleEnum = UserRole.fromString(it)
-                ?: throw IllegalArgumentException("Invalid user role: $it")
-            user.role = roleEnum
-        }
+        userUpdateRequest.role?.let { user.role = it }
         return user
     }
 
