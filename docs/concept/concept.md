@@ -95,8 +95,10 @@ All entities additionally have a `created_at` and `updated_at` field, managed by
 The project makes use of `Spring Boot`. 
 `Kotlin` was chosen over `Java`, mainly due to its concise syntax and null safety. 
 For the ease of development, a `H2` in-memory database is used for dev and test environment and `PostgreSQL` for production. 
-In this stage of the project only database agnosic JPA repositories should be used. 
-Goal is to make it as easy as possible to run the integration test against both types of database. If a frontend will be provided, it will be built on `React` (JS) on `Vite` with `Styled Components` which is a perfect match for the provided RESTful API.
+In this stage of the project only database agnosic JPA repositories should be used.
+Goal is to make it as easy as possible to run the integration test against both types of database. 
+It was decided to use `MVC` over `WebFlux` since the API is not expected to handle a large number of concurrent connections nor real-time data streams.
+If a frontend will be provided, it will be built on `React` (JS) on `Vite` with `Styled Components` which is a perfect match for the provided RESTful API.
 
 ### Alternatives
 
