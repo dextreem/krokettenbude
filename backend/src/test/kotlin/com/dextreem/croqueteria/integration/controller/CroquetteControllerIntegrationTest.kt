@@ -249,6 +249,17 @@ class CroquetteControllerIntegrationTest {
     }
 
     @Test
+    fun getSingleCroquetteNotFound() {
+        val croquette = savedCroquettes.last()
+
+        webTestClient
+            .get()
+            .uri("$endpoint/${croquette.id?.plus(10)}")
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
     fun updateCroquette() {
         val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo croquettes.")
         val token = createAuthToken(user, jwtService)
@@ -280,6 +291,27 @@ class CroquetteControllerIntegrationTest {
         assertEquals(croquette.vegan, croquetteInDb.get().vegan)
         assertEquals(croquette.form, croquetteInDb.get().form)
         assertEquals(croquette.country, croquetteInDb.get().country)
+    }
+
+    @Test
+    fun updateCroquetteNotFound() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo croquettes.")
+        val token = createAuthToken(user, jwtService)
+        val croquette = savedCroquettes.last()
+        val croquetteId = croquette.id ?: fail("Error while setting up demo croquettes.")
+
+        val croquetteUpdate = CroquetteUpdateRequest(
+            name = "A new name",
+            description = "A new description"
+        )
+
+        webTestClient
+            .put()
+            .uri("$endpoint/${croquetteId + 10}")
+            .bodyValue(croquetteUpdate)
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
     }
 
     @Test
@@ -342,7 +374,6 @@ class CroquetteControllerIntegrationTest {
         assertEquals(croquette.country, croquetteInDb.get().country)
     }
 
-
     @Test
     fun deleteCroquette() {
         val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo croquettes.")
@@ -359,6 +390,21 @@ class CroquetteControllerIntegrationTest {
 
         val croquetteInDb = croquetteRepository.findById(croquetteId)
         assertTrue(!croquetteInDb.isPresent)
+    }
+
+    @Test
+    fun deleteCroquetteNotFound() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo croquettes.")
+        val token = createAuthToken(user, jwtService)
+        val croquette = savedCroquettes.last()
+        val croquetteId = croquette.id ?: fail("Error while setting up demo croquettes.")
+
+        webTestClient
+            .delete()
+            .uri("$endpoint/${croquetteId + 10}")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
     }
 
     @Test

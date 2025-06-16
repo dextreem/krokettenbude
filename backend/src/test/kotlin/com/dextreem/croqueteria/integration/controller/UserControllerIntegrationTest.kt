@@ -52,7 +52,7 @@ class UserControllerIntegrationTest {
     }
 
     @AfterEach
-    fun clearDBs(){
+    fun clearDBs() {
         userRepository.deleteAll()
     }
 
@@ -105,7 +105,7 @@ class UserControllerIntegrationTest {
             password = "whereDidYouComeAndWhereDidYouGo?"
         )
 
-        val savedUser = webTestClient
+        webTestClient
             .post()
             .uri("$endpoint/login")
             .bodyValue(userLoginRequest)
@@ -115,7 +115,7 @@ class UserControllerIntegrationTest {
 
     @Test
     fun getAllUsersManager() {
-        val user = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
 
         val result = webTestClient
@@ -133,7 +133,7 @@ class UserControllerIntegrationTest {
 
     @Test
     fun getAllUsersUser() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
 
         val result = webTestClient
@@ -160,8 +160,8 @@ class UserControllerIntegrationTest {
 
     @Test
     fun getSingleUserManager() {
-        val user = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
-        val otherUser = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val otherUser = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
 
         val result = webTestClient
@@ -178,9 +178,23 @@ class UserControllerIntegrationTest {
     }
 
     @Test
+    fun getSingleUserNotFound() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val otherUser = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val token = createAuthToken(user, jwtService)
+
+        webTestClient
+            .get()
+            .uri("$endpoint/${otherUser.id?.plus(10)}")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
     fun getSingleUserUser() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
-        val otherUser = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val otherUser = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
 
         webTestClient
@@ -193,7 +207,7 @@ class UserControllerIntegrationTest {
 
     @Test
     fun getOwnUserManager() {
-        val user = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
 
         val result = webTestClient
@@ -211,7 +225,7 @@ class UserControllerIntegrationTest {
 
     @Test
     fun getOwnUserUser() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
 
         val result = webTestClient
@@ -241,7 +255,7 @@ class UserControllerIntegrationTest {
 
     @Test
     fun updateUser() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
         val userId = user.id ?: fail("Error while setting up demo users.")
         val beforeInDB = userRepository.findById(userId)
@@ -267,10 +281,29 @@ class UserControllerIntegrationTest {
     }
 
     @Test
-    fun updateUserByManager() {
-        val user = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+    fun updateUserNotFound() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
-        val otherUser = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val userId = user.id ?: fail("Error while setting up demo users.")
+
+        val userUpdate = UserUpdateRequest(
+            password = "newPassword"
+        )
+
+        webTestClient
+            .put()
+            .uri("$endpoint/${userId + 10}")
+            .bodyValue(userUpdate)
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
+    fun updateUserByManager() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val token = createAuthToken(user, jwtService)
+        val otherUser = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val beforeInDB = userRepository.findById(otherUser.id!!)
 
         val userUpdate = UserUpdateRequest(
@@ -316,9 +349,9 @@ class UserControllerIntegrationTest {
 
     @Test
     fun updateUserForbidden() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
-        val otherUser = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val otherUser = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val beforeInDB = userRepository.findById(otherUser.id!!)
 
         val userUpdate = UserUpdateRequest(
@@ -337,9 +370,10 @@ class UserControllerIntegrationTest {
         assertTrue(userInDb.isPresent)
         assertEquals(beforeInDB.get().password, userInDb.get().password)
     }
+
     @Test
     fun deleteUser() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
         val userId = user.id ?: fail("Error while setting up demo users.")
 
@@ -355,10 +389,24 @@ class UserControllerIntegrationTest {
     }
 
     @Test
-    fun deleteUserByManager() {
-        val user = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+    fun deleteUserNotFound() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
-        val otherUser = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val userId = user.id ?: fail("Error while setting up demo users.")
+
+        webTestClient
+            .delete()
+            .uri("$endpoint/${userId + 10}")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
+    fun deleteUserByManager() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val token = createAuthToken(user, jwtService)
+        val otherUser = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
 
         webTestClient
             .delete()
@@ -388,9 +436,9 @@ class UserControllerIntegrationTest {
 
     @Test
     fun deleteUserForbidden() {
-        val user = savedUsers.find{it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
         val token = createAuthToken(user, jwtService)
-        val otherUser = savedUsers.find{it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val otherUser = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
 
         webTestClient
             .delete()

@@ -99,6 +99,24 @@ class RatingControllerIntegrationTest {
     }
 
     @Test
+    fun addRatingNotFound() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
+
+        val ratingCreateRequest = RatingCreateRequest(
+            croquetteId = savedCroquettes.last().id!! + 10,
+            rating = 5
+        )
+
+        webTestClient
+            .post()
+            .uri(endpoint)
+            .header("Authorization", "Bearer $token")
+            .bodyValue(ratingCreateRequest)
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
     fun addRatingUnauthorized() {
         val ratingCreateRequest = RatingCreateRequest(
             croquetteId = 42,
@@ -151,6 +169,21 @@ class RatingControllerIntegrationTest {
     }
 
     @Test
+    fun getAllRatingsForCroquetteNotFound() {
+        val croquetteId = savedRatings.last().croquette?.id ?: fail("Issue while setting up demo ratings")
+
+        val uri = UriComponentsBuilder.fromUriString(endpoint)
+            .queryParam("croquette_id", croquetteId + 10)
+            .toUriString()
+
+        webTestClient
+            .get()
+            .uri(uri)
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
     fun updateRating() {
         val user = savedUsers.first()
         val token = createAuthToken(user, jwtService)
@@ -176,6 +209,26 @@ class RatingControllerIntegrationTest {
         assertTrue(ratingInDb.isPresent)
         assertEquals(ratingUpdate.rating, ratingInDb.get().rating)
         assertEquals(ratingUpdate.rating, result?.rating)
+    }
+
+    @Test
+    fun updateRatingNotFound() {
+        val user = savedUsers.first()
+        val token = createAuthToken(user, jwtService)
+        val ratingId =
+            savedRatings.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo ratings")
+
+        val ratingUpdate = RatingUpdateRequest(
+            rating = 4
+        )
+
+        webTestClient
+            .put()
+            .uri("$endpoint/${ratingId + 100}")
+            .bodyValue(ratingUpdate)
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
     }
 
 
@@ -243,6 +296,22 @@ class RatingControllerIntegrationTest {
         val ratingInDb = ratingRepository.findById(ratingId)
         assertTrue(!ratingInDb.isPresent)
         assertEquals(savedRatings.size - 1, ratingRepository.findAll().toList().size)
+    }
+
+    @Test
+    fun deleteRatingNotFound() {
+        val user = savedUsers.first()
+        val token = createAuthToken(user, jwtService)
+        val ratingId =
+            savedRatings.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo ratings")
+
+
+        webTestClient
+            .delete()
+            .uri("$endpoint/${ratingId+100}")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
     }
 
     @Test

@@ -99,6 +99,24 @@ class CommentControllerIntegrationTest {
     }
 
     @Test
+    fun addCommentNotFound() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
+
+        val commentCreateRequest = CommentCreateRequest(
+            croquetteId = savedCroquettes.last().id!! + 10,
+            comment = "Some Comment"
+        )
+
+        webTestClient
+            .post()
+            .uri(endpoint)
+            .header("Authorization", "Bearer $token")
+            .bodyValue(commentCreateRequest)
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
     fun addCommentUnauthorized() {
         val commentCreateRequest = CommentCreateRequest(
             croquetteId = 42,
@@ -151,6 +169,21 @@ class CommentControllerIntegrationTest {
     }
 
     @Test
+    fun getAllCommentsForCroquetteNotFound() {
+        val croquetteId = savedComments.last().croquette?.id ?: fail("Issue while setting up demo comments")
+
+        val uri = UriComponentsBuilder.fromUriString(endpoint)
+            .queryParam("croquette_id", croquetteId + 10)
+            .toUriString()
+
+        webTestClient
+            .get()
+            .uri(uri)
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+    @Test
     fun updateComment() {
         val user = savedUsers.first()
         val token = createAuthToken(user, jwtService)
@@ -176,6 +209,26 @@ class CommentControllerIntegrationTest {
         assertTrue(commentInDb.isPresent)
         assertEquals(commentUpdate.comment, commentInDb.get().comment)
         assertEquals(commentUpdate.comment, result?.comment)
+    }
+
+    @Test
+    fun updateCommentNotFound() {
+        val user = savedUsers.first()
+        val token = createAuthToken(user, jwtService)
+        val commentId =
+            savedComments.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo comments")
+
+        val commentUpdate = CommentUpdateRequest(
+            comment = "Some modified comment"
+        )
+
+        webTestClient
+            .put()
+            .uri("$endpoint/${commentId + 100}")
+            .bodyValue(commentUpdate)
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
     }
 
 
@@ -243,6 +296,22 @@ class CommentControllerIntegrationTest {
         val commentInDb = commentRepository.findById(commentId)
         assertTrue(!commentInDb.isPresent)
         assertEquals(savedComments.size - 1, commentRepository.findAll().toList().size)
+    }
+
+    @Test
+    fun deleteCommentNotFound() {
+        val user = savedUsers.first()
+        val token = createAuthToken(user, jwtService)
+        val commentId =
+            savedComments.find { it.user?.id == user.id }?.id ?: fail("Issue while setting up demo comments")
+
+
+        webTestClient
+            .delete()
+            .uri("$endpoint/${commentId + 100}")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isNotFound
     }
 
     @Test
