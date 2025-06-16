@@ -1,0 +1,51 @@
+name: Backend CI and Docker Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Run unit tests
+        working-directory: backend
+        run: ./gradlew test
+
+      - name: Run integration tests
+        working-directory: backend
+        run: ./gradlew integrationTest
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: croqueteria-backend-ci:latest
+          outputs: type=docker,dest=/tmp/image.tar
+
+      - name: Upload Docker image as artifact (GitHub only)
+        if: env.BUILD_ENVIRONMENT == 'GITHUB'
+        uses: actions/upload-artifact@v4
+        with:
+          name: croqueteria-backend-ci-image
+          path: /tmp/image.tar
+
+      - name: Move image tar to workspace (local only)
+        if: ${{ !env.BUILD_ENVIRONMENT || env.BUILD_ENVIRONMENT != 'GITHUB' }}
+        run: mv /tmp/image.tar $GITHUB_WORKSPACE/croqueteria-backend-ci-image.tar
