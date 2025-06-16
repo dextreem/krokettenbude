@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.5.0"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
+	id("jacoco")
 }
 
 group = "com.dextreem"
@@ -65,9 +66,35 @@ tasks.withType<Test> {
 
 	// Fix Mockito warning
 	jvmArgs("-javaagent:${mockitoAgent.asPath}")
+
+	finalizedBy("jacocoTestReport") // ✅ Generate report after tests
 }
 
+jacoco {
+	toolVersion = "0.8.11"
+}
 
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.required.set(true)
+		html.required.set(true)
+	}
+	classDirectories.setFrom(
+		files(classDirectories.files.map {
+			fileTree(it) {
+				exclude(
+					"**/entity/**",
+					"**/request/**",
+					"**/response/**",
+					"**/exception/**",
+					"**/*LLM*",
+					"com/dextreem/croqueteria/CroqueteriaApplication*"
+				)
+			}
+		})
+	)
+}
 tasks.register<Test>("unitTest") {
 	description = "Runs unit tests."
 	group = "verification"

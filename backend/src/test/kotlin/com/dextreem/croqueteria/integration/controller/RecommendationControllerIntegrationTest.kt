@@ -12,6 +12,7 @@ import com.dextreem.croqueteria.repository.CommentRepository
 import com.dextreem.croqueteria.repository.CroquetteRepository
 import com.dextreem.croqueteria.repository.RatingRepository
 import com.dextreem.croqueteria.repository.UserRepository
+import com.dextreem.croqueteria.request.CroquetteLLMRecommendationRequest
 import com.dextreem.croqueteria.request.CroquetteRecommendationRequest
 import com.dextreem.croqueteria.response.CroquetteRecommendationResponse
 import org.junit.jupiter.api.AfterEach
@@ -124,6 +125,20 @@ class RecommendationControllerIntegrationTest {
 
         assertTrue(result.isNotEmpty())
         assertNotEquals(0, result.first().score) // Perfect match is equal to a 0 score
+    }
+
+    @Test
+    fun requestByLlmNotAvailable() {
+        val croquetteLLMRecommendationRequest = CroquetteLLMRecommendationRequest(
+            description = "I really like the classic croquettes. I'm a huge fan of spicy food, but don't like it crunchy at all. Also, I am not vegan."
+        )
+
+        webTestClient
+            .post()
+            .uri("$endpoint/text")
+            .bodyValue(croquetteLLMRecommendationRequest)
+            .exchange()
+            .expectStatus().isForbidden
     }
 
 }

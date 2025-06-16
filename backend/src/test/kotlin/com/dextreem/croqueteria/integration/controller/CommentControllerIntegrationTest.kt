@@ -3,6 +3,7 @@ package com.dextreem.croqueteria.integration.controller
 import com.dextreem.croqueteria.entity.Comment
 import com.dextreem.croqueteria.entity.Croquette
 import com.dextreem.croqueteria.entity.User
+import com.dextreem.croqueteria.entity.UserRole
 import com.dextreem.croqueteria.integration.utils.commentEntityList
 import com.dextreem.croqueteria.integration.utils.createAuthToken
 import com.dextreem.croqueteria.integration.utils.croquetteEntityList
@@ -13,6 +14,7 @@ import com.dextreem.croqueteria.repository.UserRepository
 import com.dextreem.croqueteria.request.CommentCreateRequest
 import com.dextreem.croqueteria.request.CommentUpdateRequest
 import com.dextreem.croqueteria.response.CommentResponse
+import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.service.JwtService
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -145,6 +147,26 @@ class CommentControllerIntegrationTest {
             .responseBody
 
         assertEquals(savedComments.size, result?.size)
+    }
+
+    @Test
+    fun getSingleRating() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val token = createAuthToken(user, jwtService)
+        val ratingId = savedComments.first().id ?: fail("Issue while setting up demo ratings")
+
+        val result = webTestClient
+            .get()
+            .uri("$endpoint/$ratingId")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(CommentResponse::class.java)
+            .returnResult()
+            .responseBody
+
+        assertEquals(savedComments.first().comment, result?.comment)
+        assertEquals(savedComments.first().user?.id, result?.userId)
     }
 
     @Test

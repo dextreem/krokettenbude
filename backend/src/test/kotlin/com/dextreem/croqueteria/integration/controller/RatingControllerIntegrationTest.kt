@@ -3,6 +3,7 @@ package com.dextreem.croqueteria.integration.controller
 import com.dextreem.croqueteria.entity.Croquette
 import com.dextreem.croqueteria.entity.Rating
 import com.dextreem.croqueteria.entity.User
+import com.dextreem.croqueteria.entity.UserRole
 import com.dextreem.croqueteria.integration.utils.createAuthToken
 import com.dextreem.croqueteria.integration.utils.croquetteEntityList
 import com.dextreem.croqueteria.integration.utils.ratingEntityList
@@ -166,6 +167,40 @@ class RatingControllerIntegrationTest {
 
         assertTrue(result.isNotEmpty())
         assertEquals(savedRatings.filter { it.croquette?.id == croquetteId }.size, result.size)
+    }
+
+    @Test
+    fun getSingleRating() {
+        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val token = createAuthToken(user, jwtService)
+        val ratingId = savedRatings.first().id ?: fail("Issue while setting up demo ratings")
+
+        val result = webTestClient
+            .get()
+            .uri("$endpoint/$ratingId")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(RatingResponse::class.java)
+            .returnResult()
+            .responseBody
+
+        assertEquals(savedRatings.first().rating, result?.rating)
+        assertEquals(savedRatings.first().user?.id, result?.userId)
+    }
+
+    @Test
+    fun getSingleRatingForbidden() {
+        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+        val token = createAuthToken(user, jwtService)
+        val ratingId = savedRatings.first().id ?: fail("Issue while setting up demo ratings")
+
+        val result = webTestClient
+            .get()
+            .uri("$endpoint/$ratingId")
+            .header("Authorization", "Bearer $token")
+            .exchange()
+            .expectStatus().isForbidden
     }
 
     @Test
