@@ -36,7 +36,7 @@ export default function CreateCroquette() {
 
   const defaultValues: CroquetteCreateRequest = {
     ...rest,
-    form: form as CroquetteCreateRequestFormEnum, // cast string to enum
+    form: form as CroquetteCreateRequestFormEnum,
   };
 
   const {

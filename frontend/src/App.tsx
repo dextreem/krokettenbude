@@ -12,6 +12,7 @@ import CroquetteDetails from "./pages/croquetteDetails/CroquetteDetails";
 import LoginSignup from "./pages/loginSignup/LoginSignup";
 import { Toaster } from "react-hot-toast";
 import CreateCroquette from "./pages/croquetteCreate/CreateCroquette";
+import ProtectedRoute from "./layout/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,17 +43,25 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            {/* Unprotected Routes (Everything except user page) */}
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                path={ROUTES.CREATE_CROQUETTE}
+                element={<CreateCroquette />}
+              />
+            </Route>
             <Route element={<AppLayout />}>
               <Route
                 index
                 element={<Navigate replace to={ROUTES.CROQUETTES} />}
               />
               <Route path={ROUTES.CROQUETTES} element={<Croquettes />} />
-              <Route
-                path={ROUTES.CREATE_CROQUETTE}
-                element={<CreateCroquette />}
-              />
+
               <Route
                 path={`${ROUTES.CROQUETTES}/:id`}
                 element={<CroquetteDetails />}
