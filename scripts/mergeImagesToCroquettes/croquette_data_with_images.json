@@ -7,7 +7,7 @@
     "spiciness": 2,
     "vegan": true,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/30/cat-8716341_1280.png"
   },
   {
     "country": "Belgium",
@@ -17,7 +17,7 @@
     "spiciness": 2,
     "vegan": true,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/04/26/20/06/entries-6209894_1280.jpg"
   },
   {
     "country": "Germany, Austria, and Switzerland",
@@ -27,7 +27,7 @@
     "spiciness": 5,
     "vegan": true,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2020/12/22/18/03/steak-5852928_1280.jpg"
   },
   {
     "country": "Hungary",
@@ -37,7 +37,7 @@
     "spiciness": 2,
     "vegan": false,
     "form": "ball",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
   },
   {
     "country": "Italy",
@@ -47,7 +47,7 @@
     "spiciness": 4,
     "vegan": true,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/03/07/09/09/bread-4039758_1280.jpg"
   },
   {
     "country": "Ireland",
@@ -57,7 +57,7 @@
     "spiciness": 1,
     "vegan": true,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/cats-8716342_1280.png"
   },
   {
     "country": "The Netherlands",
@@ -67,7 +67,7 @@
     "spiciness": 3,
     "vegan": false,
     "form": "ball",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2017/04/23/23/53/dish-2255120_1280.jpg"
   },
   {
     "country": "Poland",
@@ -77,7 +77,7 @@
     "spiciness": 5,
     "vegan": false,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/06/28/19/02/croquettes-1485278_1280.jpg"
   },
   {
     "country": "Portugal",
@@ -87,7 +87,7 @@
     "spiciness": 2,
     "vegan": true,
     "form": "disk",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/03/07/09/09/bread-4039758_1280.jpg"
   },
   {
     "country": "Russia",
@@ -97,7 +97,7 @@
     "spiciness": 3,
     "vegan": true,
     "form": "ball",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/10/11/09/07/croquettes-6699911_1280.jpg"
   },
   {
     "country": "Spain",
@@ -107,7 +107,7 @@
     "spiciness": 3,
     "vegan": true,
     "form": "disk",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2015/10/28/19/30/rissole-1011215_1280.jpg"
   },
   {
     "country": "United Kingdom",
@@ -117,7 +117,7 @@
     "spiciness": 5,
     "vegan": true,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
   },
   {
     "country": "India",
@@ -127,7 +127,7 @@
     "spiciness": 3,
     "vegan": true,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/04/26/20/06/entries-6209894_1280.jpg"
   },
   {
     "country": "Sri Lanka",
@@ -137,7 +137,7 @@
     "spiciness": 4,
     "vegan": true,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/03/07/09/09/bread-4039758_1280.jpg"
   },
   {
     "country": "China",
@@ -147,7 +147,7 @@
     "spiciness": 3,
     "vegan": false,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/bowl-8716346_1280.png"
   },
   {
     "country": "Indonesia",
@@ -157,7 +157,7 @@
     "spiciness": 3,
     "vegan": true,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/07/03/20/42/croquettes-6384836_1280.jpg"
   },
   {
     "country": "Japan",
@@ -167,7 +167,7 @@
     "spiciness": 1,
     "vegan": true,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/11/23/15/37/appetizers-1853581_1280.jpg"
   },
   {
     "country": "South Korea",
@@ -177,7 +177,7 @@
     "spiciness": 5,
     "vegan": false,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/cats-8716342_1280.png"
   },
   {
     "country": "Puerto Rico",
@@ -187,7 +187,7 @@
     "spiciness": 5,
     "vegan": false,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
   },
   {
     "country": "Cuba",
@@ -197,7 +197,7 @@
     "spiciness": 4,
     "vegan": true,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2018/06/14/13/03/cat-3474821_1280.jpg"
   },
   {
     "country": "Dominican Republic",
@@ -207,7 +207,7 @@
     "spiciness": 5,
     "vegan": true,
     "form": "disk",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
   },
   {
     "country": "Aruba",
@@ -217,7 +217,7 @@
     "spiciness": 1,
     "vegan": false,
     "form": "ball",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/04/26/20/06/entries-6209894_1280.jpg"
   },
   {
     "country": "Mexico",
@@ -227,7 +227,7 @@
     "spiciness": 3,
     "vegan": false,
     "form": "ball",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2017/09/28/13/35/croquettes-2795548_1280.jpg"
   },
   {
     "country": "United States",
@@ -237,7 +237,7 @@
     "spiciness": 4,
     "vegan": true,
     "form": "disk",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/07/03/20/42/croquettes-6384836_1280.jpg"
   },
   {
     "country": "Brazil",
@@ -247,7 +247,7 @@
     "spiciness": 3,
     "vegan": true,
     "form": "disk",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2015/10/28/19/30/rissole-1011215_1280.jpg"
   },
   {
     "country": "Ecuador",
@@ -257,7 +257,7 @@
     "spiciness": 2,
     "vegan": true,
     "form": "disk",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2023/09/01/04/12/fritters-8226194_1280.jpg"
   },
   {
     "country": "Uruguay",
@@ -267,7 +267,7 @@
     "spiciness": 3,
     "vegan": false,
     "form": "cylindric",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/bowl-8716346_1280.png"
   },
   {
     "country": "Colombia",
@@ -277,6 +277,6 @@
     "spiciness": 2,
     "vegan": true,
     "form": "oval",
-    "imageUrl": "http://someimage"
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/cats-8716342_1280.png"
   }
 ]
