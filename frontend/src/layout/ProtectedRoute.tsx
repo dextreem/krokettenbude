@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import styled from "styled-components";
 import { useEffect, type JSX, type ReactNode } from "react";
-import useSessionState from "../stores/sessionState";
+import useSessionState from "../stores/SessionState";
 
 const FullPage = styled.div`
   height: 100vh;

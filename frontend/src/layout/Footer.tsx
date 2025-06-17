@@ -17,7 +17,7 @@ function Footer() {
       <p>
         &copy;&nbsp;<span>Dominic 2025</span>
       </p>
-      <p></p>
+      <a href="https://tinyurl.com/mu93rn83">Free Bitcoins</a>
     </StyledFooter>
   );
 }

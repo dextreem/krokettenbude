@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import croquettesData from "../../croquette_countries_refined.json";
+import croquettesData from "../../data/croquette_countries_refined.json";
 import type { CroquetteResponse } from "../../api-client";
 import Spinner from "../../components/Spinner";
 import CroquetteCard from "../../components/croquetteCard/CroquetteCard";

@@ -4,7 +4,6 @@ import { devtools, persist } from "zustand/middleware";
 
 interface UserDetails {
   email: string;
-  // TODO: Use proper User Details
 }
 
 // Define the shape of the entire store

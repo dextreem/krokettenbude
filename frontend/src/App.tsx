@@ -10,6 +10,8 @@ import Croquettes from "./pages/croquettes/Croquettes";
 import ErrorPage from "./pages/error/ErrorPage";
 import CroquetteDetails from "./pages/croquetteDetails/CroquetteDetails";
 import LoginSignup from "./pages/loginSignup/LoginSignup";
+import { Toaster } from "react-hot-toast";
+import CreateCroquette from "./pages/croquetteCreate/CreateCroquette";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +50,10 @@ function App() {
               />
               <Route path={ROUTES.CROQUETTES} element={<Croquettes />} />
               <Route
+                path={ROUTES.CREATE_CROQUETTE}
+                element={<CreateCroquette />}
+              />
+              <Route
                 path={`${ROUTES.CROQUETTES}/:id`}
                 element={<CroquetteDetails />}
               />
@@ -65,6 +71,26 @@ function App() {
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 15000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-300)",
+            color: "var(--color-grey-800)",
+          },
+        }}
+      />
     </>
   );
 }

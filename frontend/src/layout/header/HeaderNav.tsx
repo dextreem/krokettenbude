@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import useSessionState from "../../stores/sessionState";
+import useSessionState from "../../stores/SessionState";
 import ButtonIcon from "../../components/ButtonIcon";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkmodeToggle";
 import { ROUTES } from "../../utils/constants";
-import { HiUserAdd } from "react-icons/hi";
+import { HiLogin, HiUserAdd } from "react-icons/hi";
 
 const Nav = styled.header`
   padding: 1.2rem 2.4rem;
@@ -64,7 +64,7 @@ function HeaderNav() {
           onClick={onUserClicked}
         >
           <UserIcon>
-            <span>Hello Geralt</span>
+            <span>Hello {userDetails.email}</span>
           </UserIcon>
         </UserIconButton>
       )}
@@ -72,10 +72,21 @@ function HeaderNav() {
       {!isLoggedIn && (
         <Li>
           <ButtonIcon
-            title="Sign Uü"
-            onClick={() => navigate(`/${ROUTES.LOGIN}`)}
+            title="Sign Up"
+            onClick={() => navigate(`/${ROUTES.SIGNUP}`)}
           >
             <HiUserAdd />
+          </ButtonIcon>
+        </Li>
+      )}
+
+      {!isLoggedIn && (
+        <Li>
+          <ButtonIcon
+            title="Login"
+            onClick={() => navigate(`/${ROUTES.LOGIN}`)}
+          >
+            <HiLogin />
           </ButtonIcon>
         </Li>
       )}

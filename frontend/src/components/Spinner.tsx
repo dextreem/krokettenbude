@@ -14,11 +14,7 @@ const Spinner = styled.div`
   aspect-ratio: 1;
   border-radius: 50%;
 
-  background: radial-gradient(
-        farthest-side,
-        var(--dlt-color-global-primary-default) 94%,
-        #0000
-      )
+  background: radial-gradient(farthest-side, var(--color-brand-200) 94%, #0000)
       top/10px 10px no-repeat,
     conic-gradient(#0000 30%, var(--color-brand-fixed-medium));
 
