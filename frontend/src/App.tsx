@@ -2,13 +2,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./layout/ProtectedRoute";
 import AppLayout from "./layout/AppLayout";
 import { useEffect } from "react";
 import useDarkModeState from "./stores/DarkmodeState";
 import { ROUTES } from "./utils/constants";
 import Croquettes from "./pages/croquettes/Croquettes";
 import ErrorPage from "./pages/error/ErrorPage";
+import CroquetteDetails from "./pages/croquetteDetails/CroquetteDetails";
+import LoginSignup from "./pages/loginSignup/LoginSignup";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,19 +40,25 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            {/* Protected Routes (User page) */}
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Navigate replace to={ROUTES.HOME} />} />
-            </Route>
             {/* Unprotected Routes (Everything except user page) */}
             <Route element={<AppLayout />}>
-              <Route path={ROUTES.HOME} element={<Croquettes />} />
+              <Route
+                index
+                element={<Navigate replace to={ROUTES.CROQUETTES} />}
+              />
+              <Route path={ROUTES.CROQUETTES} element={<Croquettes />} />
+              <Route
+                path={`${ROUTES.CROQUETTES}/:id`}
+                element={<CroquetteDetails />}
+              />
+              <Route
+                path={ROUTES.LOGIN}
+                element={<LoginSignup mode="login" />}
+              />
+              <Route
+                path={ROUTES.SIGNUP}
+                element={<LoginSignup mode="signup" />}
+              />
             </Route>
             {/* Fallback for every other page */}
             <Route path="*" element={<ErrorPage />} />

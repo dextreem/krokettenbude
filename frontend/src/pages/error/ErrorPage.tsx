@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Heading from "../../components/Heading";
 import LinkButton from "../../components/LinkButton";
+import { ROUTES } from "../../utils/constants";
 
 const StyledErrorPage = styled.main`
   display: flex;
@@ -18,7 +19,7 @@ function ErrorPage() {
   return (
     <StyledErrorPage>
       <Heading as="h1">Oooops! Something went wrong!</Heading>
-      <LinkButton to="/home">Back to Main Page</LinkButton>
+      <LinkButton to={`/${ROUTES.CROQUETTES}`}>Back to Main Page</LinkButton>
     </StyledErrorPage>
   );
 }

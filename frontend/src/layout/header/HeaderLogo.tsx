@@ -26,12 +26,12 @@ function HeaderLogo() {
   const navigate = useNavigate();
 
   function onLogoClicked() {
-    navigate(`/${ROUTES.HOME}`);
+    navigate(`/${ROUTES.CROQUETTES}`);
   }
 
   return (
     <StyledLogo onClick={onLogoClicked}>
-      <Logo src="croqueteria_logo.png" alt="Croqueteria Logo" />
+      <Logo src="/croqueteria_logo.png" alt="Croqueteria Logo" />
       <Span>Croqueteria</Span>
     </StyledLogo>
   );
