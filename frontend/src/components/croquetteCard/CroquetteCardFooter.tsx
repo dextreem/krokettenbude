@@ -2,6 +2,7 @@ import { HiStar } from "react-icons/hi2";
 import styled from "styled-components";
 import type { CroquetteResponse } from "../../api-client";
 import { getRandomDouble } from "../../utils/textUtils";
+import { getCroquetteFormEmoji } from "../../utils/croquetteForms";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -21,6 +22,11 @@ const Rating = styled.div`
   margin-left: auto;
 `;
 
+const NoRating = styled.span`
+  font-size: small;
+  font-style: italic;
+`;
+
 const crunchEmojis = ["🍟", "🍟🍟", "🍟🍟🍟", "🍟🍟🍟🍟", "🍟🍟🍟🍟🍟"];
 const spiceEmojis = ["🌶️", "🌶️🌶️", "🌶️🌶️🌶️", "🌶️🌶️🌶️🌶️", "🌶️🌶️🌶️🌶️🌶️"];
 
@@ -32,6 +38,9 @@ function CroquetteCardFooter({
   return (
     <StyledDiv>
       <Details>
+        <span title={`Form: ${croquetteData.form}`}>
+          {getCroquetteFormEmoji(croquetteData.form)}
+        </span>
         <span title={`Crunchiness: ${croquetteData.crunchiness}`}>
           {crunchEmojis[croquetteData.crunchiness - 1]}
         </span>
@@ -42,12 +51,14 @@ function CroquetteCardFooter({
           <span title="This croquette is vegan!">🌱</span>
         )}
       </Details>
-      <Rating>
-        <HiStar />
-        {
-          croquetteData.averageRating || getRandomDouble() // TODO: remove fallback
-        }
-      </Rating>
+      {croquetteData.averageRating ? (
+        <Rating>
+          <HiStar />
+          {croquetteData.averageRating.toFixed(1)}
+        </Rating>
+      ) : (
+        <NoRating>Not yet rated</NoRating>
+      )}
     </StyledDiv>
   );
 }

@@ -1,18 +1,17 @@
-import { useParams } from "react-router-dom";
-import croquettesData from "../../data/croquette_countries_refined.json";
-import type { CroquetteResponse } from "../../api-client";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import CroquetteCard from "../../components/croquetteCard/CroquetteCard";
 import styled from "styled-components";
 import CroquetteRating from "./CroquetteRating";
 import CroquetteComments from "./CroquetteComments";
+import { useGetSingleCroquette } from "../../hooks/api/useCroquetteApi";
+import { ROUTES } from "../../utils/constants";
 
 const StyledDiv = styled.div`
-  display: grid;
-  gap: 2.4rem;
   margin: auto;
-  padding-top: 2.4rem;
-  padding-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
   max-width: 100rem;
 `;
 
@@ -27,13 +26,16 @@ const InteractionDiv = styled.div`
   gap: 4.8rem;
 `;
 
-const croquettes: CroquetteResponse[] = croquettesData;
-
 function CroquetteDetails() {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const croquette = croquettes.find((c) => c.id == id);
+  const parsed = Number(id);
+  if (isNaN(parsed)) navigate(`/${ROUTES.CROQUETTES}`);
 
-  if (!croquette) return <Spinner />;
+  const { croquette, isCroquetteLoading } = useGetSingleCroquette(parsed);
+
+  if (isCroquetteLoading) return <Spinner />;
+  if (!croquette) return <div>Croquette not found :( </div>;
 
   return (
     <StyledDiv>
@@ -42,8 +44,8 @@ function CroquetteDetails() {
       </CardWrapper>
 
       <InteractionDiv>
-        <CroquetteRating />
-        <CroquetteComments croquetteId={croquette.id} />
+        <CroquetteRating croquetteId={parsed} />
+        <CroquetteComments croquetteId={parsed} />
       </InteractionDiv>
     </StyledDiv>
   );

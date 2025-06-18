@@ -20,11 +20,28 @@ export function useGetCroquettes() {
   };
 }
 
+export function useGetSingleCroquette(croquetteId: number) {
+  const { croquetteApi } = useApiEndpoints();
+
+  const { isLoading, data, error, refetch } = useQuery({
+    queryKey: ["croquette", croquetteId],
+    queryFn: async () =>
+      await croquetteApi.retrieveCroquetteById({ croquetteId }),
+  });
+
+  return {
+    isCroquetteLoading: isLoading,
+    croquette: data,
+    error,
+    refetch,
+  };
+}
+
 export function useCreateCroquette() {
   const navigate = useNavigate();
   const { croquetteApi } = useApiEndpoints();
 
-  const postLoginMutation = useMutation({
+  const postCroquetteMutation = useMutation({
     mutationFn: async (requestData: AddCroquetteRequest) =>
       await croquetteApi.addCroquette(requestData),
     onSuccess: () => {
@@ -35,8 +52,8 @@ export function useCreateCroquette() {
   });
 
   return {
-    createCroquette: postLoginMutation.mutate,
-    isCreatingCroquette: postLoginMutation.isPending,
-    creationError: postLoginMutation.error,
+    createCroquette: postCroquetteMutation.mutate,
+    isCreatingCroquette: postCroquetteMutation.isPending,
+    creationError: postCroquetteMutation.error,
   };
 }

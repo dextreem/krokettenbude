@@ -190,6 +190,14 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/api/v1/ratings/{croquette_id}`.replace(`{${"croquette_id"}}`, encodeURIComponent(String(requestParameters['croquetteId']))),
             method: 'GET',

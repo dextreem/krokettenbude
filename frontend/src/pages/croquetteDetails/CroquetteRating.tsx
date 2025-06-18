@@ -1,12 +1,19 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import { HiStar } from "react-icons/hi";
+import {
+  useCreateRating,
+  useGetUserRatingForCroquette,
+  useUpdateRating,
+} from "../../hooks/api/useRatingApi";
+import Spinner from "../../components/Spinner";
+import useSessionState from "../../stores/SessionState";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../utils/constants";
 
 const Wrapper = styled.div`
   display: flex;
   gap: 0.4rem;
-  align-items: center;
-  margin-left: auto;
+  margin: auto;
 `;
 
 const StarIcon = styled(HiStar)<{ $filled: boolean }>`
@@ -21,6 +28,14 @@ const StarIcon = styled(HiStar)<{ $filled: boolean }>`
   }
 `;
 
+const SyledLink = styled(Link)`
+  color: var(--color-brand-600);
+
+  &:hover {
+    color: var(--color-brand-500);
+  }
+`;
+
 const ratingInWords = [
   "Awful",
   "Not delicious",
@@ -29,25 +44,57 @@ const ratingInWords = [
   "A new prince 🦌 was born",
 ];
 
-const CroquetteRating: React.FC = () => {
-  const [rating, setRating] = useState<number>(0); // TODO: Replace by API call
+function CroquetteRating({ croquetteId }: { croquetteId: number }) {
+  const userDetails = useSessionState((state) => state.userDetails);
+  const isLoggedIn = userDetails ? true : false;
+  const { rating, isRatingLoading } = useGetUserRatingForCroquette(croquetteId);
+  const { createRating } = useCreateRating();
+  const { updateRating } = useUpdateRating(croquetteId);
+
+  if (isRatingLoading) return <Spinner />;
+
+  const ratingValue = rating ? rating.rating : 0;
+
+  function handleOnClickRating(newRating: number) {
+    if (ratingValue > 0) {
+      updateRating({
+        ratingId: rating?.id || 0,
+        ratingUpdateRequest: { rating: newRating },
+      });
+    } else {
+      createRating({
+        ratingCreateRequest: { rating: newRating, croquetteId },
+      });
+    }
+  }
 
   return (
     <Wrapper>
-      <span>Rate this Croquette: </span>
-      {[...Array(5)].map((_, i) => {
-        const starIndex = i + 1;
-        return (
-          <StarIcon
-            key={i}
-            $filled={starIndex <= rating}
-            onClick={() => setRating(starIndex)}
-            title={ratingInWords[i]}
-          />
-        );
-      })}
+      {isLoggedIn ? (
+        <>
+          <span>Rate this Croquette: </span>
+          {[...Array(5)].map((_, i) => {
+            const starIndex = i + 1;
+            return (
+              <StarIcon
+                key={i}
+                $filled={starIndex <= ratingValue}
+                onClick={() => handleOnClickRating(starIndex)}
+                title={ratingInWords[i]}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <div>
+          Please&nbsp;<SyledLink to={`/${ROUTES.SIGNUP}`}>sign up</SyledLink>
+          &nbsp;or&nbsp;
+          <SyledLink to={`/${ROUTES.LOGIN}`}>login</SyledLink>&nbsp;to interact
+          with croquette lovers around the world!
+        </div>
+      )}
     </Wrapper>
   );
-};
+}
 
 export default CroquetteRating;

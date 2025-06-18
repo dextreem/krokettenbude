@@ -8,8 +8,10 @@ import { useApiEndpoints } from "./useApi";
 import useSessionState from "../../stores/SessionState";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/constants";
+import toast from "react-hot-toast";
 
 export function useSignup(email: string, password: string) {
+  const navigate = useNavigate();
   const { userApi } = useApiEndpoints();
 
   const requestData: AddUserRequest = {
@@ -23,9 +25,12 @@ export function useSignup(email: string, password: string) {
   const postLoginMutation = useMutation({
     mutationFn: async () => await userApi.addUser(requestData),
     onSuccess: () => {
+      toast.dismiss();
+      toast.success("User successfully created, please login!");
       console.log("User Created");
+      navigate(`/${ROUTES.LOGIN}`);
     },
-    onError: (error) => console.log("Create user failed:", error),
+    onError: (error) => console.error("Create user failed:", error),
   });
 
   return {
@@ -51,11 +56,17 @@ export function useLogin(email: string, password: string) {
       const token = data.token;
       if (token) {
         setToken(token);
-        setUserDetails({ email });
+        setUserDetails({ email: data.email, role: data.role, id: data.id });
         navigate(`/${ROUTES.CROQUETTES}`);
+        toast.dismiss();
+        toast.success(`Hey ${data.email}. Nice to see you around!`);
       }
     },
-    onError: (error) => console.log("Create user failed:", error),
+    onError: (error) => {
+      console.error(`Logging in user ${email} failed:`, error);
+      toast.dismiss();
+      toast.error("Error while logging in. Please check your credentials!");
+    },
   });
 
   return {

@@ -4,6 +4,8 @@ import { devtools, persist } from "zustand/middleware";
 
 interface UserDetails {
   email: string;
+  role: string;
+  id?: number;
 }
 
 // Define the shape of the entire store
