@@ -90,7 +90,7 @@ class CommentServiceImpl(
         logger.info("Rating $commentId successfully deleted.")
     }
 
-    private fun buildNewComment(commentCreateRequest: CommentCreateRequest, user: User, croquette: Croquette):Comment{
+    private fun buildNewComment(commentCreateRequest: CommentCreateRequest, user: User, croquette: Croquette): Comment {
         return Comment(
             id = null,
             comment = commentCreateRequest.comment,
@@ -101,16 +101,18 @@ class CommentServiceImpl(
         )
     }
 
-    private fun buildCommentResponse(comment: Comment): CommentResponse{
+    private fun buildCommentResponse(comment: Comment): CommentResponse {
         return CommentResponse(
             id = comment.id,
             croquetteId = comment.croquette?.id,
             userId = comment.user?.id,
             comment = comment.comment,
+            userName = comment.user?.username,
+            createdAt = comment.createdAt ?: Date()
         )
     }
 
-    private fun mergeToCommentIfExist(commentId: Int, commentUpdateRequest: CommentUpdateRequest): Comment{
+    private fun mergeToCommentIfExist(commentId: Int, commentUpdateRequest: CommentUpdateRequest): Comment {
         val comment = commentRepository.findById(commentId).orElseThrow {
             ResourceNotFoundException("Comment with ID $commentId not found!")
         }

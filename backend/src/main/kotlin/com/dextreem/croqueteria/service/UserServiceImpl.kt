@@ -61,7 +61,12 @@ class UserServiceImpl(
         val token = jwtService.generateToken(mapOf(), user)
 
         logger.info("User ${user.username} successfully logged in.")
-        return LoginResponse(token = token)
+        return LoginResponse(
+            token = token,
+            id = user.id,
+            email = user.username,
+            role = user.role.name
+        )
     }
 
     @Transactional(readOnly = true)
