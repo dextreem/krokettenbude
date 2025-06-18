@@ -22,14 +22,13 @@ import java.util.Date
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(
     name="COMMENTS",
-    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "croquette_id"])]
 )
 data class Comment (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int? = null,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     var comment: String,
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
