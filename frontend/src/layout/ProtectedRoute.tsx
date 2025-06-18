@@ -3,6 +3,7 @@ import Spinner from "../components/Spinner";
 import styled from "styled-components";
 import { useEffect, type JSX, type ReactNode } from "react";
 import useSessionState from "../stores/SessionState";
+import { ROUTES } from "../utils/constants";
 
 const FullPage = styled.div`
   height: 100vh;
@@ -23,7 +24,7 @@ function ProtectedRoute({ children }: ProtectedRouteProps): JSX.Element {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate(`/login`); // TODO: use constant
+      navigate(`/${ROUTES.LOGIN}`);
     }
   }, [isLoggedIn, navigate]);
 

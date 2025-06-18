@@ -6,6 +6,7 @@ import CroquetteRating from "./CroquetteRating";
 import CroquetteComments from "./CroquetteComments";
 import { useGetSingleCroquette } from "../../hooks/api/useCroquetteApi";
 import { ROUTES } from "../../utils/constants";
+import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
   margin: auto;
@@ -42,7 +43,6 @@ function CroquetteDetails() {
       <CardWrapper>
         <CroquetteCard croquetteData={croquette} />
       </CardWrapper>
-
       <InteractionDiv>
         <CroquetteRating croquetteId={parsed} />
         <CroquetteComments croquetteId={parsed} />

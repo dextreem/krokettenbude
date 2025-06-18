@@ -45,7 +45,7 @@ All entities additionally have a `created_at` and `updated_at` field, managed by
 > | id          | Long Int | Primary identifier.                                |
 > | country     | String   | Home of this type of croquette .                   |
 > | name        | String   | The name of the croquette, if available.           |
-> | description | String   | Describes the croquettes and their ingredients.   |
+> | description | String   | Describes the croquettes and their ingredients.    |
 > | crunchiness | Int      | How crunchy is the croquette on a 1-5 scale?       |
 > | spiciness   | Int      | How spicy is the croquette on a 1-5 scale?         |
 > | vegan       | Boolean  | Is it vegan?                                       |
@@ -69,12 +69,12 @@ All entities additionally have a `created_at` and `updated_at` field, managed by
 <details>
  <summary>Conversation</summary>
 
-> | Field        | Type      | Description                                      |
-> | ------------ | --------- | ------------------------------------------------ |
-> | id           | Long Int  | Primary identifier.                              |
-> | croquette_id | Long Int  | Foreign key, linking to the croquette.           |
-> | user_id      | Long Int  | Foreign key, linking the user.                   |
-> | comment      | String    | Comment of a certain user to a certain croquette |
+> | Field        | Type     | Description                                      |
+> | ------------ | -------- | ------------------------------------------------ |
+> | id           | Long Int | Primary identifier.                              |
+> | croquette_id | Long Int | Foreign key, linking to the croquette.           |
+> | user_id      | Long Int | Foreign key, linking the user.                   |
+> | comment      | String   | Comment of a certain user to a certain croquette |
 
 </details>
 
@@ -92,40 +92,40 @@ All entities additionally have a `created_at` and `updated_at` field, managed by
 
 ## Technology Stack
 
-The project makes use of `Spring Boot`. 
-`Kotlin` was chosen over `Java`, mainly due to its concise syntax and null safety. 
-For the ease of development, a `H2` in-memory database is used for dev and test environment and `PostgreSQL` for production. 
+The project makes use of `Spring Boot`.
+`Kotlin` was chosen over `Java`, mainly due to its concise syntax and null safety.
+For the ease of development, a `H2` in-memory database is used for dev and test environment and `PostgreSQL` for production.
 In this stage of the project only database agnosic JPA repositories should be used.
-Goal is to make it as easy as possible to run the integration test against both types of database. 
+Goal is to make it as easy as possible to run the integration test against both types of database.
 It was decided to use `MVC` over `WebFlux` since the API is not expected to handle a large number of concurrent connections nor real-time data streams.
 If a frontend will be provided, it will be built on `React` (JS) on `Vite` with `Styled Components` which is a perfect match for the provided RESTful API.
 
 ### Alternatives
 
-There are many alternatives to the technology stack described above, all with their individual benefits and drawbacks. 
+There are many alternatives to the technology stack described above, all with their individual benefits and drawbacks.
 These are two possibilities following a different approach compared to the task provided:
 
-**Full Stack Framework**: If UI was higher in priority, a full stack framework like `Next.js` and its unified codebase for frontend and backend would be an alternative. 
-It provides simple prototyping and simplifies backend logic for small to mid-scale projects. 
-Main drawback and reason why Next.js is not a good alternative for this project is its lack of scalability in the API layer and its lack of robustness compared to what Spring Boot can provide for more complex backends. 
+**Full Stack Framework**: If UI was higher in priority, a full stack framework like `Next.js` and its unified codebase for frontend and backend would be an alternative.
+It provides simple prototyping and simplifies backend logic for small to mid-scale projects.
+Main drawback and reason why Next.js is not a good alternative for this project is its lack of scalability in the API layer and its lack of robustness compared to what Spring Boot can provide for more complex backends.
 Also, the tight coupling between frontend and backend may limit flexibility in the feature, especially on an enterprise scale level.
 
-**Serverless Architecture**: If massive scaling with no server management was the focus for this project, a serverless architecture based on -for example- `AWS Lambda` could help in providing a good alternative which is both flexible and cost-efficient for microservices or event-driven approaches. 
+**Serverless Architecture**: If massive scaling with no server management was the focus for this project, a serverless architecture based on -for example- `AWS Lambda` could help in providing a good alternative which is both flexible and cost-efficient for microservices or event-driven approaches.
 Its main drawbacks is that it is harder to debug and test locally during development.
 
 ## Architecture Overview
 
-The architecture follows a modular monolithic approach. 
-Goal is to keep development fast and simple while logically separating the components to _allow_ later migration to microservices or an event-driven approach, if required. 
-While microservices would make it easier to scale each component independently, simple service instance calls become API requests which adds significant overhead to each request. 
-On top comes an increased infrastructure complexity due to the need of gateways and load balancers. 
+The architecture follows a modular monolithic approach.
+Goal is to keep development fast and simple while logically separating the components to _allow_ later migration to microservices or an event-driven approach, if required.
+While microservices would make it easier to scale each component independently, simple service instance calls become API requests which adds significant overhead to each request.
+On top comes an increased infrastructure complexity due to the need of gateways and load balancers.
 At the current scale of the project, relatively low computational effort per module is expected, which makes the modular monolith arguably the best approach.
 
 ![Architecture Big Picture](img/architecure_bp.svg)
 
-Access to the functionality is provided via RESTful API. 
-The main reason for this is that the API is mostly resource oriented, i.e., the entities can be mapped more or less directly to REST resources and HTTP request types. 
-In addition to this, Spring Boot has an excellent support for RESTful APIs in terms of security (Spring Security and JWT) as well as documentation (Swagger/OpenAPI). 
+Access to the functionality is provided via RESTful API.
+The main reason for this is that the API is mostly resource oriented, i.e., the entities can be mapped more or less directly to REST resources and HTTP request types.
+In addition to this, Spring Boot has an excellent support for RESTful APIs in terms of security (Spring Security and JWT) as well as documentation (Swagger/OpenAPI).
 After registering and logging in, a role-based authentication on JWT will be used to distinguish between unregistered users (`ANON`), registered users (`USER`), and managers (`MANAGER`)with different permissions.
 
 ![Architecture Components](img/architecture_components.svg)
@@ -185,9 +185,9 @@ These are all endpoints that need to exposed by the API.
 </details>
 <details><summary> /recommendations</summary>
 
-> | Request | Endpoint | Role | Description                                                                                       |
-> | ------- |----------| ---- |---------------------------------------------------------------------------------------------------|
-> | GET     | `/`      | Any  | Returns a list of croquettes that match best to the filter criteria provided.                     |
+> | Request | Endpoint | Role | Description                                                                                        |
+> | ------- | -------- | ---- | -------------------------------------------------------------------------------------------------- |
+> | GET     | `/`      | Any  | Returns a list of croquettes that match best to the filter criteria provided.                      |
 > | GET     | `/text`  | Any  | Returns a list of croquettes that match best to a provided description, recommended by a tiny LLM. |
 
 - Filter criteria that can be provided:`spiciness`, `crunchiness`, `vegan`, `form`.
@@ -211,16 +211,14 @@ The project provides two types of documentation:
 
 ## Frontend Sketch
 
-There are three views: Login, Croquette Overview, and Croquette Details. 
+There are three views: Login, Croquette Overview, and Croquette Details.
 The login screen is a simple form that requires the user to type their credentials.
 
-After logging in, the user is presented with an overview of all existing croquettes. 
+After logging in, the user is presented with an overview of all existing croquettes.
 There is functionality, to search, filter and sort the results by croquette related criteria:
 
 ![Croquettes Overview](img/frontend_overview.svg)
 
 Upon clicking on one of the elements in the Croquette list, a detail view is opened providing all the details and allows the user to rate the croquette.
-
-// TODO: Check if "find recipes" made it to the code
 
 ![Croquette Details](img/frontend_details.svg)

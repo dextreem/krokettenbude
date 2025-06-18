@@ -1,8 +1,8 @@
 import { HiStar } from "react-icons/hi2";
 import styled from "styled-components";
 import type { CroquetteResponse } from "../../api-client";
-import { getRandomDouble } from "../../utils/textUtils";
 import { getCroquetteFormEmoji } from "../../utils/croquetteForms";
+import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -27,6 +27,14 @@ const NoRating = styled.span`
   font-style: italic;
 `;
 
+const SyledLink = styled(Link)`
+  color: var(--color-brand-600);
+
+  &:hover {
+    color: var(--color-brand-500);
+  }
+`;
+
 const crunchEmojis = ["🍟", "🍟🍟", "🍟🍟🍟", "🍟🍟🍟🍟", "🍟🍟🍟🍟🍟"];
 const spiceEmojis = ["🌶️", "🌶️🌶️", "🌶️🌶️🌶️", "🌶️🌶️🌶️🌶️", "🌶️🌶️🌶️🌶️🌶️"];
 
@@ -35,6 +43,11 @@ function CroquetteCardFooter({
 }: {
   croquetteData: CroquetteResponse;
 }) {
+  const query = encodeURIComponent(
+    `${croquetteData.name} ${croquetteData.country}`
+  );
+  const link = `https://www.allrecipes.com/search?q=${query}`;
+
   return (
     <StyledDiv>
       <Details>
@@ -50,6 +63,16 @@ function CroquetteCardFooter({
         {croquetteData.vegan && (
           <span title="This croquette is vegan!">🌱</span>
         )}
+        <div>
+          Find recipes on&nbsp;
+          <SyledLink
+            onClick={(e) => e.stopPropagation()}
+            target="_blank"
+            to={link}
+          >
+            allrecipes.com
+          </SyledLink>
+        </div>
       </Details>
       {croquetteData.averageRating ? (
         <Rating>

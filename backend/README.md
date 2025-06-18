@@ -13,7 +13,7 @@ After cloning the repository, IDEA should be able to import the gradle project u
 ## Enable LLM
 
 To enable LLM croquette recommendation, set `spring.croqueteria.enable.llm=true`.
-This requires a running `ollama` model on port `11434`. 
+This requires a running `ollama` model on port `11434`.
 For demonstrating purposes, `deepseek-r1:1.5b` is used within the scope of this project.
 See [LLM](../llm/README.md) for more information.
 
@@ -22,14 +22,16 @@ See [LLM](../llm/README.md) for more information.
 From within IDEA, you can run the gradle Task `croquetteria/Tasks/verification/test`.
 
 Via command line:
+
 ```bash
 ./gradlew test
 ```
 
 The test task triggers multiple things:
-* Unit tests
-* Integration tests
-* Jacoco test report
+
+- Unit tests
+- Integration tests
+- Jacoco test report
 
 The report can then be found in `build/reports/jacoco/test/html/index.html`
 
@@ -50,7 +52,6 @@ Via command line:
 cd backend
 ./gradlew bootJar
 ```
-
 
 ## Docker Image
 
@@ -80,21 +81,24 @@ Install `act` following the [official guide](https://github.com/nektos/act), in 
 yum -S act
 ```
 
-Run build and test job: 
+Run build and test job:
+
 ```bash
 act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-and-test -P ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
 
 Load the docker image:
+
 ```bash
 podman load -i artifacts/image.tar
 ```
 
 ## Known limitations
 
-* No pagination: The service always returns everything.
-* LLM reasoning is slow and works only 50% of the time. Should be replaced by a proper external service. ChatGPT works fine.
-* LLM is disabled for tests. This requires some effort to spin up the LLM and test properly.
-* average rating is calculated for every request that is not cached. For now that's fine, but as soon as the croquette numbers will rise (and they will!) this can be a bottleneck
-    * Solution: Update the average rating upon new ratings (event-driven?)
-* Everybody can register a MANAGER user
+- No pagination: The service always returns everything.
+- LLM reasoning is slow and works only 50% of the time. Should be replaced by a proper external service. ChatGPT works fine.
+- LLM is disabled for tests. This requires some effort to spin up the LLM and test properly.
+- average rating is calculated for every request that is not cached. For now that's fine, but as soon as the croquette numbers will rise (and they will!) this can be a bottleneck
+  - Solution: Update the average rating upon new ratings (event-driven?)
+- Everybody can register a MANAGER user
+- Sanitization for comment and description.
