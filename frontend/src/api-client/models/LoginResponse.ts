@@ -21,10 +21,28 @@ import { mapValues } from '../runtime';
 export interface LoginResponse {
     /**
      * 
+     * @type {number}
+     * @memberof LoginResponse
+     */
+    id?: number;
+    /**
+     * 
      * @type {string}
      * @memberof LoginResponse
      */
     token: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginResponse
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginResponse
+     */
+    role: string;
 }
 
 /**
@@ -32,6 +50,8 @@ export interface LoginResponse {
  */
 export function instanceOfLoginResponse(value: object): value is LoginResponse {
     if (!('token' in value) || value['token'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
+    if (!('role' in value) || value['role'] === undefined) return false;
     return true;
 }
 
@@ -45,7 +65,10 @@ export function LoginResponseFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
+        'id': json['id'] == null ? undefined : json['id'],
         'token': json['token'],
+        'email': json['email'],
+        'role': json['role'],
     };
 }
 
@@ -60,7 +83,10 @@ export function LoginResponseToJSONTyped(value?: LoginResponse | null, ignoreDis
 
     return {
         
+        'id': value['id'],
         'token': value['token'],
+        'email': value['email'],
+        'role': value['role'],
     };
 }
 

@@ -42,7 +42,19 @@ export interface CommentResponse {
      * @type {string}
      * @memberof CommentResponse
      */
+    userName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CommentResponse
+     */
     comment: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof CommentResponse
+     */
+    createdAt: Date;
 }
 
 /**
@@ -50,6 +62,7 @@ export interface CommentResponse {
  */
 export function instanceOfCommentResponse(value: object): value is CommentResponse {
     if (!('comment' in value) || value['comment'] === undefined) return false;
+    if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     return true;
 }
 
@@ -66,7 +79,9 @@ export function CommentResponseFromJSONTyped(json: any, ignoreDiscriminator: boo
         'id': json['id'] == null ? undefined : json['id'],
         'croquetteId': json['croquetteId'] == null ? undefined : json['croquetteId'],
         'userId': json['userId'] == null ? undefined : json['userId'],
+        'userName': json['userName'] == null ? undefined : json['userName'],
         'comment': json['comment'],
+        'createdAt': (new Date(json['createdAt'])),
     };
 }
 
@@ -84,7 +99,9 @@ export function CommentResponseToJSONTyped(value?: CommentResponse | null, ignor
         'id': value['id'],
         'croquetteId': value['croquetteId'],
         'userId': value['userId'],
+        'userName': value['userName'],
         'comment': value['comment'],
+        'createdAt': ((value['createdAt']).toISOString()),
     };
 }
 
