@@ -94,7 +94,7 @@ fun ratingEntityList(
         Rating(
             rating = 5,
             croquette = croquettes[1], // id = 2, Germany (detailed Krokette)
-            user = users[0],           // Gerald
+            user = users[0],           // Geralt
         ),
         Rating(
             rating = 4,
@@ -104,7 +104,7 @@ fun ratingEntityList(
         Rating(
             rating = 3,
             croquette = croquettes[2], // id = 3, Spain
-            user = users[0],           // Gerald
+            user = users[0],           // Geralt
         ),
         Rating(
             rating = 5,
@@ -114,12 +114,12 @@ fun ratingEntityList(
         Rating(
             rating = 4,
             croquette = croquettes[3], // id = 4, Japan
-            user = users[0],           // Gerald
+            user = users[0],           // Geralt
         ),
         Rating(
             rating = 5,
             croquette = croquettes[4], // id = 5, Netherlands
-            user = users[0],           // Gerald
+            user = users[0],           // Geralt
         ),
         Rating(
             rating = 4,
@@ -129,7 +129,7 @@ fun ratingEntityList(
         Rating(
             rating = 3,
             croquette = croquettes[5], // id = 6, Belgium
-            user = users[0],           // Gerald
+            user = users[0],           // Geralt
         )
     )
 }
@@ -143,7 +143,7 @@ fun commentEntityList(
         Comment(
             comment = "Crispy and perfectly seasoned. Classic German comfort food!",
             croquette = croquettes[1], // id = 2, detailed German Krokette
-            user = users[0],           // Gerald
+            user = users[0],           // Geralt
             createdAt = now,
             updatedAt = now
         ),

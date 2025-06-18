@@ -41,7 +41,7 @@ export interface RetrieveAllRatingsRequest {
 }
 
 export interface RetrieveRatingByIdRequest {
-    ratingId: number;
+    croquetteId: number;
 }
 
 export interface UpdateRatingRequest {
@@ -101,7 +101,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a single comment by its ID.
+     * Deletes a single rating by its ID.
      * Delete a single rating
      */
     async deleteRatingRaw(requestParameters: DeleteRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -135,7 +135,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a single comment by its ID.
+     * Deletes a single rating by its ID.
      * Delete a single rating
      */
     async deleteRating(requestParameters: DeleteRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -175,14 +175,14 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a single comment by its ID.
-     * Get a single rating
+     * Retrieves a single rating for a user and a croquette.
+     * Get a single croquette rating.
      */
     async retrieveRatingByIdRaw(requestParameters: RetrieveRatingByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RatingResponse>> {
-        if (requestParameters['ratingId'] == null) {
+        if (requestParameters['croquetteId'] == null) {
             throw new runtime.RequiredError(
-                'ratingId',
-                'Required parameter "ratingId" was null or undefined when calling retrieveRatingById().'
+                'croquetteId',
+                'Required parameter "croquetteId" was null or undefined when calling retrieveRatingById().'
             );
         }
 
@@ -191,7 +191,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/v1/ratings/{rating_id}`.replace(`{${"rating_id"}}`, encodeURIComponent(String(requestParameters['ratingId']))),
+            path: `/api/v1/ratings/{croquette_id}`.replace(`{${"croquette_id"}}`, encodeURIComponent(String(requestParameters['croquetteId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -201,8 +201,8 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a single comment by its ID.
-     * Get a single rating
+     * Retrieves a single rating for a user and a croquette.
+     * Get a single croquette rating.
      */
     async retrieveRatingById(requestParameters: RetrieveRatingByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RatingResponse> {
         const response = await this.retrieveRatingByIdRaw(requestParameters, initOverrides);
@@ -210,7 +210,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a single comment by its ID.
+     * Updates a single rating by its ID.
      * Update a single rating
      */
     async updateRatingRaw(requestParameters: UpdateRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RatingResponse>> {
@@ -254,7 +254,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a single comment by its ID.
+     * Updates a single rating by its ID.
      * Update a single rating
      */
     async updateRating(requestParameters: UpdateRatingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RatingResponse> {

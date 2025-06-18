@@ -48,22 +48,22 @@ class RatingController(val ratingService: RatingService) {
         return ratingService.retrieveAllRatings(croquetteId)
     }
 
-    @GetMapping("/{rating_id}")
+    @GetMapping("/{croquette_id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(
-        summary = "Get a single rating",
-        description = "Retrieves a single comment by its ID."
+        summary = "Get a single croquette rating.",
+        description = "Retrieves a single rating for a user and a croquette."
     )
     @SecurityRequirements
-    fun retrieveRatingById(@PathVariable("rating_id") ratingId: Int): RatingResponse {
-        return ratingService.retrieveRatingById(ratingId)
+    fun retrieveRatingById(@PathVariable("croquette_id") croquetteId: Int): RatingResponse {
+        return ratingService.retrieveUserRatingForCroquette(croquetteId)
     }
 
     @PutMapping("/{rating_id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(
         summary = "Update a single rating",
-        description = "Updates a single comment by its ID."
+        description = "Updates a single rating by its ID."
     )
     fun updateRating(
         @PathVariable("rating_id") ratingId: Int,
@@ -76,7 +76,7 @@ class RatingController(val ratingService: RatingService) {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(
         summary = "Delete a single rating",
-        description = "Deletes a single comment by its ID."
+        description = "Deletes a single rating by its ID."
     )
     fun deleteRating(@PathVariable("rating_id") ratingId: Int) {
         ratingService.deleteRating(ratingId)
