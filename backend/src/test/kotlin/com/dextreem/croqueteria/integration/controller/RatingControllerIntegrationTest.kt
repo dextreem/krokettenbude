@@ -136,9 +136,11 @@ class RatingControllerIntegrationTest {
 
     @Test
     fun getAllRatings() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
         val result = webTestClient
             .get()
             .uri(endpoint)
+            .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
             .expectBodyList(RatingResponse::class.java)
@@ -150,6 +152,7 @@ class RatingControllerIntegrationTest {
 
     @Test
     fun getAllRatingsForCroquette() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
         val croquetteId = savedRatings.first().croquette?.id ?: fail("Issue while setting up demo ratings")
 
         val uri = UriComponentsBuilder.fromUriString(endpoint)
@@ -159,6 +162,7 @@ class RatingControllerIntegrationTest {
         val result = webTestClient
             .get()
             .uri(uri)
+            .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
             .expectBodyList(RatingResponse::class.java)
@@ -206,6 +210,7 @@ class RatingControllerIntegrationTest {
 
     @Test
     fun getAllRatingsForCroquetteNotFound() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
         val croquetteId = savedRatings.last().croquette?.id ?: fail("Issue while setting up demo ratings")
 
         val uri = UriComponentsBuilder.fromUriString(endpoint)
@@ -215,6 +220,7 @@ class RatingControllerIntegrationTest {
         webTestClient
             .get()
             .uri(uri)
+            .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isNotFound
     }

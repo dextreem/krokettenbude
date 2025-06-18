@@ -56,7 +56,7 @@ class RatingServiceImpl(
 
     @Transactional(readOnly = true)
     override fun retrieveUserRatingForCroquette(croquetteId: Int): RatingResponse {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
         logger.info("User ${actorUser.username} requested rating for croquette $croquetteId")
         val croquette = findExistingEntityById.findCroquette(croquetteId)
         val rating = ratingRepository.findByCroquetteAndUser(croquette, actorUser)
