@@ -40,7 +40,7 @@ export interface RetrieveAllRatingsRequest {
     croquetteId?: number;
 }
 
-export interface RetrieveRatingByIdRequest {
+export interface RetrieveRatingForCroquetteIdRequest {
     croquetteId: number;
 }
 
@@ -178,11 +178,11 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
      * Retrieves a single rating for a user and a croquette.
      * Get a single croquette rating.
      */
-    async retrieveRatingByIdRaw(requestParameters: RetrieveRatingByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RatingResponse>> {
+    async retrieveRatingForCroquetteIdRaw(requestParameters: RetrieveRatingForCroquetteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RatingResponse>> {
         if (requestParameters['croquetteId'] == null) {
             throw new runtime.RequiredError(
                 'croquetteId',
-                'Required parameter "croquetteId" was null or undefined when calling retrieveRatingById().'
+                'Required parameter "croquetteId" was null or undefined when calling retrieveRatingForCroquetteId().'
             );
         }
 
@@ -204,8 +204,8 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
      * Retrieves a single rating for a user and a croquette.
      * Get a single croquette rating.
      */
-    async retrieveRatingById(requestParameters: RetrieveRatingByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RatingResponse> {
-        const response = await this.retrieveRatingByIdRaw(requestParameters, initOverrides);
+    async retrieveRatingForCroquetteId(requestParameters: RetrieveRatingForCroquetteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RatingResponse> {
+        const response = await this.retrieveRatingForCroquetteIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -55,7 +55,7 @@ class RatingController(val ratingService: RatingService) {
         description = "Retrieves a single rating for a user and a croquette."
     )
     @SecurityRequirements
-    fun retrieveRatingById(@PathVariable("croquette_id") croquetteId: Int): RatingResponse {
+    fun retrieveRatingForCroquetteId(@PathVariable("croquette_id") croquetteId: Int): RatingResponse {
         return ratingService.retrieveUserRatingForCroquette(croquetteId)
     }
 
