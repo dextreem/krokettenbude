@@ -3,13 +3,15 @@ import { useApiEndpoints } from "./useApi";
 import type { AddCroquetteRequest } from "../../api-client";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/constants";
+import { useCroquetteFiltersStore } from "../../stores/FilterSearchState";
 
 export function useGetCroquettes() {
   const { croquetteApi } = useApiEndpoints();
+  const filters = useCroquetteFiltersStore((state) => state.filters);
 
   const { isLoading, data, error, refetch } = useQuery({
-    queryKey: ["croquettes"], // TODO: add filter and searches
-    queryFn: async () => await croquetteApi.retrieveAllCroquettes(),
+    queryKey: ["croquettes", filters],
+    queryFn: async () => await croquetteApi.retrieveAllCroquettes(filters),
   });
 
   return {

@@ -6,7 +6,6 @@ import CroquetteRating from "./CroquetteRating";
 import CroquetteComments from "./CroquetteComments";
 import { useGetSingleCroquette } from "../../hooks/api/useCroquetteApi";
 import { ROUTES } from "../../utils/constants";
-import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
   margin: auto;
@@ -36,7 +35,7 @@ function CroquetteDetails() {
   const { croquette, isCroquetteLoading } = useGetSingleCroquette(parsed);
 
   if (isCroquetteLoading) return <Spinner />;
-  if (!croquette) return <div>Croquette not found :( </div>;
+  if (!croquette) return <div>Croquette not found :(</div>;
 
   return (
     <StyledDiv>

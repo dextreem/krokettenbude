@@ -37,7 +37,9 @@ function CroquetteCardDetails({
       <DetailsHeader>
         <Heading as="h2">{croquetteData.name}</Heading>
         &nbsp;
-        <span>{getFlag(croquetteData.country)}</span>
+        <span title={croquetteData.country}>
+          {getFlag(croquetteData.country)}
+        </span>
       </DetailsHeader>
 
       <p>{description}</p>

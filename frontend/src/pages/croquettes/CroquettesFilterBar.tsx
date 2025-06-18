@@ -2,6 +2,11 @@ import styled from "styled-components";
 import CroquettesFilterBarSearch from "./CroquettesFilterBarSearch";
 import CroquettesFilterBarSortBy from "./CroquettesFilterBarSortBy";
 import CroquettesFilterBarFilter from "./CroquettesFilterBarFilter";
+import { HiTrash } from "react-icons/hi2";
+import ButtonIcon from "../../components/ButtonIcon";
+import { useCroquetteFiltersStore } from "../../stores/FilterSearchState";
+import { RetrieveAllCroquettesSortDirectionEnum } from "../../api-client";
+import { HiArrowSmDown, HiArrowSmUp } from "react-icons/hi";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -18,14 +23,41 @@ const FilterSortDiv = styled.div`
 `;
 
 function CroquettesFilterBar() {
+  const resetFilters = useCroquetteFiltersStore((state) => state.resetFilters);
+  const ascending = useCroquetteFiltersStore(
+    (state) => state.filters.sortDirection
+  );
+  const setFilters = useCroquetteFiltersStore((state) => state.setFilters);
+
   return (
     <StyledDiv>
       <FilterSortDiv>
         <CroquettesFilterBarFilter />
         <CroquettesFilterBarSortBy />
+        <ButtonIcon
+          onClick={() =>
+            setFilters({
+              sortDirection:
+                ascending === RetrieveAllCroquettesSortDirectionEnum.Asc
+                  ? RetrieveAllCroquettesSortDirectionEnum.Desc
+                  : RetrieveAllCroquettesSortDirectionEnum.Asc,
+            })
+          }
+        >
+          {ascending === RetrieveAllCroquettesSortDirectionEnum.Asc ? (
+            <HiArrowSmUp />
+          ) : (
+            <HiArrowSmDown />
+          )}
+        </ButtonIcon>
       </FilterSortDiv>
 
-      <CroquettesFilterBarSearch />
+      <FilterSortDiv>
+        <CroquettesFilterBarSearch />
+        <ButtonIcon onClick={resetFilters}>
+          <HiTrash />
+        </ButtonIcon>
+      </FilterSortDiv>
     </StyledDiv>
   );
 }

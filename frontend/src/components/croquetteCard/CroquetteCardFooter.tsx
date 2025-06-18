@@ -44,9 +44,9 @@ function CroquetteCardFooter({
   croquetteData: CroquetteResponse;
 }) {
   const query = encodeURIComponent(
-    `${croquetteData.name} ${croquetteData.country}`
+    `${croquetteData.name} ${croquetteData.country} recipes`
   );
-  const link = `https://www.allrecipes.com/search?q=${query}`;
+  const link = `https://www.google.com/search?q=${query}`;
 
   return (
     <StyledDiv>
@@ -70,7 +70,7 @@ function CroquetteCardFooter({
             target="_blank"
             to={link}
           >
-            allrecipes.com
+            google.com
           </SyledLink>
         </div>
       </Details>
