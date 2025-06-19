@@ -102,3 +102,4 @@ podman load -i artifacts/image.tar
   - Solution: Update the average rating upon new ratings (event-driven?)
 - Everybody can register a MANAGER user
 - Sanitization for comment and description.
+- Refreshing a JWT is not implemented.

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import useSessionState from "../../stores/SessionState";
 import ButtonIcon from "../../components/ButtonIcon";
-import { HiArrowRightOnRectangle } from "react-icons/hi2";
+import { HiArrowRightOnRectangle, HiCalculator } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkmodeToggle";
 import { ROUTES } from "../../utils/constants";
@@ -14,10 +14,6 @@ const Nav = styled.header`
   gap: 2.4rem;
   align-items: center;
   justify-content: space-between;
-`;
-
-const Li = styled.li`
-  display: grid;
 `;
 
 const UserIconButton = styled.div`
@@ -57,6 +53,13 @@ function HeaderNav() {
 
   return (
     <Nav>
+      <ButtonIcon
+        title="RecommendCroquette"
+        onClick={() => navigate(`/${ROUTES.RECOMMENDATIONS}`)}
+      >
+        <HiCalculator />
+      </ButtonIcon>
+
       {userDetails && isLoggedIn && (
         <UserIconButton
           title="Go to User Settings"
@@ -70,38 +73,27 @@ function HeaderNav() {
       )}
 
       {!isLoggedIn && (
-        <Li>
-          <ButtonIcon
-            title="Sign Up"
-            onClick={() => navigate(`/${ROUTES.SIGNUP}`)}
-          >
-            <HiUserAdd />
-          </ButtonIcon>
-        </Li>
+        <ButtonIcon
+          title="Sign Up"
+          onClick={() => navigate(`/${ROUTES.SIGNUP}`)}
+        >
+          <HiUserAdd />
+        </ButtonIcon>
       )}
 
       {!isLoggedIn && (
-        <Li>
-          <ButtonIcon
-            title="Login"
-            onClick={() => navigate(`/${ROUTES.LOGIN}`)}
-          >
-            <HiLogin />
-          </ButtonIcon>
-        </Li>
+        <ButtonIcon title="Login" onClick={() => navigate(`/${ROUTES.LOGIN}`)}>
+          <HiLogin />
+        </ButtonIcon>
       )}
 
       {isLoggedIn && (
-        <Li>
-          <ButtonIcon title="Logout" onClick={resetSession}>
-            <HiArrowRightOnRectangle />
-          </ButtonIcon>
-        </Li>
+        <ButtonIcon title="Logout" onClick={resetSession}>
+          <HiArrowRightOnRectangle />
+        </ButtonIcon>
       )}
 
-      <Li>
-        <DarkModeToggle />
-      </Li>
+      <DarkModeToggle />
     </Nav>
   );
 }

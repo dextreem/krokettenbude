@@ -13,6 +13,7 @@ import LoginSignup from "./pages/loginSignup/LoginSignup";
 import { Toaster } from "react-hot-toast";
 import CreateCroquette from "./pages/croquetteCreate/CreateCroquette";
 import ProtectedRoute from "./layout/ProtectedRoute";
+import Recommendations from "./pages/recommendations/Recommendations";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -73,6 +74,10 @@ function App() {
               <Route
                 path={ROUTES.SIGNUP}
                 element={<LoginSignup mode="signup" />}
+              />
+              <Route
+                path={ROUTES.RECOMMENDATIONS}
+                element={<Recommendations />}
               />
             </Route>
             {/* Fallback for every other page */}

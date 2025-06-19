@@ -80,7 +80,7 @@ export default function CreateCroquette() {
         </div>
 
         <div>
-          <label>Crispiness (0–10)</label>
+          <label>Crunchiness (1-5)</label>
           <Input
             type="number"
             {...register("crunchiness", { required: true, min: 1, max: 5 })}
@@ -89,7 +89,7 @@ export default function CreateCroquette() {
         </div>
 
         <div>
-          <label>Spiciness (0–10)</label>
+          <label>Spiciness (1-5)</label>
           <Input
             type="number"
             {...register("spiciness", { required: true, min: 1, max: 5 })}
