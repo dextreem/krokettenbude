@@ -8,11 +8,13 @@ import { useGetSingleCroquette } from "../../hooks/api/useCroquetteApi";
 import { ROUTES } from "../../utils/constants";
 
 const StyledDiv = styled.div`
-  margin: auto;
-  display: flex;
-  flex-direction: column;
+  margin: 2.4rem auto 0;
+  padding-bottom: 1.2rem;
+  width: 100rem;
+
+  display: grid;
+  grid-template-rows: 20rem 10rem 1fr;
   gap: 2.4rem;
-  max-width: 100rem;
 `;
 
 const CardWrapper = styled.div`

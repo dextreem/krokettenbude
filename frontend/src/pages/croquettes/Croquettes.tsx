@@ -14,6 +14,7 @@ const StyledDiv = styled.div`
   grid-template-rows: 10rem 1fr 10rem;
   gap: 2.4rem;
 `;
+
 const CenteredWrapper = styled.div`
   justify-self: center;
 `;
