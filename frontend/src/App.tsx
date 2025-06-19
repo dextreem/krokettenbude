@@ -18,7 +18,7 @@ import Recommendations from "./pages/recommendations/Recommendations";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 10 * (60 * 1000), // 10 mins
     },
   },
 });

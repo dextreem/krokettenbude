@@ -29,3 +29,9 @@ export function getRelativeTime(date: Date): string {
   if (months < 12) return rtf.format(-months, "month");
   return rtf.format(-years, "year");
 }
+
+export function scoreToPercentage(score: number): number {
+  const clampedScore = Math.max(0, Math.min(score, 30));
+  const rawPercentage = 100 - (clampedScore / 30) * 100;
+  return Math.round(rawPercentage / 5) * 5;
+}

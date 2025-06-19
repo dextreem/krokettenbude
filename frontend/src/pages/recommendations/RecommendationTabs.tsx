@@ -17,11 +17,11 @@ function RecommendationTabs() {
 
   const tabs = [
     {
-      label: "By Description",
+      label: "Descriptive",
       content: <RecommendationTabLLM />,
     },
     {
-      label: "Manually",
+      label: "Options",
       content: <RecommendationTabManual />,
     },
   ];

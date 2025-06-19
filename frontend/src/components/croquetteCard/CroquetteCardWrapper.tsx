@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../../utils/constants";
 
-// Styled div with your existing styles
 const StyledDiv = styled.div`
   margin: 2.4rem 0;
   border: 1px solid var(--color-brand-100);
@@ -22,13 +21,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-// Props type including croquetteId
 interface CroquetteCardWrapperProps {
   croquetteId: number;
   children: React.ReactNode;
 }
 
-// Wrapper component
 const CroquetteCardWrapper: React.FC<CroquetteCardWrapperProps> = ({
   croquetteId,
   children,
