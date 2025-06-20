@@ -1,41 +1,117 @@
-import TextArea from "../../components/TexxtArea";
-import Button from "../../components/Button";
-import TabbedWindow from "../../components/TabedWindows";
-import styled from "styled-components";
-import Input from "../../components/Input";
+import { useForm } from "react-hook-form";
 import {
   CroquetteRecommendationRequestFormEnum,
   type CroquetteRecommendationRequest,
 } from "../../api-client";
-import { useForm } from "react-hook-form";
 import { useRecommendation } from "../../hooks/api/useRecommendationApi";
 import Spinner from "../../components/Spinner";
+import Input from "../../components/Input";
+import styled from "styled-components";
 
-const StyledForm = styled.form`
-  display: grid;
-  gap: 1.2rem;
+const PageWrapper = styled.div`
+  padding: 2rem 1.2rem;
+  max-width: 100rem;
 `;
 
-function RecommendationTabManual() {
+const FormWrapper = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 80rem;
+`;
+
+const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 160px;
+
+  label {
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  span {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+
+  select {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 0.6rem;
+  }
+`;
+
+const CheckboxField = styled(Field)`
+  flex-direction: row;
+  align-items: center;
+  max-width: unset;
+
+  label {
+    margin: 0 0.6rem 0 0;
+  }
+`;
+
+const SubmitButton = styled.button`
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #444;
+  }
+`;
+
+const SpinnerWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+`;
+
+export default function RecommendationTabManual() {
   const { recommendCroquette, isRecommending } = useRecommendation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CroquetteRecommendationRequest>();
 
-  if (isRecommending) return <Spinner />;
-
   const onSubmitRequest = async (data: CroquetteRecommendationRequest) => {
     recommendCroquette({ croquetteRecommendationRequest: data });
   };
 
+  if (isRecommending)
+    return (
+      <SpinnerWrapper>
+        <Spinner />
+        <span>Recommending...</span>
+      </SpinnerWrapper>
+    );
+
   return (
-    <div>
-      <StyledForm onSubmit={handleSubmit(onSubmitRequest)}>
-        <div>
-          <label>Crunchiness (1-5)</label>
+    <PageWrapper>
+      <FormWrapper onSubmit={handleSubmit(onSubmitRequest)}>
+        <Field>
+          <label htmlFor="crunchiness">Crunchiness (1–5)</label>
           <Input
+            id="crunchiness"
             type="number"
             {...register("preferredCrunchiness", {
               required: true,
@@ -43,14 +119,13 @@ function RecommendationTabManual() {
               max: 5,
             })}
           />
-          {errors.preferredCrunchiness && (
-            <span>preferredCrunchiness must be 1-5</span>
-          )}
-        </div>
+          {errors.preferredCrunchiness && <span>Must be 1–5</span>}
+        </Field>
 
-        <div>
-          <label>Spiciness (1-5)</label>
+        <Field>
+          <label htmlFor="spiciness">Spiciness (1–5)</label>
           <Input
+            id="spiciness"
             type="number"
             {...register("preferredSpiciness", {
               required: true,
@@ -58,17 +133,17 @@ function RecommendationTabManual() {
               max: 5,
             })}
           />
-          {errors.preferredSpiciness && <span>Spiciness must be 1-5</span>}
-        </div>
+          {errors.preferredSpiciness && <span>Must be 1–5</span>}
+        </Field>
 
-        <div>
-          <label>Vegan</label>
-          <Input type="checkbox" {...register("vegan")} />
-        </div>
+        <CheckboxField>
+          <label htmlFor="vegan">Vegan</label>
+          <Input id="vegan" type="checkbox" {...register("vegan")} />
+        </CheckboxField>
 
-        <div>
-          <label>Form</label>
-          <select {...register("form", { required: true })}>
+        <Field>
+          <label htmlFor="form">Form</label>
+          <select id="form" {...register("form", { required: true })}>
             {Object.values(CroquetteRecommendationRequestFormEnum).map(
               (formValue) => (
                 <option key={formValue} value={formValue}>
@@ -77,13 +152,11 @@ function RecommendationTabManual() {
               )
             )}
           </select>
-          {errors.form && <span>Form is required</span>}
-        </div>
+          {errors.form && <span>Required</span>}
+        </Field>
 
-        <button type="submit">Commit</button>
-      </StyledForm>
-    </div>
+        <SubmitButton type="submit">Commit</SubmitButton>
+      </FormWrapper>
+    </PageWrapper>
   );
 }
-
-export default RecommendationTabManual;

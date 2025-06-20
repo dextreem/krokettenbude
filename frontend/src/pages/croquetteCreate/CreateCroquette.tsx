@@ -25,6 +25,24 @@ const StyledForm = styled.form`
   gap: 1.2rem;
 `;
 
+const Row = styled.div`
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+`;
+
+const RowItem = styled.div`
+  flex: 1;
+  min-width: 100px;
+  max-width: 150px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 0.4rem;
+  }
+`;
+
 export default function CreateCroquette() {
   const { createCroquette, isCreatingCroquette } = useCreateCroquette();
 
@@ -79,40 +97,45 @@ export default function CreateCroquette() {
           {errors.description && <span>Description is required</span>}
         </div>
 
-        <div>
-          <label>Crunchiness (1-5)</label>
-          <Input
-            type="number"
-            {...register("crunchiness", { required: true, min: 1, max: 5 })}
-          />
-          {errors.crunchiness && <span>Crunchiness must be 1-5</span>}
-        </div>
+        {/* Row with Crunchiness, Spiciness, Vegan, and Form */}
+        <Row>
+          <RowItem>
+            <label>Crunchiness (1-5)</label>
+            <Input
+              type="number"
+              {...register("crunchiness", { required: true, min: 1, max: 5 })}
+            />
+            {errors.crunchiness && <span>Crunchiness must be 1-5</span>}
+          </RowItem>
 
-        <div>
-          <label>Spiciness (1-5)</label>
-          <Input
-            type="number"
-            {...register("spiciness", { required: true, min: 1, max: 5 })}
-          />
-          {errors.spiciness && <span>Spiciness must be 1-5</span>}
-        </div>
+          <RowItem>
+            <label>Spiciness (1-5)</label>
+            <Input
+              type="number"
+              {...register("spiciness", { required: true, min: 1, max: 5 })}
+            />
+            {errors.spiciness && <span>Spiciness must be 1-5</span>}
+          </RowItem>
 
-        <div>
-          <label>Vegan</label>
-          <Input type="checkbox" {...register("vegan")} />
-        </div>
+          <RowItem>
+            <label>Vegan</label>
+            <Input type="checkbox" {...register("vegan")} />
+          </RowItem>
 
-        <div>
-          <label>Form</label>
-          <select {...register("form", { required: true })}>
-            {Object.values(CroquetteCreateRequestFormEnum).map((formValue) => (
-              <option key={formValue} value={formValue}>
-                {formValue}
-              </option>
-            ))}
-          </select>
-          {errors.form && <span>Form is required</span>}
-        </div>
+          <RowItem>
+            <label>Form</label>
+            <select {...register("form", { required: true })}>
+              {Object.values(CroquetteCreateRequestFormEnum).map(
+                (formValue) => (
+                  <option key={formValue} value={formValue}>
+                    {formValue}
+                  </option>
+                )
+              )}
+            </select>
+            {errors.form && <span>Form is required</span>}
+          </RowItem>
+        </Row>
 
         <div>
           <label>Image URL</label>
