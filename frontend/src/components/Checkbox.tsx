@@ -37,7 +37,8 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   label,
   checked,
   disabled = false,
-  onChange = (e) => console.log("checkbox clicked"),
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    console.log("checkbox clicked:", e.target.value),
 }) => {
   return (
     <StyledCheckBox>

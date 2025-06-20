@@ -7,11 +7,16 @@ import { useCroquetteFiltersStore } from "../../stores/FilterSearchState";
 
 export function useGetCroquettes() {
   const { croquetteApi } = useApiEndpoints();
-  const filters = useCroquetteFiltersStore((state) => state.filters);
+  const { filters, useFilters } = useCroquetteFiltersStore();
+
+  console.log(useFilters, filters);
 
   const { isLoading, data, error, refetch } = useQuery({
-    queryKey: ["croquettes", filters],
-    queryFn: async () => await croquetteApi.retrieveAllCroquettes(filters),
+    queryKey: ["croquettes", useFilters ? filters : undefined],
+    queryFn: async () =>
+      useFilters
+        ? await croquetteApi.retrieveAllCroquettes(filters)
+        : await croquetteApi.retrieveAllCroquettes(),
   });
 
   return {

@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   width: 100rem;
 
   display: grid;
-  grid-template-rows: 10rem 1fr 10rem;
+  grid-template-rows: 7rem 2rem 1fr 10rem;
   gap: 2.4rem;
 `;
 

@@ -11,15 +11,22 @@ import { HiArrowSmDown, HiArrowSmUp } from "react-icons/hi";
 const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  border: 1px solid var(--color-grey-300);
-  border-radius: var(--border-radius-sm);
-  padding: 1.2rem 2.4rem;
 `;
 
 const FilterSortDiv = styled.div`
   display: flex;
   gap: 1.2rem;
   align-items: center;
+  justify-content: end;
+`;
+
+const OuterDiv = styled.div`
+  display: grid;
+  gap: 1.2rem;
+
+  border: 1px solid var(--color-grey-300);
+  border-radius: var(--border-radius-sm);
+  padding: 1.2rem 2.4rem;
 `;
 
 function CroquettesFilterBar() {
@@ -30,9 +37,19 @@ function CroquettesFilterBar() {
   const setFilters = useCroquetteFiltersStore((state) => state.setFilters);
 
   return (
-    <StyledDiv>
+    <>
+      <OuterDiv>
+        <StyledDiv>
+          <CroquettesFilterBarFilter />
+          <FilterSortDiv>
+            <CroquettesFilterBarSearch />
+            <ButtonIcon onClick={resetFilters}>
+              <HiTrash />
+            </ButtonIcon>
+          </FilterSortDiv>
+        </StyledDiv>
+      </OuterDiv>
       <FilterSortDiv>
-        <CroquettesFilterBarFilter />
         <CroquettesFilterBarSortBy />
         <ButtonIcon
           onClick={() =>
@@ -51,14 +68,7 @@ function CroquettesFilterBar() {
           )}
         </ButtonIcon>
       </FilterSortDiv>
-
-      <FilterSortDiv>
-        <CroquettesFilterBarSearch />
-        <ButtonIcon onClick={resetFilters}>
-          <HiTrash />
-        </ButtonIcon>
-      </FilterSortDiv>
-    </StyledDiv>
+    </>
   );
 }
 
