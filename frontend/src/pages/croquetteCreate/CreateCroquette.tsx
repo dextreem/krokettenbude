@@ -46,7 +46,6 @@ const RowItem = styled.div`
 export default function CreateCroquette() {
   const { createCroquette, isCreatingCroquette } = useCreateCroquette();
 
-  // Choose random croquette once (before render)
   const randomSeed =
     croquetteSeeds[Math.floor(Math.random() * croquetteSeeds.length)];
 
@@ -97,7 +96,6 @@ export default function CreateCroquette() {
           {errors.description && <span>Description is required</span>}
         </div>
 
-        {/* Row with Crunchiness, Spiciness, Vegan, and Form */}
         <Row>
           <RowItem>
             <label>Crunchiness (1-5)</label>
