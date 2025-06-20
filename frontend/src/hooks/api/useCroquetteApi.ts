@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useApiEndpoints } from "./useApi";
 import type { AddCroquetteRequest } from "../../api-client";
 import { useNavigate } from "react-router-dom";
@@ -53,12 +53,13 @@ export function useGetSingleCroquette(croquetteId: number) {
 export function useCreateCroquette() {
   const navigate = useNavigate();
   const { croquetteApi } = useApiEndpoints();
+  const queryClient = useQueryClient();
 
   const postCroquetteMutation = useMutation({
     mutationFn: async (requestData: AddCroquetteRequest) =>
       await croquetteApi.addCroquette(requestData),
     onSuccess: () => {
-      console.log("Croquette Created");
+      queryClient.invalidateQueries({ queryKey: ["croquettes"] });
       navigate(`/${ROUTES.CROQUETTES}`);
     },
     onError: (error) => console.log("Create user failed:", error),
