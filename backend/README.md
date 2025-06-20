@@ -101,5 +101,5 @@ podman load -i artifacts/image.tar
 - average rating is calculated for every request that is not cached. For now that's fine, but as soon as the croquette numbers will rise (and they will!) this can be a bottleneck
   - Solution: Update the average rating upon new ratings (event-driven?)
 - Everybody can register a MANAGER user
-- Sanitization for comment and description.
+- Sanitization for user inputs in general.
 - Refreshing a JWT is not implemented.

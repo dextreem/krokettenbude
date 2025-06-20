@@ -12,6 +12,7 @@ import com.dextreem.croqueteria.request.CommentUpdateRequest
 import com.dextreem.croqueteria.response.CommentResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
 import com.dextreem.croqueteria.util.FindExistingEntityById
+import com.dextreem.croqueteria.util.InputSanitizer
 import mu.KLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -93,7 +94,7 @@ class CommentServiceImpl(
     private fun buildNewComment(commentCreateRequest: CommentCreateRequest, user: User, croquette: Croquette): Comment {
         return Comment(
             id = null,
-            comment = commentCreateRequest.comment,
+            comment = InputSanitizer.sanitize(commentCreateRequest.comment),
             croquette = croquette,
             user = user,
             createdAt = Date(),
