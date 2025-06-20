@@ -19,6 +19,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 10 * (60 * 1000), // 10 mins
+      // staleTime: 0, // for debug
     },
   },
 });
@@ -27,7 +28,6 @@ function App() {
   const { isDarkMode } = useDarkModeState();
 
   useEffect(() => {
-    // Apply dark mode class to the body based on the state
     if (isDarkMode) {
       document.documentElement.classList.add("dark-mode");
       document.documentElement.classList.remove("light-mode");

@@ -9,14 +9,20 @@ export function useGetCroquettes() {
   const { croquetteApi } = useApiEndpoints();
   const { filters, useFilters } = useCroquetteFiltersStore();
 
-  console.log(useFilters, filters);
+  const searchFilters = {
+    nameContains: filters.nameContains,
+    descriptionContains: filters.descriptionContains,
+    country: filters.country,
+    sortBy: filters.sortBy,
+    sortDirection: filters.sortDirection,
+  };
 
   const { isLoading, data, error, refetch } = useQuery({
-    queryKey: ["croquettes", useFilters ? filters : undefined],
+    queryKey: ["croquettes", useFilters ? filters : searchFilters],
     queryFn: async () =>
       useFilters
         ? await croquetteApi.retrieveAllCroquettes(filters)
-        : await croquetteApi.retrieveAllCroquettes(),
+        : await croquetteApi.retrieveAllCroquettes(searchFilters),
   });
 
   return {

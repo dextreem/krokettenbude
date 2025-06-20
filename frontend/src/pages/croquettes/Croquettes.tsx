@@ -8,7 +8,7 @@ import { HiPlus } from "react-icons/hi2";
 const StyledDiv = styled.div`
   margin: 2.4rem auto 0;
   padding-bottom: 1.2rem;
-  width: 100rem;
+  width: 105rem;
 
   display: grid;
   grid-template-rows: 7rem 2rem 1fr 10rem;

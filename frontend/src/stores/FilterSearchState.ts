@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import {
-  RetrieveAllCroquettesFormEnum,
   RetrieveAllCroquettesSortByEnum,
   RetrieveAllCroquettesSortDirectionEnum,
   type RetrieveAllCroquettesRequest,
@@ -19,11 +18,11 @@ const initialState: RetrieveAllCroquettesRequest = {
   country: undefined,
   nameContains: undefined,
   descriptionContains: undefined,
-  crunchiness: [1, 2, 3, 4, 5],
-  spiciness: [1, 2, 3, 4, 5],
+  crunchiness: undefined,
+  spiciness: undefined,
   minAverageRating: undefined,
-  vegan: false,
-  form: RetrieveAllCroquettesFormEnum.Cylindric,
+  vegan: undefined,
+  form: undefined,
   sortBy: RetrieveAllCroquettesSortByEnum.CreatedAt,
   sortDirection: RetrieveAllCroquettesSortDirectionEnum.Desc,
 };
