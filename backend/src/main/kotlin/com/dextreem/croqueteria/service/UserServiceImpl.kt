@@ -11,6 +11,7 @@ import com.dextreem.croqueteria.request.UserUpdateRequest
 import com.dextreem.croqueteria.response.LoginResponse
 import com.dextreem.croqueteria.response.UserResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
+import com.dextreem.croqueteria.util.InputSanitizer
 import mu.KLogging
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -61,7 +62,12 @@ class UserServiceImpl(
         val token = jwtService.generateToken(mapOf(), user)
 
         logger.info("User ${user.username} successfully logged in.")
-        return LoginResponse(token = token)
+        return LoginResponse(
+            token = token,
+            id = user.id,
+            email = user.username,
+            role = user.role.name
+        )
     }
 
     @Transactional(readOnly = true)
@@ -119,7 +125,7 @@ class UserServiceImpl(
     private fun buildNewUser(userCreateRequest: UserCreateRequest): User {
         return User(
             id = null,
-            email = userCreateRequest.email,
+            email = InputSanitizer.sanitize(userCreateRequest.email),
             password = passwordEncoder.encode(userCreateRequest.password),
             role = userCreateRequest.role,
             createdAt = null,

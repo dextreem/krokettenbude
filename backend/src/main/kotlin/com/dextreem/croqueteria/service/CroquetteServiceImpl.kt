@@ -12,6 +12,7 @@ import com.dextreem.croqueteria.request.SortDirection
 import com.dextreem.croqueteria.request.spec.CroquetteSpecification
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
+import com.dextreem.croqueteria.util.InputSanitizer
 import mu.KLogging
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -22,7 +23,6 @@ import java.util.Optional
 @Service
 class CroquetteServiceImpl(
     val croquetteRepository: CroquetteRepository,
-    val ratingService: RatingService,
     val findAuthenticatedUser: FindAuthenticatedUser
 ) : CroquetteService {
     companion object : KLogging()
@@ -88,14 +88,14 @@ class CroquetteServiceImpl(
     private fun buildNewCroquette(croquetteCreateRequest: CroquetteCreateRequest): Croquette {
         return Croquette(
             id = null,
-            country = croquetteCreateRequest.country,
-            name = croquetteCreateRequest.name ,
-            description = croquetteCreateRequest.description ,
+            country = InputSanitizer.sanitize(croquetteCreateRequest.country),
+            name = InputSanitizer.sanitize(croquetteCreateRequest.name) ,
+            description = InputSanitizer.sanitize(croquetteCreateRequest.description) ,
             spiciness = croquetteCreateRequest.spiciness,
             crunchiness = croquetteCreateRequest.crunchiness,
             vegan = croquetteCreateRequest.vegan,
             form = croquetteCreateRequest.form,
-            imageUrl = croquetteCreateRequest.imageUrl,
+            imageUrl = InputSanitizer.sanitize(croquetteCreateRequest.imageUrl),
             createdAt = Date(),
             updatedAt = Date(),
         )
@@ -106,14 +106,14 @@ class CroquetteServiceImpl(
             ResourceNotFoundException("Croquette with ID $croquetteId not found!")
         }
 
-        croquetteUpdateRequest.name?.let { croquette.name = it }
-        croquetteUpdateRequest.country?.let { croquette.country = it }
-        croquetteUpdateRequest.description?.let { croquette.description = it }
+        croquetteUpdateRequest.name?.let { croquette.name = InputSanitizer.sanitize(it) }
+        croquetteUpdateRequest.country?.let { croquette.country = InputSanitizer.sanitize(it) }
+        croquetteUpdateRequest.description?.let { croquette.description = InputSanitizer.sanitize(it) }
         croquetteUpdateRequest.crunchiness?.let { croquette.crunchiness = it }
         croquetteUpdateRequest.spiciness?.let { croquette.spiciness = it }
         croquetteUpdateRequest.vegan?.let { croquette.vegan = it }
         croquetteUpdateRequest.form?.let { croquette.form = it}
-        croquetteUpdateRequest.imageUrl?.let { croquette.imageUrl = it }
+        croquetteUpdateRequest.imageUrl?.let { croquette.imageUrl = InputSanitizer.sanitize(it) }
 
         return croquette
     }

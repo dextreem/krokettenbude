@@ -60,7 +60,7 @@ class SecurityConfig(
                     .requestMatchers(
                         HttpMethod.GET,
                         "/api/v1/croquettes/**",
-                        "/api/v1/ratings/**",
+//                        "/api/v1/ratings/**",
                         "/api/v1/comments/**"
                     ).permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/users/**", "/api/v1/recommendations/**").permitAll()

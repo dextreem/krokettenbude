@@ -69,7 +69,7 @@ class RatingControllerIntegrationTest {
     }
 
     @AfterEach
-    fun clearDBs(){
+    fun clearDBs() {
         ratingRepository.deleteAll()
         userRepository.deleteAll()
         croquetteRepository.deleteAll()
@@ -136,9 +136,11 @@ class RatingControllerIntegrationTest {
 
     @Test
     fun getAllRatings() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
         val result = webTestClient
             .get()
             .uri(endpoint)
+            .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
             .expectBodyList(RatingResponse::class.java)
@@ -150,6 +152,7 @@ class RatingControllerIntegrationTest {
 
     @Test
     fun getAllRatingsForCroquette() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
         val croquetteId = savedRatings.first().croquette?.id ?: fail("Issue while setting up demo ratings")
 
         val uri = UriComponentsBuilder.fromUriString(endpoint)
@@ -159,6 +162,7 @@ class RatingControllerIntegrationTest {
         val result = webTestClient
             .get()
             .uri(uri)
+            .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
             .expectBodyList(RatingResponse::class.java)
@@ -171,13 +175,13 @@ class RatingControllerIntegrationTest {
 
     @Test
     fun getSingleRating() {
-        val user = savedUsers.find { it.role == UserRole.MANAGER } ?: fail("Error while setting up demo users.")
+        val user = savedUsers.first()
+        val rating = savedRatings.find { it.user?.id == user.id } ?: fail("Issue while setting up demo ratings")
         val token = createAuthToken(user, jwtService)
-        val ratingId = savedRatings.first().id ?: fail("Issue while setting up demo ratings")
 
         val result = webTestClient
             .get()
-            .uri("$endpoint/$ratingId")
+            .uri("$endpoint/${rating.croquette?.id}")
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isOk
@@ -185,26 +189,28 @@ class RatingControllerIntegrationTest {
             .returnResult()
             .responseBody
 
-        assertEquals(savedRatings.first().rating, result?.rating)
-        assertEquals(savedRatings.first().user?.id, result?.userId)
+        assertEquals(rating.rating, result?.rating)
+        assertEquals(rating.user?.id, result?.userId)
     }
 
     @Test
-    fun getSingleRatingForbidden() {
-        val user = savedUsers.find { it.role == UserRole.USER } ?: fail("Error while setting up demo users.")
+    fun getSingleRatingNotFound() {
+        val user = savedUsers.first()
+        val croquettesWithUserRating = savedRatings.filter { it.user?.id != user.id }.map { it.croquette?.id }
+        val croquette = savedCroquettes.find{ it.id !in croquettesWithUserRating }
         val token = createAuthToken(user, jwtService)
-        val ratingId = savedRatings.first().id ?: fail("Issue while setting up demo ratings")
 
-        val result = webTestClient
+        webTestClient
             .get()
-            .uri("$endpoint/$ratingId")
+            .uri("$endpoint/${croquette?.id}")
             .header("Authorization", "Bearer $token")
             .exchange()
-            .expectStatus().isForbidden
+            .expectStatus().isNotFound
     }
 
     @Test
     fun getAllRatingsForCroquetteNotFound() {
+        val token = createAuthToken(savedUsers.first(), jwtService)
         val croquetteId = savedRatings.last().croquette?.id ?: fail("Issue while setting up demo ratings")
 
         val uri = UriComponentsBuilder.fromUriString(endpoint)
@@ -214,6 +220,7 @@ class RatingControllerIntegrationTest {
         webTestClient
             .get()
             .uri(uri)
+            .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isNotFound
     }
@@ -343,7 +350,7 @@ class RatingControllerIntegrationTest {
 
         webTestClient
             .delete()
-            .uri("$endpoint/${ratingId+100}")
+            .uri("$endpoint/${ratingId + 100}")
             .header("Authorization", "Bearer $token")
             .exchange()
             .expectStatus().isNotFound

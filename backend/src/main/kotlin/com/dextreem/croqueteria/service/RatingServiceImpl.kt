@@ -12,6 +12,7 @@ import com.dextreem.croqueteria.request.RatingUpdateRequest
 import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
 import com.dextreem.croqueteria.util.FindExistingEntityById
+import jakarta.annotation.Resource
 import mu.KLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -54,15 +55,16 @@ class RatingServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun retrieveRatingById(ratingId: Int): RatingResponse {
-        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser(true)
-        logger.info("User ${actorUser.username} requested rating with ID $ratingId")
-        val rating = findExistingEntityById.findRating(ratingId)
-        if (actorUser.id != rating.user?.id && actorUser.role != UserRole.MANAGER) {
-            throw AccessForbiddenException("Not allowed to retrieve other user's rating as a non-manager!")
+    override fun retrieveUserRatingForCroquette(croquetteId: Int): RatingResponse {
+        val actorUser: User = findAuthenticatedUser.getAuthenticatedUser()
+        logger.info("User ${actorUser.username} requested rating for croquette $croquetteId")
+        val croquette = findExistingEntityById.findCroquette(croquetteId)
+        val rating = ratingRepository.findByCroquetteAndUser(croquette, actorUser)
+        if(!rating.isPresent){
+            throw ResourceNotFoundException("No rating for croquette $croquetteId. Returning blanco!")
         }
-        logger.info("Retrieved rating $ratingId. Returning")
-        return buildRatingResponse(rating)
+        logger.info("Retrieved rating $croquetteId. Returning")
+        return buildRatingResponse(rating.get())
     }
 
     @Transactional

@@ -6,10 +6,16 @@ import com.dextreem.croqueteria.request.CroquetteFilter
 import com.dextreem.croqueteria.request.CroquetteSortBy
 import com.dextreem.croqueteria.request.CroquetteUpdateRequest
 import com.dextreem.croqueteria.request.SortDirection
+import com.dextreem.croqueteria.response.ApiErrorResponse
 import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.service.CroquetteService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -35,6 +41,30 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a croquette", description = "Creates a new croquette.")
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "201",
+                description = "Croquette created",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = CroquetteResponse::class)
+                    )
+                ]
+            ),
+            ApiResponse(
+                responseCode = "403",
+                description = "Only MANAGERs are allowed to create croquettes",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            )
+        ]
+    )
     fun addCroquette(@RequestBody @Valid croquetteCreateRequest: CroquetteCreateRequest): CroquetteResponse {
         return croquetteService.addCroquette(croquetteCreateRequest)
     }
@@ -44,6 +74,30 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @Operation(
         summary = "Get all croquettes",
         description = "Retrieves all croquettes with optional filters."
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "List of croquettes responded",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        array = ArraySchema(schema = Schema(implementation = CroquetteResponse::class))
+                    )
+                ]
+            ),
+            ApiResponse(
+                responseCode = "403",
+                description = "Only MANAGERs are allowed to create croquettes",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            )
+        ]
     )
     @SecurityRequirements
     fun retrieveAllCroquettes(
@@ -99,6 +153,30 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @Operation(
         summary = "Get a single croquette", description = "Retrieves a single croquette by its ID."
     )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Croquette responded",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = CroquetteResponse::class)
+                    )
+                ]
+            ),
+            ApiResponse(
+                responseCode = "404",
+                description = "Croquette not found",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            )
+        ]
+    )
     @SecurityRequirements
     fun retrieveCroquetteById(@PathVariable("croquette_id") croquetteId: Int): CroquetteResponse {
         return croquetteService.retrieveCroquetteById(croquetteId)
@@ -108,6 +186,40 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @ResponseStatus(HttpStatus.OK)
     @Operation(
         summary = "Update a croquette", description = "Updates a single croquette identified by its ID."
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Croquette updated and responded",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = CroquetteResponse::class)
+                    )
+                ]
+            ),
+            ApiResponse(
+                responseCode = "404",
+                description = "Croquette not found",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            ),
+            ApiResponse(
+                responseCode = "403",
+                description = "Only MANAGERs are allowed to edit croquettes",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            )
+        ]
     )
     fun updateCroquette(
         @PathVariable("croquette_id") croquetteId: Int, @RequestBody croquetteUpdateRequest: CroquetteUpdateRequest
@@ -119,6 +231,34 @@ class CroquetteController(val croquetteService: CroquetteService) {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(
         summary = "Delete a croquette", description = "Deletes a single comment identified by its ID"
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "204",
+                description = "Croquette deleted",
+            ),
+            ApiResponse(
+                responseCode = "404",
+                description = "Croquette not found",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            ),
+            ApiResponse(
+                responseCode = "403",
+                description = "Only MANAGERs are allowed to delete croquettes.",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = ApiErrorResponse::class)
+                    )
+                ]
+            )
+        ]
     )
     fun deleteCroquette(@PathVariable("croquette_id") croquetteId: Int) {
         croquetteService.deleteCroquette(croquetteId)

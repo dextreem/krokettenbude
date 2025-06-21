@@ -6,7 +6,8 @@
     "crunchiness": 2,
     "spiciness": 2,
     "vegan": true,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Belgium",
@@ -15,7 +16,8 @@
     "crunchiness": 1,
     "spiciness": 2,
     "vegan": true,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Germany, Austria, and Switzerland",
@@ -24,7 +26,8 @@
     "crunchiness": 3,
     "spiciness": 5,
     "vegan": true,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Hungary",
@@ -33,7 +36,8 @@
     "crunchiness": 3,
     "spiciness": 2,
     "vegan": false,
-    "form": "ball"
+    "form": "ball",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Italy",
@@ -42,7 +46,8 @@
     "crunchiness": 2,
     "spiciness": 4,
     "vegan": true,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Ireland",
@@ -51,7 +56,8 @@
     "crunchiness": 5,
     "spiciness": 1,
     "vegan": true,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "The Netherlands",
@@ -60,7 +66,8 @@
     "crunchiness": 3,
     "spiciness": 3,
     "vegan": false,
-    "form": "ball"
+    "form": "ball",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Poland",
@@ -69,7 +76,8 @@
     "crunchiness": 5,
     "spiciness": 5,
     "vegan": false,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Portugal",
@@ -78,7 +86,8 @@
     "crunchiness": 1,
     "spiciness": 2,
     "vegan": true,
-    "form": "disk"
+    "form": "disk",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Russia",
@@ -87,7 +96,8 @@
     "crunchiness": 5,
     "spiciness": 3,
     "vegan": true,
-    "form": "ball"
+    "form": "ball",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Spain",
@@ -96,7 +106,8 @@
     "crunchiness": 3,
     "spiciness": 3,
     "vegan": true,
-    "form": "disk"
+    "form": "disk",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "United Kingdom",
@@ -105,7 +116,8 @@
     "crunchiness": 3,
     "spiciness": 5,
     "vegan": true,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "India",
@@ -114,7 +126,8 @@
     "crunchiness": 1,
     "spiciness": 3,
     "vegan": true,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Sri Lanka",
@@ -123,7 +136,8 @@
     "crunchiness": 2,
     "spiciness": 4,
     "vegan": true,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "China",
@@ -132,7 +146,8 @@
     "crunchiness": 2,
     "spiciness": 3,
     "vegan": false,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Indonesia",
@@ -141,7 +156,8 @@
     "crunchiness": 3,
     "spiciness": 3,
     "vegan": true,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Japan",
@@ -150,7 +166,8 @@
     "crunchiness": 5,
     "spiciness": 1,
     "vegan": true,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "South Korea",
@@ -159,7 +176,8 @@
     "crunchiness": 5,
     "spiciness": 5,
     "vegan": false,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Puerto Rico",
@@ -168,7 +186,8 @@
     "crunchiness": 3,
     "spiciness": 5,
     "vegan": false,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Cuba",
@@ -177,7 +196,8 @@
     "crunchiness": 1,
     "spiciness": 4,
     "vegan": true,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Dominican Republic",
@@ -186,7 +206,8 @@
     "crunchiness": 2,
     "spiciness": 5,
     "vegan": true,
-    "form": "disk"
+    "form": "disk",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Aruba",
@@ -195,7 +216,8 @@
     "crunchiness": 1,
     "spiciness": 1,
     "vegan": false,
-    "form": "ball"
+    "form": "ball",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Mexico",
@@ -204,7 +226,8 @@
     "crunchiness": 2,
     "spiciness": 3,
     "vegan": false,
-    "form": "ball"
+    "form": "ball",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "United States",
@@ -213,7 +236,8 @@
     "crunchiness": 4,
     "spiciness": 4,
     "vegan": true,
-    "form": "disk"
+    "form": "disk",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Brazil",
@@ -222,7 +246,8 @@
     "crunchiness": 3,
     "spiciness": 3,
     "vegan": true,
-    "form": "disk"
+    "form": "disk",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Ecuador",
@@ -231,7 +256,8 @@
     "crunchiness": 2,
     "spiciness": 2,
     "vegan": true,
-    "form": "disk"
+    "form": "disk",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Uruguay",
@@ -240,7 +266,8 @@
     "crunchiness": 2,
     "spiciness": 3,
     "vegan": false,
-    "form": "cylindric"
+    "form": "cylindric",
+    "imageUrl": "http://someimage"
   },
   {
     "country": "Colombia",
@@ -249,6 +276,7 @@
     "crunchiness": 4,
     "spiciness": 2,
     "vegan": true,
-    "form": "oval"
+    "form": "oval",
+    "imageUrl": "http://someimage"
   }
 ]

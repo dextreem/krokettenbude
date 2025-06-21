@@ -1,0 +1,282 @@
+[
+  {
+    "country": "France",
+    "name": "Croquette",
+    "description": "The ragout-filled dish was regarded as a French delicacy. It was first described in a recipe from 1691 by the chef of the French king Louis XIV, using ingredients such as truffles, sweetbreads, and cream cheese. From the 1800s onward, it became a way to use leftover stewed meat.",
+    "crunchiness": 2,
+    "spiciness": 2,
+    "vegan": true,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/30/cat-8716341_1280.png"
+  },
+  {
+    "country": "Belgium",
+    "name": "Krokette/Croquette",
+    "description": "Kroketten/croquettes can be served as a side or main dish. They are usually savoury and filled with mashed potatoes. The two most popular Belgian croquettes have a thick bechamel filling mixed with grey shrimps \"garnaalkroketten/croquettes de crevettes\" or cheese \"kaaskroketten/croquettes de fromage\". The prawn filling seems to have first appeared in 1922, and became popular in the 1950s. As a main dish, they are usually served with a salad, fried parsley and frites.",
+    "crunchiness": 1,
+    "spiciness": 2,
+    "vegan": true,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/04/26/20/06/entries-6209894_1280.jpg"
+  },
+  {
+    "country": "Germany, Austria, and Switzerland",
+    "name": "Krokette",
+    "description": "The German word is Kroketten (singular Krokette). In the German speaking countries, this usually refers to plain potato croquettes. They are served as a side dish in restaurants but are also available frozen in supermarkets.",
+    "crunchiness": 3,
+    "spiciness": 5,
+    "vegan": true,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2020/12/22/18/03/steak-5852928_1280.jpg"
+  },
+  {
+    "country": "Hungary",
+    "name": "Krokett",
+    "description": "Krokett is a small cylindrical croquette similar to the Czech variety: potatoes, eggs, flour, and butter, seasoned with nutmeg and salt and deep-fried in oil. This variety is available in most restaurants as a side dish and can also be bought frozen. When made with cottage cheese, they are called túrókrokett.",
+    "crunchiness": 3,
+    "spiciness": 2,
+    "vegan": false,
+    "form": "ball",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
+  },
+  {
+    "country": "Italy",
+    "name": "Crocchette/Crocchè",
+    "description": "In Italy, crocchette (known in the South as crocchè) is made mainly with crushed potatoes or vegetables such as aubergines (crocchette di melanzane). Crocchette is derived from the croquettes introduced in the area by the French in the 18th century; in Neapolitan, Apulian and Sicilian cuisine they are made from mashed potato and egg, which is covered in breadcrumbs and fried. Crocchette are typically a Southern Italian street food, ubiquitous at friggitorie specializing in fried foods, the Italian equivalent of fish and chip shops. Rice arancini (typical of Sicily), supplì (Roman cuisine) and Milanese rice and saffron crocchette are particularly well-known in Italian cuisine. In Emilia-Romagna and Piedmont, crocchette are usually filled with chicken, while in Calabria polpette di riso are stuffed with rice and cheese (usually Parmesan or pecorino).",
+    "crunchiness": 2,
+    "spiciness": 4,
+    "vegan": true,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/03/07/09/09/bread-4039758_1280.jpg"
+  },
+  {
+    "country": "Ireland",
+    "name": "Croquette",
+    "description": "Plain potato croquettes are available frozen or refrigerated in most supermarkets. They are also homemade, usually with the addition of chopped onion.",
+    "crunchiness": 5,
+    "spiciness": 1,
+    "vegan": true,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/cats-8716342_1280.png"
+  },
+  {
+    "country": "The Netherlands",
+    "name": "Kroket",
+    "description": "After World War II, several suppliers started mass-producing croquettes filled with beef. The croquette (kroket in Dutch) subsequently became even more popular as a fast food; meat ragout was covered in breadcrumbs and subsequently deep-fried. Its success as a fast food garnered its reputation as a cheap dish of dubious quality, to such an extent that Dutch tongue-in-cheek urban myths relate its \"allegedly mysterious content\" to offal and butchering waste. Research in 2008 showed that 350 million kroketten are eaten in the Netherlands every year. An estimated 75% of all Dutch people eat them, resulting in 29 kroketten per person per year on average, the second most popular Dutch snack after the frikandel. The major consumers are between 35 and 49 years old.",
+    "crunchiness": 3,
+    "spiciness": 3,
+    "vegan": false,
+    "form": "ball",
+    "imageUrl": "https://cdn.pixabay.com/photo/2017/04/23/23/53/dish-2255120_1280.jpg"
+  },
+  {
+    "country": "Poland",
+    "name": "Croquette",
+    "description": "Croquettes in Poland are typically made from a thin, rolled crepe-type pancake stuffed with meat, mushrooms, cabbage, sauerkraut, or some combination of those ingredients. The croquette is lightly pan-fried before serving.\nSome recipe variations also require the croquette to be covered in breadcrumbs before frying and served with a clear soup e.g. \"barszcz\", similar to borscht.",
+    "crunchiness": 5,
+    "spiciness": 5,
+    "vegan": false,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/06/28/19/02/croquettes-1485278_1280.jpg"
+  },
+  {
+    "country": "Portugal",
+    "name": "Croquetes",
+    "description": "Croquetes  are cylindrical, covered in breadcrumbs, and deep-fried. They are usually made with white sauce and beef, sometimes mixed with varying amounts of pork, and frequently with some chouriço, black pepper or piri-piri to add more flavour. Seafood, fish (other than codfish) and vegetarian (potato) croquetes are also eaten in Portugal, but those have other names (such as rissol, pastel, empada), thus the name croquete refers only to the Dutch-style beef croquette.",
+    "crunchiness": 1,
+    "spiciness": 2,
+    "vegan": true,
+    "form": "disk",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/03/07/09/09/bread-4039758_1280.jpg"
+  },
+  {
+    "country": "Russia",
+    "name": "котлета рубленная/kotleta rublennaya",
+    "description": "The widespread minced cutlet (Russian: котлета рубленная, romanized: kotleta rublennaya) is made of minced meat (beef or pork or a mixture of both; chicken, turkey, or fish), bread, eggs, white onions, salt and spices, shaped as a meat patty and pan-fried. Bread is added in amounts up to 25% of meat, adding softness to the final product and also making it cheaper to produce. The Pozharsky cutlet is a well-known variety of such cutlets in which minced meat is mixed with butter.",
+    "crunchiness": 5,
+    "spiciness": 3,
+    "vegan": true,
+    "form": "ball",
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/10/11/09/07/croquettes-6699911_1280.jpg"
+  },
+  {
+    "country": "Spain",
+    "name": "Croquetas",
+    "description": "Traditional croquetas in Spain are made with thick béchamel. They are one of the most typical tapas dishes, especially filled with jamón, chicken or salt cod. Also, many bars and restaurants may offer novel, less traditional versions of croquettes with more varied fillings and ingredients such as apple, wild mushrooms, morcilla (blood sausage), cheeses, tuna, cuttlefish (using its ink to give color and flavour), etc. Croqueterías are restaurants that specialize in croquetas.",
+    "crunchiness": 3,
+    "spiciness": 3,
+    "vegan": true,
+    "form": "disk",
+    "imageUrl": "https://cdn.pixabay.com/photo/2015/10/28/19/30/rissole-1011215_1280.jpg"
+  },
+  {
+    "country": "United Kingdom",
+    "name": "Croquette",
+    "description": "Croquettes are available frozen or refrigerated in most supermarkets, typically with potato filling.",
+    "crunchiness": 3,
+    "spiciness": 5,
+    "vegan": true,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
+  },
+  {
+    "country": "India",
+    "name": "Aloo Tikki",
+    "description": "A potato-filled croquette called aloo tikki, which originated in the Indian subcontinent, is very popular in Northern India and is usually served with a stew. They are mostly eaten as snacks at home and are also popularly sold by roadside vendors. In West Bengal, there are two popular types of croquettes called chop and cutlet. Vegetable chop is prepared using a medley of mashed vegetables like boiled beetroot, carrot, and green peas, which is held together by potato, then breaded and deep fried. A cutlet is like a chop, but skips the potato binding on its inside. A mutton cutlet is made of minced goat meat mixed with spices that is breaded and deep-fried. McDonald's in India serves a fast-food variation of aloo tikki inside a hamburger bun. Meat croquettes called kebabs are made with minced mutton. Lightly spiced beef croquettes are a popular snack and appetiser among the Christian communities in Goa and Kerala.",
+    "crunchiness": 1,
+    "spiciness": 3,
+    "vegan": true,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/04/26/20/06/entries-6209894_1280.jpg"
+  },
+  {
+    "country": "Sri Lanka",
+    "name": "Fish Rolls/Cutlets",
+    "description": "There are two main types of croquettes in Sri Lanka. The first type is called rolls, and is a popular cylindrical bakery product. The rolls are commonly filled with a mixture of fish, potatoes and spices, and hence called fish rolls. Chicken is also sometimes used. The second type is called cutlets, which are spherical and generally made for festive occasions.",
+    "crunchiness": 2,
+    "spiciness": 4,
+    "vegan": true,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/03/07/09/09/bread-4039758_1280.jpg"
+  },
+  {
+    "country": "China",
+    "name": "日式可乐饼",
+    "description": "Japanese-style potato croquettes (日式可乐饼) are popular in China. They are made with mashed potatoes, corn, and sometimes meat.",
+    "crunchiness": 2,
+    "spiciness": 3,
+    "vegan": false,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/bowl-8716346_1280.png"
+  },
+  {
+    "country": "Indonesia",
+    "name": "Kroket",
+    "description": "The recipes Indonesia (Dutch), made of mashed potato filled with minced chicken or ragout, is one of the most popular snack items in Indonesia, introduced during Dutch colonial rule. The kroket is made by putting the chicken filling inside a mashed potato ball, which is then breaded and fried.",
+    "crunchiness": 3,
+    "spiciness": 3,
+    "vegan": true,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/07/03/20/42/croquettes-6384836_1280.jpg"
+  },
+  {
+    "country": "Japan",
+    "name": "コロッケ/Korokke",
+    "description": "A relative of the croquette, known as korokke, (コロッケ) is a popular fried food; widely available in supermarkets, convenience stores and butcher shops, as well as from specialty korokke shops. Generally patty-shaped, it is mainly made of potatoes with other ingredients including vegetables (such as onions and carrots) and usually less than 5% meat (e.g. pork or beef). It is often served with tonkatsu (とんかつ) sauce. Cylindrical korokke are also served; they more closely resemble the French version, where seafood (prawns or crab meat) or chicken in white sauce (ragout) is cooled to make it harden before the croquette is breaded and deep-fried. When it is served hot, the inside melts. This version is called \"cream korokke\" (クリームコロッケ) to distinguish it from the potato-based variety. It is often served with no sauce or with tomato sauce. Unlike its French cousin, croquettes made mainly of meat are not called korokke in Japan. They are called menchi katsu (メンチカツ), short for minced meat cutlets.",
+    "crunchiness": 5,
+    "spiciness": 1,
+    "vegan": true,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/11/23/15/37/appetizers-1853581_1280.jpg"
+  },
+  {
+    "country": "South Korea",
+    "name": "고로케/goroke",
+    "description": "The Korean version of croquettes, goroke (고로케) or keuroket (크로켓), are sold in many bakeries in South Korea. The most common type is deep-fried rolls stuffed with japchae (잡채) ingredients or chicken curry and mashed potato with vegetable salad. Goroke is sometimes filled with kimchi, pork, and bulgogi ingredients. Many Korean stores advertise the goroke as a French product and they are sold in most European-style bread stores in South Korea.",
+    "crunchiness": 5,
+    "spiciness": 5,
+    "vegan": false,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/cats-8716342_1280.png"
+  },
+  {
+    "country": "Puerto Rico",
+    "name": "Croquette",
+    "description": "Croquettes are typically made from ham, codfish or chicken in Puerto Rico, where they are dipped in what is colloquially known as \"mayo-ketchup\", a variation of fry sauce. Frozen croquettes are sold in supermarkets in Puerto Rico. There are versions of taro, cornmeal (called sorullos), breadfruit, yams, and cassave in replacement of wheat flour or potato.",
+    "crunchiness": 3,
+    "spiciness": 5,
+    "vegan": false,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
+  },
+  {
+    "country": "Cuba",
+    "name": "Croquette",
+    "description": "Cuban croquettes are nearly identical to the Puerto Rican croquettes, in that they are also made from ham or chicken. There is also a common cheese and potato variation, and they are sometimes made with fish.",
+    "crunchiness": 1,
+    "spiciness": 4,
+    "vegan": true,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2018/06/14/13/03/cat-3474821_1280.jpg"
+  },
+  {
+    "country": "Dominican Republic",
+    "name": "Croquette",
+    "description": "Dominican croquettes are nearly identical to the Cuban and Puerto Rican croquettes, in that they are typically made from ham or chicken, but there is a common cheese and potato variation, a beef variation, and they are also sometimes made with fish.",
+    "crunchiness": 2,
+    "spiciness": 5,
+    "vegan": true,
+    "form": "disk",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/09/22/00/06/kibble-4494929_1280.jpg"
+  },
+  {
+    "country": "Aruba",
+    "name": "Croquette",
+    "description": "Aruban croquettes are commonly made with mashed potato, ground beef, shellfish, and fish. They are eaten as an early morning breakfast or as snacks any time of the day. They are considered one of the island's cultural foods.",
+    "crunchiness": 1,
+    "spiciness": 1,
+    "vegan": false,
+    "form": "ball",
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/04/26/20/06/entries-6209894_1280.jpg"
+  },
+  {
+    "country": "Mexico",
+    "name": "Croquette",
+    "description": "Croquettes are usually made of tuna or chicken and potatoes. In southern Mexico, a variety is made with fresh cheese, plantain, and black beans.",
+    "crunchiness": 2,
+    "spiciness": 3,
+    "vegan": false,
+    "form": "ball",
+    "imageUrl": "https://cdn.pixabay.com/photo/2017/09/28/13/35/croquettes-2795548_1280.jpg"
+  },
+  {
+    "country": "United States",
+    "name": "Croquette",
+    "description": "A deviled crab (croqueta de jaiba) is a particular variety of a blue crab croquette from Tampa, Florida. The crab meat is seasoned with a unique Cuban-style enchilada or sofrito sauce (locally known as chilau), breaded with stale Cuban bread crumbs, formed into the approximate shape of a prolate spheroid, and fried. It is meant to be eaten with one hand. It originated in the immigrant community of Ybor City during a cigar workers' strike in the 1920s and is still popular in the area.",
+    "crunchiness": 4,
+    "spiciness": 4,
+    "vegan": true,
+    "form": "disk",
+    "imageUrl": "https://cdn.pixabay.com/photo/2021/07/03/20/42/croquettes-6384836_1280.jpg"
+  },
+  {
+    "country": "Brazil",
+    "name": "Croquetes",
+    "description": "Croquetes, primarily made from beef, are a common snack in many parts of Brazil. The coxinha is a popular chicken-based croquette.",
+    "crunchiness": 3,
+    "spiciness": 3,
+    "vegan": true,
+    "form": "disk",
+    "imageUrl": "https://cdn.pixabay.com/photo/2015/10/28/19/30/rissole-1011215_1280.jpg"
+  },
+  {
+    "country": "Ecuador",
+    "name": "Llapingachos",
+    "description": "From Riobamba, llapingachos are potato cakes with a cheese filling, fried in oil with achiote, and served with a peanut sauce.",
+    "crunchiness": 2,
+    "spiciness": 2,
+    "vegan": true,
+    "form": "disk",
+    "imageUrl": "https://cdn.pixabay.com/photo/2023/09/01/04/12/fritters-8226194_1280.jpg"
+  },
+  {
+    "country": "Uruguay",
+    "name": "Croquetas",
+    "description": "Called \"croquetas\" in Spanish, the most popular stuffing are mashed potatoes (croquetas de papa), ham and mozzarella cheese (croquetas de jamón y queso), and rice (croquetas de arroz). Sometimes, the rice ones have herbs and little ham cubes. Generally, their shape is cylindrical and medium sized; but larger spherical ones also can be seen (especially with rice stuffing). They are deep-fried in oil.",
+    "crunchiness": 2,
+    "spiciness": 3,
+    "vegan": false,
+    "form": "cylindric",
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/bowl-8716346_1280.png"
+  },
+  {
+    "country": "Colombia",
+    "name": "Croquette",
+    "description": "In Colombia croquettes are a common party snack as they are easy to pick up and carry while dancing salsa or merengue. Cooked meat that’s usually chicken is ground with egg, breadcrumbs, broth and sofrito mix. This mix is then lightly battered and deep fried. They are served in bars, casual restaurants, and at home for a celebration or party. They usually come with a side of homemade or bottled chili sauce.",
+    "crunchiness": 4,
+    "spiciness": 2,
+    "vegan": true,
+    "form": "oval",
+    "imageUrl": "https://cdn.pixabay.com/photo/2024/04/24/00/31/cats-8716342_1280.png"
+  }
+]
