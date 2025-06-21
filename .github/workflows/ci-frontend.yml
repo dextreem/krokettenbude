@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test:
+  build-frontend:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,10 +27,6 @@ jobs:
       - name: Install dependencies
         working-directory: frontend
         run: npm ci
-
-      - name: Run tests
-        working-directory: frontend
-        run: npm test
 
       - name: Build frontend
         working-directory: frontend

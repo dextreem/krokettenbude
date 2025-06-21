@@ -84,7 +84,7 @@ yum -S act
 Run build and test job:
 
 ```bash
-act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-and-test -P ubuntu-latest=catthehacker/ubuntu:act-latest
+act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-and-test-backend -P ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
 
 Load the docker image:

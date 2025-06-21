@@ -24,8 +24,8 @@ Run these commands to build and bundle the project:
 ```bash
 cd frontend
 npm run build # Only required to make sure the frontend is building successfully
-podman build -t croqueteria-backend .
-podman run -p 8080:8080 croqueteria-backend
+podman build -t croqueteria-frontend .
+podman run -p 80:80 croqueteria-frontend
 
 ```
 
@@ -44,7 +44,7 @@ yum -S act
 Run build and test job:
 
 ```bash
-act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-and-test -P ubuntu-latest=catthehacker/ubuntu:act-latest
+act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-frontend -P ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
 
 Load the docker image:
@@ -68,3 +68,8 @@ podman run --rm -v ${PWD}:/local docker.io/openapitools/openapi-generator-cli ge
   -g typescript-fetch \
   -o /local/src/api-client
 ```
+
+## Known Limitations
+
+- No tests
+- Linting is restricted due to auto-generated code

@@ -1,5 +1,5 @@
 # Stage 1: Build the app
-FROM node:20-alpine AS builder
+FROM docker.io/node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
+FROM docker.io/nginx:alpine
 
 RUN rm -rf /usr/share/nginx/html/*
 
