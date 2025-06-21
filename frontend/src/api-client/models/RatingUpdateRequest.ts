@@ -20,7 +20,7 @@ import { mapValues } from '../runtime';
  */
 export interface RatingUpdateRequest {
     /**
-     * 
+     * Updated rating value between 1 and 5
      * @type {number}
      * @memberof RatingUpdateRequest
      */

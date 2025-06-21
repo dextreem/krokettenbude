@@ -20,49 +20,49 @@ import { mapValues } from '../runtime';
  */
 export interface CroquetteCreateRequest {
     /**
-     * 
+     * Name of the croquette
      * @type {string}
      * @memberof CroquetteCreateRequest
      */
     name: string;
     /**
-     * 
+     * Country of origin
      * @type {string}
      * @memberof CroquetteCreateRequest
      */
     country: string;
     /**
-     * 
+     * Detailed description of the croquette
      * @type {string}
      * @memberof CroquetteCreateRequest
      */
     description: string;
     /**
-     * 
+     * Crunchiness rating from 1 (soft) to 5 (very crunchy)
      * @type {number}
      * @memberof CroquetteCreateRequest
      */
     crunchiness: number;
     /**
-     * 
+     * Spiciness rating from 1 (mild) to 5 (very spicy)
      * @type {number}
      * @memberof CroquetteCreateRequest
      */
     spiciness: number;
     /**
-     * 
+     * Is the croquette vegan?
      * @type {boolean}
      * @memberof CroquetteCreateRequest
      */
     vegan: boolean;
     /**
-     * 
+     * Form of the croquette
      * @type {string}
      * @memberof CroquetteCreateRequest
      */
     form: CroquetteCreateRequestFormEnum;
     /**
-     * 
+     * URL of the croquette image
      * @type {string}
      * @memberof CroquetteCreateRequest
      */

@@ -15,11 +15,14 @@
 
 import * as runtime from '../runtime';
 import type {
+  ApiErrorResponse,
   CommentCreateRequest,
   CommentResponse,
   CommentUpdateRequest,
 } from '../models/index';
 import {
+    ApiErrorResponseFromJSON,
+    ApiErrorResponseToJSON,
     CommentCreateRequestFromJSON,
     CommentCreateRequestToJSON,
     CommentResponseFromJSON,
@@ -55,7 +58,6 @@ export interface UpdateCommentRequest {
 export class CommentRestAPIEndpointsApi extends runtime.BaseAPI {
 
     /**
-     * Creates a comment for a croquette and a user.
      * Create a comment
      */
     async addCommentRaw(requestParameters: AddCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommentResponse>> {
@@ -92,7 +94,6 @@ export class CommentRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a comment for a croquette and a user.
      * Create a comment
      */
     async addComment(requestParameters: AddCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommentResponse> {

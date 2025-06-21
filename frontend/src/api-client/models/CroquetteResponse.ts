@@ -20,73 +20,73 @@ import { mapValues } from '../runtime';
  */
 export interface CroquetteResponse {
     /**
-     * 
+     * Unique identifier of the croquette
      * @type {number}
      * @memberof CroquetteResponse
      */
     id?: number;
     /**
-     * 
+     * Name of the croquette
      * @type {string}
      * @memberof CroquetteResponse
      */
     name: string;
     /**
-     * 
+     * Country of origin
      * @type {string}
      * @memberof CroquetteResponse
      */
     country: string;
     /**
-     * 
+     * Detailed description of the croquette
      * @type {string}
      * @memberof CroquetteResponse
      */
     description: string;
     /**
-     * 
+     * Crunchiness level (1 to 5)
      * @type {number}
      * @memberof CroquetteResponse
      */
     crunchiness: number;
     /**
-     * 
+     * Spiciness level (1 to 5)
      * @type {number}
      * @memberof CroquetteResponse
      */
     spiciness: number;
     /**
-     * 
+     * Indicates if the croquette is vegan
      * @type {boolean}
      * @memberof CroquetteResponse
      */
     vegan: boolean;
     /**
-     * 
+     * Shape or form of the croquette
      * @type {string}
      * @memberof CroquetteResponse
      */
     form: string;
     /**
-     * 
+     * URL to an image of the croquette
      * @type {string}
      * @memberof CroquetteResponse
      */
     imageUrl: string;
     /**
-     * 
+     * Date when the croquette was created
      * @type {Date}
      * @memberof CroquetteResponse
      */
     createdAt?: Date;
     /**
-     * 
+     * Date when the croquette was last updated
      * @type {Date}
      * @memberof CroquetteResponse
      */
     updatedAt?: Date;
     /**
-     * 
+     * Average rating from users
      * @type {number}
      * @memberof CroquetteResponse
      */

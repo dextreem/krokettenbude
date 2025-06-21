@@ -20,7 +20,7 @@ import { mapValues } from '../runtime';
  */
 export interface CommentUpdateRequest {
     /**
-     * 
+     * Updated text of the comment, optional but must be between 3 and 10,000 characters if provided.
      * @type {string}
      * @memberof CommentUpdateRequest
      */

@@ -20,19 +20,19 @@ import { mapValues } from '../runtime';
  */
 export interface UserCreateRequest {
     /**
-     * 
+     * User email address
      * @type {string}
      * @memberof UserCreateRequest
      */
     email: string;
     /**
-     * 
+     * User password
      * @type {string}
      * @memberof UserCreateRequest
      */
     password: string;
     /**
-     * 
+     * Role assigned to the user
      * @type {string}
      * @memberof UserCreateRequest
      */

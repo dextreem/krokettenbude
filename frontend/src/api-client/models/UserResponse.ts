@@ -20,19 +20,19 @@ import { mapValues } from '../runtime';
  */
 export interface UserResponse {
     /**
-     * 
+     * Unique identifier of the user
      * @type {number}
      * @memberof UserResponse
      */
     id?: number;
     /**
-     * 
+     * User's email address
      * @type {string}
      * @memberof UserResponse
      */
     email: string;
     /**
-     * 
+     * Role assigned to the user
      * @type {string}
      * @memberof UserResponse
      */

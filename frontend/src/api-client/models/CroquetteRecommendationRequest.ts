@@ -20,25 +20,25 @@ import { mapValues } from '../runtime';
  */
 export interface CroquetteRecommendationRequest {
     /**
-     * 
+     * Preferred spiciness level from 1 (mild) to 5 (very spicy)
      * @type {number}
      * @memberof CroquetteRecommendationRequest
      */
     preferredSpiciness: number;
     /**
-     * 
+     * Preferred crunchiness level from 1 (soft) to 5 (very crunchy)
      * @type {number}
      * @memberof CroquetteRecommendationRequest
      */
     preferredCrunchiness: number;
     /**
-     * 
+     * Indicates if the croquette should be vegan
      * @type {boolean}
      * @memberof CroquetteRecommendationRequest
      */
     vegan: boolean;
     /**
-     * 
+     * Croquette form/type
      * @type {string}
      * @memberof CroquetteRecommendationRequest
      */

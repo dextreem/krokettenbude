@@ -15,11 +15,14 @@
 
 import * as runtime from '../runtime';
 import type {
+  ApiErrorResponse,
   RatingCreateRequest,
   RatingResponse,
   RatingUpdateRequest,
 } from '../models/index';
 import {
+    ApiErrorResponseFromJSON,
+    ApiErrorResponseToJSON,
     RatingCreateRequestFromJSON,
     RatingCreateRequestToJSON,
     RatingResponseFromJSON,
@@ -176,7 +179,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
 
     /**
      * Retrieves a single rating for a user and a croquette.
-     * Get a single croquette rating.
+     * Get a single croquette rating
      */
     async retrieveRatingForCroquetteIdRaw(requestParameters: RetrieveRatingForCroquetteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RatingResponse>> {
         if (requestParameters['croquetteId'] == null) {
@@ -210,7 +213,7 @@ export class RatingRestAPIEndpointsApi extends runtime.BaseAPI {
 
     /**
      * Retrieves a single rating for a user and a croquette.
-     * Get a single croquette rating.
+     * Get a single croquette rating
      */
     async retrieveRatingForCroquetteId(requestParameters: RetrieveRatingForCroquetteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RatingResponse> {
         const response = await this.retrieveRatingForCroquetteIdRaw(requestParameters, initOverrides);

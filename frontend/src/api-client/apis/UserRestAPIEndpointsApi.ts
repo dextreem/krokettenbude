@@ -15,6 +15,7 @@
 
 import * as runtime from '../runtime';
 import type {
+  ApiErrorResponse,
   LoginRequest,
   LoginResponse,
   UserCreateRequest,
@@ -22,6 +23,8 @@ import type {
   UserUpdateRequest,
 } from '../models/index';
 import {
+    ApiErrorResponseFromJSON,
+    ApiErrorResponseToJSON,
     LoginRequestFromJSON,
     LoginRequestToJSON,
     LoginResponseFromJSON,
@@ -103,8 +106,8 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a single user by its ID
-     * Delete a single user
+     * Deletes a user identified by their ID.
+     * Delete a user
      */
     async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['userId'] == null) {
@@ -137,8 +140,8 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes a single user by its ID
-     * Delete a single user
+     * Deletes a user identified by their ID.
+     * Delete a user
      */
     async deleteUser(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteUserRaw(requestParameters, initOverrides);
@@ -146,7 +149,7 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
 
     /**
      * Logs in a user and returns a JWT upon success.
-     * Create a new user
+     * Login user
      */
     async loginRaw(requestParameters: LoginOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LoginResponse>> {
         if (requestParameters['loginRequest'] == null) {
@@ -175,7 +178,7 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
 
     /**
      * Logs in a user and returns a JWT upon success.
-     * Create a new user
+     * Login user
      */
     async login(requestParameters: LoginOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LoginResponse> {
         const response = await this.loginRaw(requestParameters, initOverrides);
@@ -183,7 +186,7 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a single user by its ID
+     * Retrieves all users, optionally filtered by user role.
      * Get all users
      */
     async retrieveAllUsersRaw(requestParameters: RetrieveAllUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserResponse>>> {
@@ -214,7 +217,7 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a single user by its ID
+     * Retrieves all users, optionally filtered by user role.
      * Get all users
      */
     async retrieveAllUsers(requestParameters: RetrieveAllUsersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserResponse>> {
@@ -223,7 +226,7 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a single user by its ID
+     * Retrieves a single user by their ID.
      * Get a single user
      */
     async retrieveUserByIdRaw(requestParameters: RetrieveUserByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserResponse>> {
@@ -257,7 +260,7 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a single user by its ID
+     * Retrieves a single user by their ID.
      * Get a single user
      */
     async retrieveUserById(requestParameters: RetrieveUserByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserResponse> {
@@ -266,8 +269,8 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a single user by its ID
-     * Update a single user
+     * Updates a user identified by their ID.
+     * Update a user
      */
     async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserResponse>> {
         if (requestParameters['userId'] == null) {
@@ -310,8 +313,8 @@ export class UserRestAPIEndpointsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a single user by its ID
-     * Update a single user
+     * Updates a user identified by their ID.
+     * Update a user
      */
     async updateUser(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserResponse> {
         const response = await this.updateUserRaw(requestParameters, initOverrides);

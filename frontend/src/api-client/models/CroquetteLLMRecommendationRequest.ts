@@ -20,7 +20,7 @@ import { mapValues } from '../runtime';
  */
 export interface CroquetteLLMRecommendationRequest {
     /**
-     * 
+     * Description input for the LLM to generate croquette recommendations
      * @type {string}
      * @memberof CroquetteLLMRecommendationRequest
      */

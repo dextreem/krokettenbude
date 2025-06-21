@@ -20,13 +20,13 @@ import { mapValues } from '../runtime';
  */
 export interface RatingCreateRequest {
     /**
-     * 
+     * ID of the croquette to rate
      * @type {number}
      * @memberof RatingCreateRequest
      */
     croquetteId: number;
     /**
-     * 
+     * Rating value between 1 and 5
      * @type {number}
      * @memberof RatingCreateRequest
      */

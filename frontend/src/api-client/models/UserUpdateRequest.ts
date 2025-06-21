@@ -20,13 +20,13 @@ import { mapValues } from '../runtime';
  */
 export interface UserUpdateRequest {
     /**
-     * 
+     * New password for the user, optional
      * @type {string}
      * @memberof UserUpdateRequest
      */
     password?: string;
     /**
-     * 
+     * Updated user role, optional
      * @type {string}
      * @memberof UserUpdateRequest
      */

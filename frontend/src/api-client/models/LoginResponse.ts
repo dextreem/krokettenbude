@@ -20,25 +20,25 @@ import { mapValues } from '../runtime';
  */
 export interface LoginResponse {
     /**
-     * 
+     * Unique identifier of the logged-in user
      * @type {number}
      * @memberof LoginResponse
      */
     id?: number;
     /**
-     * 
+     * JWT token issued upon successful login
      * @type {string}
      * @memberof LoginResponse
      */
     token: string;
     /**
-     * 
+     * Email address of the user
      * @type {string}
      * @memberof LoginResponse
      */
     email: string;
     /**
-     * 
+     * Role assigned to the user
      * @type {string}
      * @memberof LoginResponse
      */

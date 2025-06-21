@@ -20,25 +20,25 @@ import { mapValues } from '../runtime';
  */
 export interface RatingResponse {
     /**
-     * 
+     * Unique identifier of the rating
      * @type {number}
      * @memberof RatingResponse
      */
     id?: number;
     /**
-     * 
+     * Identifier of the croquette being rated
      * @type {number}
      * @memberof RatingResponse
      */
     croquetteId?: number;
     /**
-     * 
+     * Identifier of the user who submitted the rating
      * @type {number}
      * @memberof RatingResponse
      */
     userId?: number;
     /**
-     * 
+     * Rating value given by the user (e.g., 1 to 5)
      * @type {number}
      * @memberof RatingResponse
      */

@@ -20,37 +20,37 @@ import { mapValues } from '../runtime';
  */
 export interface CommentResponse {
     /**
-     * 
+     * Unique identifier of the comment
      * @type {number}
      * @memberof CommentResponse
      */
     id?: number;
     /**
-     * 
+     * ID of the croquette this comment belongs to
      * @type {number}
      * @memberof CommentResponse
      */
     croquetteId?: number;
     /**
-     * 
+     * ID of the user who made the comment
      * @type {number}
      * @memberof CommentResponse
      */
     userId?: number;
     /**
-     * 
+     * Username of the commenter
      * @type {string}
      * @memberof CommentResponse
      */
     userName?: string;
     /**
-     * 
+     * Content of the comment
      * @type {string}
      * @memberof CommentResponse
      */
     comment: string;
     /**
-     * 
+     * Timestamp when the comment was created
      * @type {Date}
      * @memberof CommentResponse
      */

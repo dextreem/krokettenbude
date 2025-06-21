@@ -20,13 +20,13 @@ import { mapValues } from '../runtime';
  */
 export interface CommentCreateRequest {
     /**
-     * 
+     * ID of the croquette to comment on
      * @type {number}
      * @memberof CommentCreateRequest
      */
     croquetteId: number;
     /**
-     * 
+     * Text content of the comment
      * @type {string}
      * @memberof CommentCreateRequest
      */

@@ -15,11 +15,14 @@
 
 import * as runtime from '../runtime';
 import type {
+  ApiErrorResponse,
   CroquetteCreateRequest,
   CroquetteResponse,
   CroquetteUpdateRequest,
 } from '../models/index';
 import {
+    ApiErrorResponseFromJSON,
+    ApiErrorResponseToJSON,
     CroquetteCreateRequestFromJSON,
     CroquetteCreateRequestToJSON,
     CroquetteResponseFromJSON,
