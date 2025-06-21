@@ -3,9 +3,7 @@ package com.dextreem.croqueteria.controller
 import com.dextreem.croqueteria.exception.AccessForbiddenException
 import com.dextreem.croqueteria.request.CroquetteLLMRecommendationRequest
 import com.dextreem.croqueteria.request.CroquetteRecommendationRequest
-import com.dextreem.croqueteria.response.ApiErrorResponse
 import com.dextreem.croqueteria.response.CroquetteRecommendationResponse
-import com.dextreem.croqueteria.response.CroquetteResponse
 import com.dextreem.croqueteria.service.RecommendationService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.ArraySchema
@@ -41,7 +39,7 @@ class RecommendationController(
                 content = [
                     Content(
                         mediaType = "application/json",
-                        array = ArraySchema(schema = Schema(implementation = CroquetteResponse::class))
+                        array = ArraySchema(schema = Schema(implementation = CroquetteRecommendationResponse::class))
                     )
                 ]
             )
@@ -68,7 +66,7 @@ class RecommendationController(
                 content = [
                     Content(
                         mediaType = "application/json",
-                        array = ArraySchema(schema = Schema(implementation = CroquetteResponse::class))
+                        array = ArraySchema(schema = Schema(implementation = CroquetteRecommendationResponse::class))
                     )
                 ]
             )

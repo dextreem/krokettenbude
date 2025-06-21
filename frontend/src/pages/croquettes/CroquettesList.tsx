@@ -1,11 +1,7 @@
-// import type { CroquetteResponse } from "../../api-client";
-// import croquettesData from "../../croquette_countries_refined.json";
 import CroquetteCard from "../../components/croquetteCard/CroquetteCard";
 import CroquetteCardWrapper from "../../components/croquetteCard/CroquetteCardWrapper";
 import { useGetCroquettes } from "../../hooks/api/useCroquetteApi";
 import Spinner from "../../components/Spinner";
-
-// const croquettes: CroquetteResponse[] = croquettesData;
 
 function CroquettesList() {
   const { croquettes, isCroquettesLoading } = useGetCroquettes();

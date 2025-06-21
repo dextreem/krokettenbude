@@ -7,6 +7,7 @@ export * from './CommentUpdateRequest';
 export * from './CroquetteCreateRequest';
 export * from './CroquetteLLMRecommendationRequest';
 export * from './CroquetteRecommendationRequest';
+export * from './CroquetteRecommendationResponse';
 export * from './CroquetteResponse';
 export * from './CroquetteUpdateRequest';
 export * from './LoginRequest';
