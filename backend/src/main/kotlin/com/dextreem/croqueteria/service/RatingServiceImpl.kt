@@ -3,7 +3,6 @@ package com.dextreem.croqueteria.service
 import com.dextreem.croqueteria.entity.Croquette
 import com.dextreem.croqueteria.entity.Rating
 import com.dextreem.croqueteria.entity.User
-import com.dextreem.croqueteria.entity.UserRole
 import com.dextreem.croqueteria.exception.AccessForbiddenException
 import com.dextreem.croqueteria.exception.ResourceNotFoundException
 import com.dextreem.croqueteria.repository.RatingRepository
@@ -12,7 +11,6 @@ import com.dextreem.croqueteria.request.RatingUpdateRequest
 import com.dextreem.croqueteria.response.RatingResponse
 import com.dextreem.croqueteria.util.FindAuthenticatedUser
 import com.dextreem.croqueteria.util.FindExistingEntityById
-import jakarta.annotation.Resource
 import mu.KLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

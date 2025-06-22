@@ -1,16 +1,29 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    proxy: {
-      "/api/v1/users": "http://localhost:8080",
-      "/api/v1/croquettes": "http://localhost:8080",
-      "/api/v1/ratings": "http://localhost:8080",
-      "/api/v1/comments": "http://localhost:8080",
-      "/api/v1/recommendations": "http://localhost:8080",
+export default defineConfig(({ command, mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+
+  return {
+    plugins: [react()],
+    define: {
+      "process.env": env,
     },
-  },
+    server:
+      command === "serve"
+        ? {
+            proxy: {
+              "/api/v1/users": env.VITE_API_BASE_URL || "http://localhost:8080",
+              "/api/v1/croquettes":
+                env.VITE_API_BASE_URL || "http://localhost:8080",
+              "/api/v1/ratings":
+                env.VITE_API_BASE_URL || "http://localhost:8080",
+              "/api/v1/comments":
+                env.VITE_API_BASE_URL || "http://localhost:8080",
+              "/api/v1/recommendations":
+                env.VITE_API_BASE_URL || "http://localhost:8080",
+            },
+          }
+        : undefined,
+  };
 });

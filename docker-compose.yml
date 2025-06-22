@@ -11,6 +11,7 @@ services:
       - SERVER_PORT=8080
       - SPRING_PROFILES_ACTIVE=prod
       - SWAGGER_UI_URL=http://localhost:8080/swagger-ui.html
+      - SPRING_CROQUETERIA_LLM_URL=http://localhost:11434/api/generate
     networks:
       - app-network
 
@@ -21,7 +22,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_API_BASE_URL=http://backend:8080/api
+      - VITE_API_BASE_URL=http://backend:8080
     depends_on:
       - backend
     networks:

@@ -9,6 +9,7 @@ import com.dextreem.croqueteria.response.CroquetteRecommendationResponse
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import mu.KLogging
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.net.URI
@@ -22,6 +23,9 @@ class RecommendationServiceImpl(
     private val croquetteRepository: CroquetteRepository
 ) : RecommendationService {
     companion object : KLogging()
+
+    @Value("\${spring.croqueteria.llm.url}")
+    private lateinit var llmUrl: String
 
     private val client = HttpClient.newHttpClient()
     private val mapper = jacksonObjectMapper()
@@ -76,7 +80,7 @@ class RecommendationServiceImpl(
         )
 
         val httpRequest = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:11434/api/generate"))
+            .uri(URI.create(llmUrl))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(requestJson))
             .build()
