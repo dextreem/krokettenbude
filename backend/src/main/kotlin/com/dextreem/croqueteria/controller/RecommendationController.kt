@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/recommendations")
+@RequestMapping("/v1/recommendations")
 class RecommendationController(
     private val recommendationService: RecommendationService
 ) {

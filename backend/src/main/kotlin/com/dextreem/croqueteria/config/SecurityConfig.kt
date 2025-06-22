@@ -53,25 +53,21 @@ class SecurityConfig(
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors { it.configurationSource(corsConfigurationSource()) }
             .headers { headers ->
-                headers.frameOptions { frameOptions ->
-                    frameOptions.sameOrigin()
-                }
+                headers.frameOptions { it.sameOrigin() }
             }
             .authorizeHttpRequests {
                 it
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .requestMatchers(
                         HttpMethod.GET,
-                        "/api/v1/croquettes/**",
-//                        "/api/v1/ratings/**",
-                        "/api/v1/comments/**"
+                        "/v1/croquettes/**",
+                        "/v1/comments/**"
                     ).permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/users/**", "/api/v1/recommendations/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/croquettes/**").hasRole("MANAGER")
-                    .requestMatchers(HttpMethod.PUT, "/api/v1/croquettes/**").hasRole("MANAGER")
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/croquettes/**").hasRole("MANAGER")
+                    .requestMatchers(HttpMethod.POST, "/v1/users/**", "/v1/recommendations/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/v1/croquettes/**").hasRole("MANAGER")
+                    .requestMatchers(HttpMethod.PUT, "/v1/croquettes/**").hasRole("MANAGER")
+                    .requestMatchers(HttpMethod.DELETE, "/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(
                         "/docs",
                         "/v3/api-docs/**",
@@ -93,19 +89,6 @@ class SecurityConfig(
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
-    }
-
-    @Bean
-    fun corsConfigurationSource(): CorsConfigurationSource {
-        val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("https://krokettenbude.dobuch.de", "http://localhost:5173")
-        configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        configuration.allowedHeaders = listOf("*")
-        configuration.allowCredentials = true
-
-        val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", configuration)
-        return source
     }
 
 }

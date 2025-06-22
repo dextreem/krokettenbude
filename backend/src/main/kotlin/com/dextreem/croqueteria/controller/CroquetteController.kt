@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/croquettes")
+@RequestMapping("/v1/croquettes")
 @Validated
 @Tag(name = "Croquette Rest API Endpoints", description = "Operations related to croquettes.")
 class CroquetteController(val croquetteService: CroquetteService) {

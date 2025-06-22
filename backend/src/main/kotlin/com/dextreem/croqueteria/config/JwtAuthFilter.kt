@@ -28,11 +28,6 @@ class JwtAuthFilter(
         @NonNull response: HttpServletResponse,
         @NonNull filterChain: FilterChain
     ) {
-        if (request.method.equals("OPTIONS", ignoreCase = true)) {
-            filterChain.doFilter(request, response)
-            return
-        }
-
         val authHeader = request.getHeader("Authorization")
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response)

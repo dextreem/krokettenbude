@@ -20,7 +20,7 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/ratings")
+@RequestMapping("/v1/ratings")
 @Validated
 @Tag(name = "Rating Rest API Endpoints", description = "Operations related to ratings")
 class RatingController(val ratingService: RatingService) {

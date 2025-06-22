@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/comments")
+@RequestMapping("/v1/comments")
 @Validated
 @Tag(name = "Comment Rest API Endpoints", description = "Operations related to comments.")
 class CommentController(val commentService: CommentService) {

@@ -1,9 +1,6 @@
 # Stage 1: Build the app
 FROM docker.io/node:20-alpine AS builder
 
-ARG VITE_API_BASE_PATH
-ENV VITE_API_BASE_PATH=$VITE_API_BASE_PATH
-
 WORKDIR /app
 
 COPY package*.json ./

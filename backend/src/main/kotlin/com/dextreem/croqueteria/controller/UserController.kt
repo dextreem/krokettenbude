@@ -22,7 +22,7 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/v1/users")
 @Validated
 @Tag(name = "User Rest API Endpoints", description = "Operations related to users.")
 class UserController(val userService: UserService) {
