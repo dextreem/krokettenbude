@@ -25,7 +25,7 @@ To quickly get the platform up and running locally:
 2. **Run the stack** using Docker Compose:
 
    ```bash
-   docker-compose build --build-arg VITE_API_BASE_URL=https://your-url-to-api
+   docker-compose build --build-arg VITE_API_BASE_PATH=https://your-url-to-api
    docker compose up -d
    ```
 
