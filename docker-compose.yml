@@ -5,8 +5,9 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+    # Remove host port mapping, expose only inside docker network
+    expose:
+      - "8080"
     environment:
       - SERVER_PORT=8080
       - SPRING_PROFILES_ACTIVE=prod
@@ -22,19 +23,23 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL}
-    ports:
-      - "80:80"
+    # Change to expose port 80 internally only
+    expose:
+      - "80"
     depends_on:
       - backend
     networks:
       - app-network
 
-  ollama-llm:
-    build:
-      context: ./llm
-      dockerfile: Dockerfile
+  nginx:
+    image: nginx:alpine
     ports:
-      - "11434:11434"
+      - "1337:80" # Host port 80 → Nginx container port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
     networks:
       - app-network
 
