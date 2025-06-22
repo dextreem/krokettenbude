@@ -95,3 +95,4 @@ podman run --rm -v ${PWD}:/local docker.io/openapitools/openapi-generator-cli ge
 - No frontend tests implemented
 - Linting partially disabled due to auto-generated code
 - Backend user management not yet integrated
+- No mobile view

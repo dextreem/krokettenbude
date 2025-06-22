@@ -1,6 +1,9 @@
 # Stage 1: Build the app
 FROM docker.io/node:20-alpine AS builder
 
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -17,5 +20,4 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
