@@ -53,7 +53,7 @@ class SecurityConfig(
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors { }
+            .cors { it.configurationSource(corsConfigurationSource()) }
             .headers { headers ->
                 headers.frameOptions { frameOptions ->
                     frameOptions.sameOrigin()
