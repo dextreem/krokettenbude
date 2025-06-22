@@ -14,8 +14,6 @@ const basePath = import.meta.env.VITE_API_BASE_PATH || "";
 export function useApiEndpoints() {
   const jwt = useSessionState((state) => state.token);
 
-  console.log("Base Path:", basePath);
-
   const apiInstances = useMemo(() => {
     const config = new Configuration({
       basePath,

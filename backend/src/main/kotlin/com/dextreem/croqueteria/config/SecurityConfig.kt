@@ -61,6 +61,7 @@ class SecurityConfig(
             }
             .authorizeHttpRequests {
                 it
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .requestMatchers(
                         HttpMethod.GET,
                         "/api/v1/croquettes/**",
