@@ -39,7 +39,7 @@ data class CroquetteCreateRequest(
     var vegan: Boolean,
 
     @field:NotNull(message = "Form is mandatory")
-    @field:Schema(description = "Form of the croquette", example = "ROUND")
+    @field:Schema(description = "Form of the croquette", example = "BALL")
     var form: CroquetteForm,
 
     @field:NotBlank(message = "ImageUrl is mandatory")
