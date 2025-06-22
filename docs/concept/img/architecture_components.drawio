@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="o8kUp2XF-b51XMtU2100" name="Page-1">
-        <mxGraphModel dx="1633" dy="620" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1064" dy="436" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -192,7 +192,7 @@
                 <mxCell id="52" value="&lt;font color=&quot;#009900&quot;&gt;GET&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="30" y="260" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="53" value="&lt;font color=&quot;#009900&quot;&gt;GET&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                <mxCell id="53" value="&lt;font color=&quot;#009900&quot;&gt;POST&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="40" y="440" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="54" value="&lt;font color=&quot;#ff0000&quot;&gt;POST, PUT, DELETE&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">

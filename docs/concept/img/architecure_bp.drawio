@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="m8y8v1xNlM-Y3MroTl5K" name="Page-1">
-        <mxGraphModel dx="783" dy="620" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="214" dy="436" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -19,7 +19,7 @@
                 <mxCell id="3" value="/recommendation" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="320" y="430" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="/auth" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="4" value="/user" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="320" y="370" width="120" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="5" value="/comments" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">

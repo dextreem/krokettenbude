@@ -1,75 +1,97 @@
-# Croqueteria UI
+# 🖼️ Croqueteria UI
 
 ![UI screenshot](../imgs/frontend.png)
 
-## Concept
+Frontend interface for the Croqueteria platform, mapping most backend functionalities into a clean, web-based experience.
 
-UI concept is part of the full project concept [here](../docs/concept/concept.md).
-Please note: It is a very vague concept which describes the rough design of the app.
-This is because the UI basically maps most of the backend functionality (not all) to the respective pages.
+---
 
-## Build and run The Service
+## 🧩 Concept
 
-It's a regular npm project. After cloning run `npm install` and `npm run dev` to run the project.
-For a production grade version, run `npm run build`
+The UI concept is outlined as part of the broader [project concept](../docs/concept/concept.md).
 
-## Docker Image
+> ⚠️ The concept is intentionally high-level and loosely defined. The frontend mirrors the backend features closely, but not exhaustively (e.g., user management is currently limited).
 
-Building a docker image is the easiest way to bundle the application.
+---
 
-### Manually
+## 🛠️ Build and Run Locally
 
-Run these commands to build and bundle the project:
+This is a standard `npm` project.
+
+### Development Mode:
+
+```bash
+npm install
+npm run dev
+```
+
+### Production Build:
+
+```bash
+npm run build
+```
+
+---
+
+## 📦 Docker Image
+
+Containerizing the UI is the simplest way to bundle and distribute the frontend.
+
+### 🧪 Manual Build
 
 ```bash
 cd frontend
-npm run build # Only required to make sure the frontend is building successfully
+npm run build
 podman build -t croqueteria-frontend .
 podman run -p 80:80 croqueteria-frontend
-
 ```
 
-### Using GitHub
+### 🤖 GitHub CI
 
-[ci.ml](.github/workflows/ci.yml) provides a workflow that builds a docker image and uploads it as artifact to GitHub.
+A Docker build workflow is defined in [`ci.yml`](.github/workflows/ci.yml), which automatically builds and uploads an image as a GitHub artifact.
 
-### Using Act
+### 🧰 Local CI with Act
 
-Install `act` following the [official guide](https://github.com/nektos/act), in my case:
+If you want to test CI locally using [`act`](https://github.com/nektos/act):
 
 ```bash
-yum -S act
+yum -S act  # Or follow the official installation guide
 ```
 
-Run build and test job:
+Run the build job:
 
 ```bash
 act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-frontend -P ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
 
-Load the docker image:
+Load the resulting image:
 
 ```bash
 podman load -i artifacts/image.tar
 ```
 
-## Get API types
+---
 
-This is required whenever something on the backend changes that has an effect on the API.
-In other words: if swagger-docs changed, runt this:
+## 🔄 Sync API Types
+
+Whenever the backend API (Swagger/OpenAPI) changes, regenerate the frontend API client:
 
 ```bash
 curl http://localhost:8080/v3/api-docs -o api-docs.json
 
 openapi-generator generate -i ./api-docs.json -g typescript-fetch -o ./src/api-client
-# or
+
+# Or using Docker:
 podman run --rm -v ${PWD}:/local docker.io/openapitools/openapi-generator-cli generate \
   -i /local/api-docs.json \
   -g typescript-fetch \
   -o /local/src/api-client
 ```
 
-## Known Limitations
+---
 
-- No tests
-- Linting is restricted due to auto-generated code
+## ⚠️ Known Limitations
+
+- No frontend tests implemented
+- Linting partially disabled due to auto-generated code
+- Backend user management not yet integrated

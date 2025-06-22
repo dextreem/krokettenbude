@@ -1,224 +1,251 @@
-# Croqueteria - Concept
+# 🥐 Croqueteria – Concept
 
-Croqueteria is service that allows to describe, rate and discuss the most delicious croquettes around the globe.
+Croqueteria is a service for discovering, describing, rating, and discussing the most delicious croquettes from around the globe.
 
-## Requirements
+---
 
-Requirements were assembled by the challenge itself and requirements that emerged in a fictive customer interview.
+## 📋 Requirements
 
-### Functional Requirements
+Requirements were derived from the project challenge and fictional stakeholder interviews.
 
-- (P1) Entities: Croquettes, Ratings, Conversation, User.
-- (P1) CRUD operations for each entity exposed via RESTful API.
-- (P1) Users can sign on.
-- (P1) Persistent storage of all entities.
-- (P1) API documentation using Swagger/OpenAPI.
-- (P2) Search croquettes: Allow to search for croquettes by text in description.
-- (P2) Filter croquettes: Allow to filter by the criteria provided in the croquette's entity.
-- (P2) Recommendation system: Recommend croquettes based on criteria provided in the croquette's entity.
-- (P3) Frontend: A nice UI that allows to interact with the API and provides a beautiful croquette discussion experience.
-- (P3) Request caching system.
+### ✅ Functional Requirements
 
-### Security Requirements
+| Priority | Requirement                                             |
+| -------- | ------------------------------------------------------- |
+| **P1**   | Entities: `Croquette`, `Rating`, `Conversation`, `User` |
+| **P1**   | Full CRUD operations exposed via a RESTful API          |
+| **P1**   | User registration and login                             |
+| **P1**   | Persistent storage for all entities                     |
+| **P1**   | API documentation using Swagger/OpenAPI                 |
+| **P2**   | Search croquettes by description text                   |
+| **P2**   | Filter croquettes based on entity criteria              |
+| **P2**   | Recommendation system using croquette attributes        |
+| **P3**   | Frontend UI for exploring and discussing croquettes     |
+| **P3**   | Request caching layer                                   |
 
-- (P1) Croquettes: Should be visible by everybody, but only modifiable by mangers. (User type MANAGER)
-- (P1) Ratings: Should be visible by everybody. Only registered users can contribute. (User types ANON and USER)
-- (P1) Conversations: Should be visible by everybody. Only registered users can contribute. (User types ANON and USER)
-- (P2) Users: Managers can promote/lessen users to manager/user or delete users. (User type MANAGER)
+### 🔐 Security Requirements
 
-### Non-Functional Requirements
+| Priority | Requirement                                                    |
+| -------- | -------------------------------------------------------------- |
+| **P1**   | Croquettes: Readable by all, modifiable by `MANAGER` users     |
+| **P1**   | Ratings: Readable by all, writable by registered users         |
+| **P1**   | Conversations: Readable by all, writable by registered users   |
+| **P2**   | Users: `MANAGER`s can promote/demote users and delete accounts |
 
-- Expected mean of 200 requests per minute needs to be achievable.
-- Project might grow in the future; the architecture needs to be prepared to scale (modular, readable, maintainable).
-- Sufficient unit and integration testing.
+### 📈 Non-Functional Requirements
 
-### Entities
+- Should handle \~200 requests per minute
+- Modular, maintainable, and scalable architecture
+- Adequate unit and integration testing coverage
 
-Below is a full list of all entities that need to be represented in the API.
-All entities additionally have a `created_at` and `updated_at` field, managed by the database.
+---
+
+## 🧱 Entities
+
+Each entity includes `created_at` and `updated_at` timestamps managed by the database.
 
 <details>
- <summary>Croquette</summary>
+ <summary><strong>Croquette</strong></summary>
 
-> | Field       | Type     | Description                                        |
-> | ----------- | -------- | -------------------------------------------------- |
-> | id          | Long Int | Primary identifier.                                |
-> | country     | String   | Home of this type of croquette .                   |
-> | name        | String   | The name of the croquette, if available.           |
-> | description | String   | Describes the croquettes and their ingredients.    |
-> | crunchiness | Int      | How crunchy is the croquette on a 1-5 scale?       |
-> | spiciness   | Int      | How spicy is the croquette on a 1-5 scale?         |
-> | vegan       | Boolean  | Is it vegan?                                       |
-> | form        | String   | cylindric, disk, ball, oval, or other.             |
-> | imageUrl?   | String   | Optional url pointing to an image of the croquette |
+| Field       | Type    | Description                                |
+| ----------- | ------- | ------------------------------------------ |
+| id          | Long    | Primary identifier                         |
+| country     | String  | Country of origin                          |
+| name        | String  | Croquette name                             |
+| description | String  | Description and ingredients                |
+| crunchiness | Int     | Crunchiness rating (1–5)                   |
+| spiciness   | Int     | Spiciness rating (1–5)                     |
+| vegan       | Boolean | Whether the croquette is vegan             |
+| form        | String  | One of: cylindric, disk, ball, oval, other |
+| imageUrl?   | String  | Optional image URL                         |
 
 </details>
 
 <details>
- <summary>Rating</summary>
+ <summary><strong>Rating</strong></summary>
 
-> | Field        | Type     | Description                                           |
-> | ------------ | -------- | ----------------------------------------------------- |
-> | id           | Long Int | Primary identifier.                                   |
-> | croquette_id | Long Int | Foreign key, linking to the croquette.                |
-> | user_id      | Long Int | Foreign key, linking the user.                        |
-> | rating       | Int      | 1-5 rating of a certain user for a certain croquette. |
-
-</details>
-
-<details>
- <summary>Conversation</summary>
-
-> | Field        | Type     | Description                                      |
-> | ------------ | -------- | ------------------------------------------------ |
-> | id           | Long Int | Primary identifier.                              |
-> | croquette_id | Long Int | Foreign key, linking to the croquette.           |
-> | user_id      | Long Int | Foreign key, linking the user.                   |
-> | comment      | String   | Comment of a certain user to a certain croquette |
+| Field        | Type | Description                |
+| ------------ | ---- | -------------------------- |
+| id           | Long | Primary identifier         |
+| croquette_id | Long | Foreign key to a croquette |
+| user_id      | Long | Foreign key to a user      |
+| rating       | Int  | Rating value (1–5)         |
 
 </details>
 
 <details>
- <summary>User</summary>
+ <summary><strong>Conversation</strong></summary>
 
-> | Field    | Type     | Description                         |
-> | -------- | -------- | ----------------------------------- |
-> | id       | Long Int | Primary identifier.                 |
-> | email    | String   | User's email, serving as user name. |
-> | password | String   | Hashed user password.               |
-> | role     | String   | User or Manager                     |
+| Field        | Type   | Description                |
+| ------------ | ------ | -------------------------- |
+| id           | Long   | Primary identifier         |
+| croquette_id | Long   | Foreign key to a croquette |
+| user_id      | Long   | Foreign key to a user      |
+| comment      | String | User comment               |
 
 </details>
 
-## Technology Stack
+<details>
+ <summary><strong>User</strong></summary>
 
-The project makes use of `Spring Boot`.
-`Kotlin` was chosen over `Java`, mainly due to its concise syntax and null safety.
-For the ease of development, a `H2` in-memory database is used for dev and test environment and `PostgreSQL` for production.
-In this stage of the project only database agnosic JPA repositories should be used.
-Goal is to make it as easy as possible to run the integration test against both types of database.
-It was decided to use `MVC` over `WebFlux` since the API is not expected to handle a large number of concurrent connections nor real-time data streams.
-If a frontend will be provided, it will be built on `React` (JS) on `Vite` with `Styled Components` which is a perfect match for the provided RESTful API.
+| Field    | Type   | Description           |
+| -------- | ------ | --------------------- |
+| id       | Long   | Primary identifier    |
+| email    | String | User email (login ID) |
+| password | String | Hashed password       |
+| role     | String | `USER` or `MANAGER`   |
 
-### Alternatives
+</details>
 
-There are many alternatives to the technology stack described above, all with their individual benefits and drawbacks.
-These are two possibilities following a different approach compared to the task provided:
+---
 
-**Full Stack Framework**: If UI was higher in priority, a full stack framework like `Next.js` and its unified codebase for frontend and backend would be an alternative.
-It provides simple prototyping and simplifies backend logic for small to mid-scale projects.
-Main drawback and reason why Next.js is not a good alternative for this project is its lack of scalability in the API layer and its lack of robustness compared to what Spring Boot can provide for more complex backends.
-Also, the tight coupling between frontend and backend may limit flexibility in the feature, especially on an enterprise scale level.
+## 🛠️ Technology Stack
 
-**Serverless Architecture**: If massive scaling with no server management was the focus for this project, a serverless architecture based on -for example- `AWS Lambda` could help in providing a good alternative which is both flexible and cost-efficient for microservices or event-driven approaches.
-Its main drawbacks is that it is harder to debug and test locally during development.
+- **Backend**: Kotlin + Spring Boot
+- **Frontend**: React + Vite + Styled Components
+- **Dev/Test DB**: H2 (in-memory)
+- **Prod DB**: PostgreSQL
+- **Security**: JWT + Spring Security
+- **Docs**: Swagger/OpenAPI
 
-## Architecture Overview
+> JPA is used to support DB-agnostic development and enable seamless test execution across environments.
 
-The architecture follows a modular monolithic approach.
-Goal is to keep development fast and simple while logically separating the components to _allow_ later migration to microservices or an event-driven approach, if required.
-While microservices would make it easier to scale each component independently, simple service instance calls become API requests which adds significant overhead to each request.
-On top comes an increased infrastructure complexity due to the need of gateways and load balancers.
-At the current scale of the project, relatively low computational effort per module is expected, which makes the modular monolith arguably the best approach.
+### 🧪 Why Not X?
+
+#### Next.js (Fullstack)
+
+Good for prototyping, but lacks scalable backend patterns and API robustness required for enterprise readiness.
+
+#### AWS Lambda (Serverless)
+
+Scales well and is cost-effective, but adds local dev complexity and lacks mature debugging/testability tools.
+
+---
+
+## 🏗️ Architecture Overview
+
+Croqueteria follows a **modular monolith** approach:
+
+- Encourages fast iteration with clean separation of concerns
+- Can be transitioned to microservices or event-driven architecture later
+- Avoids the premature complexity of distributed systems
 
 ![Architecture Big Picture](img/architecure_bp.svg)
 
-Access to the functionality is provided via RESTful API.
-The main reason for this is that the API is mostly resource oriented, i.e., the entities can be mapped more or less directly to REST resources and HTTP request types.
-In addition to this, Spring Boot has an excellent support for RESTful APIs in terms of security (Spring Security and JWT) as well as documentation (Swagger/OpenAPI).
-After registering and logging in, a role-based authentication on JWT will be used to distinguish between unregistered users (`ANON`), registered users (`USER`), and managers (`MANAGER`)with different permissions.
+### 🔐 Access & Security
+
+- Access via RESTful API
+- Role-based access control using JWT
+- Roles: `ANON`, `USER`, `MANAGER`
 
 ![Architecture Components](img/architecture_components.svg)
 
-### API Endpoints
+---
 
-These are all endpoints that need to exposed by the API.
+## 📡 API Endpoints
 
-<details><summary>/croquettes</summary>
+<details><summary><strong>/croquettes</strong></summary>
 
-> | Request | Endpoint | Role    | Description                                                                   |
-> | ------- | -------- | ------- | ----------------------------------------------------------------------------- |
-> | GET     | `/{id?}` | Any     | Returns all (sorted/filtered) croquettes or a single one if `id` is provided. |
-> | POST    | `/`      | Manager | Creates a new croquette.                                                      |
-> | PUT     | `/{id}`  | Manager | Update an existing croquette referenced by `id`.                              |
-> | DELETE  | `/{id}`  | Manager | Deletes an existing croquette, referenced by `id`.                            |
+| Method | Endpoint | Role    | Description                       |
+| ------ | -------- | ------- | --------------------------------- |
+| GET    | `/{id?}` | Any     | Fetch all or a specific croquette |
+| POST   | `/`      | Manager | Create a new croquette            |
+| PUT    | `/{id}`  | Manager | Update a croquette                |
+| DELETE | `/{id}`  | Manager | Delete a croquette                |
 
-- Fields to sort by ascending and descending: `rating`, `spiciness`, `crunchiness`, `name`.
-- Fields to filter by: `mean_rating` (>=), `vegan`, `form`, `description` (contains keyword).
-
-</details>
-<details><summary> /ratings</summary>
-
-> | Request | Endpoint | Role | Description                                                         |
-> | ------- | -------- | ---- | ------------------------------------------------------------------- |
-> | GET     | `/{id?}` | Any  | Returns all (filtered) ratings or a single one if `id` is provided. |
-> | POST    | `/`      | User | Adds a new croquette rating.                                        |
-> | PUT     | `/{id}`  | User | Update an existing rating referenced by `id`.                       |
-> | DELETE  | `/{id}`  | User | Deletes an existing rating, referenced by `id`.                     |
-
-- Fields to filter: `croquette_id`
-
-</details>
-<details><summary> /comments</summary>
-
-> | Request | Endpoint | Role | Description                                                          |
-> | ------- | -------- | ---- | -------------------------------------------------------------------- |
-> | GET     | `/{id?}` | Any  | Returns all (filtered) comments or a single one if `id` is provided. |
-> | POST    | `/`      | User | Adds a new croquette comment.                                        |
-> | PUT     | `/{id}`  | User | Update an existing comment referenced by `id`.                       |
-> | DELETE  | `/{id}`  | User | Deletes an existing comment, referenced by `id`.                     |
-
-- Fields to filter: `croquette_id`
-
-</details>
-<details><summary> /users</summary>
-
-> | Request | Endpoint | Role         | Description                                                                                   |
-> | ------- | -------- | ------------ | --------------------------------------------------------------------------------------------- |
-> | GET     | `/{id?}` | User/Manager | Returns all (filtered) users or a single one if `id` is provided and permissions are granted. |
-> | POST    | `/`      | Any          | Registers a new user.                                                                         |
-> | PUT     | `/{id}`  | Manager      | Update an existing user referenced by `id`.                                                   |
-> | DELETE  | `/{id}`  | Manager      | Deletes an existing user, referenced by `id`.                                                 |
-
-- Fields to filter: `role`
-
-</details>
-<details><summary> /recommendations</summary>
-
-> | Request | Endpoint | Role | Description                                                                                        |
-> | ------- | -------- | ---- | -------------------------------------------------------------------------------------------------- |
-> | GET     | `/`      | Any  | Returns a list of croquettes that match best to the filter criteria provided.                      |
-> | GET     | `/text`  | Any  | Returns a list of croquettes that match best to a provided description, recommended by a tiny LLM. |
-
-- Filter criteria that can be provided:`spiciness`, `crunchiness`, `vegan`, `form`.
+- Sortable: `rating`, `spiciness`, `crunchiness`, `name`
+- Filterable: `mean_rating`, `vegan`, `form`, `description` (keyword)
 
 </details>
 
-## Testing Strategy
+<details><summary><strong>/ratings</strong></summary>
 
-The project follows a "hybrid" strategy of Test-Driven Development (TDD) and Test-Last Development (TLD):
+| Method | Endpoint | Role | Description               |
+| ------ | -------- | ---- | ------------------------- |
+| GET    | `/{id?}` | Any  | Fetch all or one rating   |
+| POST   | `/`      | User | Create a new rating       |
+| PUT    | `/{id}`  | User | Update an existing rating |
+| DELETE | `/{id}`  | User | Delete a rating           |
 
-- Integration tests validate the high-level behavior. These tests act as acceptance criteria.
-- Controller Unit validate the verification of request parameters.
-- Remaining unit tests are written as classes/functions emerge and where required.
+- Filterable by: `croquette_id`
 
-## Documentation
+</details>
 
-The project provides two types of documentation:
+<details><summary><strong>/comments</strong></summary>
 
-- [Developer documentation](https://github.com/dextreem/krokettenbude) that describes to set up, run, and contribute to the stack.
-- API documentation on [localhost](http://localhost:8080/swagger-ui/index.html) via Swagger/OpenAPI that describes the exposed endpoints.
+| Method | Endpoint | Role | Description              |
+| ------ | -------- | ---- | ------------------------ |
+| GET    | `/{id?}` | Any  | Fetch all or one comment |
+| POST   | `/`      | User | Create a new comment     |
+| PUT    | `/{id}`  | User | Update a comment         |
+| DELETE | `/{id}`  | User | Delete a comment         |
 
-## Frontend Sketch
+- Filterable by: `croquette_id`
 
-There are three views: Login, Croquette Overview, and Croquette Details.
-The login screen is a simple form that requires the user to type their credentials.
+</details>
 
-After logging in, the user is presented with an overview of all existing croquettes.
-There is functionality, to search, filter and sort the results by croquette related criteria:
+<details><summary><strong>/users</strong></summary>
 
-![Croquettes Overview](img/frontend_overview.svg)
+| Method | Endpoint | Role         | Description                                    |
+| ------ | -------- | ------------ | ---------------------------------------------- |
+| GET    | `/{id?}` | User/Manager | Fetch all or a specific user (with permission) |
+| POST   | `/`      | Any          | Register a new user                            |
+| PUT    | `/{id}`  | Manager      | Update a user                                  |
+| DELETE | `/{id}`  | Manager      | Delete a user                                  |
 
-Upon clicking on one of the elements in the Croquette list, a detail view is opened providing all the details and allows the user to rate the croquette.
+- Filterable by: `role`
 
-![Croquette Details](img/frontend_details.svg)
+</details>
+
+<details><summary><strong>/recommendations</strong></summary>
+
+| Method | Endpoint | Role | Description                                                      |
+| ------ | -------- | ---- | ---------------------------------------------------------------- |
+| GET    | `/`      | Any  | Get croquettes based on attribute filtering                      |
+| GET    | `/text`  | Any  | Get croquettes recommended by a local LLM based on a text prompt |
+
+- Supported filters: `spiciness`, `crunchiness`, `vegan`, `form`
+
+</details>
+
+---
+
+## 🧪 Testing Strategy
+
+A pragmatic testing approach combining **TDD** and **TLD**:
+
+- **Integration tests**: Validate key workflows and API behavior
+- **Controller tests**: Focus on request validation and response contracts
+- **Unit tests**: Applied where business logic is non-trivial
+
+---
+
+## 📚 Documentation
+
+- **Developer Guide**: [GitHub Repo](https://github.com/dextreem/krokettenbude)
+- **API Docs**: [Swagger UI](http://localhost:8080/swagger-ui/index.html)
+
+---
+
+## 🎨 UI Sketch
+
+The frontend consists of 5 main views:
+
+1. **Login/Sign-up View**
+   Simple form to authenticate the user.
+
+2. **Croquette Overview**
+   Displays all croquettes with options to search, filter, and sort.
+
+   ![Croquettes Overview](img/frontend_overview.svg)
+
+3. **Croquette Detail View**
+   Shows full croquette details, including ratings and discussions.
+
+   ![Croquette Details](img/frontend_details.svg)
+
+4. **Recommendation View**
+   Allows the user to enter data (text or "questionnaire-style") and returns a set of recommended croquettes.
+
+5. **Croquette Creation**
+   "Questionnaire-style" view to easily create new croquettes.
