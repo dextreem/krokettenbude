@@ -49,7 +49,7 @@ class RecommendationControllerIntegrationTest {
     @Autowired
     lateinit var userRepository: UserRepository
 
-    val endpoint = "/api/v1/recommendations"
+    val endpoint = "/v1/recommendations"
 
     lateinit var savedCroquettes: List<Croquette>
     lateinit var savedComments: List<Comment>

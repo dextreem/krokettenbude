@@ -51,7 +51,7 @@ class RatingControllerIntegrationTest {
     @Autowired
     lateinit var jwtService: JwtService
 
-    val endpoint = "/api/v1/ratings"
+    val endpoint = "/v1/ratings"
 
     lateinit var savedUsers: List<User>
     lateinit var savedCroquettes: List<Croquette>

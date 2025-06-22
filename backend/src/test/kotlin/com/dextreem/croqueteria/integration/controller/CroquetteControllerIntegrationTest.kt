@@ -52,7 +52,7 @@ class CroquetteControllerIntegrationTest {
     @Autowired
     lateinit var jwtService: JwtService
 
-    val endpoint = "/api/v1/croquettes"
+    val endpoint = "/v1/croquettes"
 
     lateinit var savedUsers: List<User>
     lateinit var savedCroquettes: List<Croquette>

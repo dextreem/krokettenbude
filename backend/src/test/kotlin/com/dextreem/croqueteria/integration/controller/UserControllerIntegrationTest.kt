@@ -40,7 +40,7 @@ class UserControllerIntegrationTest {
     @Autowired
     lateinit var jwtService: JwtService
 
-    val endpoint = "/api/v1/users"
+    val endpoint = "/v1/users"
 
     lateinit var savedUsers: List<User>
 

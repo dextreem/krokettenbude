@@ -7,7 +7,7 @@ Comprehensive guide for contributing to or extending the Croqueteria backend ser
 ## 📘 Concept and API Documentation
 
 - Project concept is available [here](../docs/concept/concept.md)
-- After running the service, Swagger UI is available at: [http://localhost:8080/docs](http://localhost:8080/docs)
+- After running the service, Swagger UI is available at: [http://localhost:8080/api/docs](http://localhost:8080/api/docs)
 
 ---
 

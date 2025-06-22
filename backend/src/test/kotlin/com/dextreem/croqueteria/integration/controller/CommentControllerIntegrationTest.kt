@@ -52,7 +52,7 @@ class CommentControllerIntegrationTest {
     @Autowired
     lateinit var jwtService: JwtService
 
-    val endpoint = "/api/v1/comments"
+    val endpoint = "/v1/comments"
 
     lateinit var savedUsers: List<User>
     lateinit var savedCroquettes: List<Croquette>
