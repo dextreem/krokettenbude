@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
+  console.log("Configured API BASE URL:", env.VITE_API_BASE_URL);
+
   return {
     plugins: [react()],
     server:
