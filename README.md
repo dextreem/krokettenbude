@@ -25,6 +25,7 @@ To quickly get the platform up and running locally:
 2. **Run the stack** using Docker Compose:
 
    ```bash
+   docker compose build
    docker compose up -d
    ```
 
