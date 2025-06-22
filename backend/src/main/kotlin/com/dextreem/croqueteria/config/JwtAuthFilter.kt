@@ -28,34 +28,36 @@ class JwtAuthFilter(
         @NonNull response: HttpServletResponse,
         @NonNull filterChain: FilterChain
     ) {
-        val authHeader = request.getHeader("Authorization")
-        val userEmail: String
+        if (request.method.equals("OPTIONS", ignoreCase = true)) {
+            filterChain.doFilter(request, response)
+            return
+        }
 
+        val authHeader = request.getHeader("Authorization")
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response)
             return
         }
 
         val jwt: String = authHeader.substring(7)
-        userEmail = jwtService.extractUsername(jwt)
+        val userEmail = jwtService.extractUsername(jwt)
 
         if (SecurityContextHolder.getContext().authentication == null) {
-            val userDetails = this.userDetailsService.loadUserByUsername(userEmail)
-
+            val userDetails = userDetailsService.loadUserByUsername(userEmail)
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 val authToken = UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
                     userDetails.authorities
                 )
-
                 authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
-
                 SecurityContextHolder.getContext().authentication = authToken
             }
         }
+
         filterChain.doFilter(request, response)
     }
+
 }
 
 
