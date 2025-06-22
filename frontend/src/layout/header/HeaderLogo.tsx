@@ -31,7 +31,7 @@ function HeaderLogo() {
 
   return (
     <StyledLogo onClick={onLogoClicked}>
-      <Logo src="/croqueteria_logo.png" alt="Croqueteria Logo" />
+      <Logo src="/ui/croqueteria_logo.png" alt="Croqueteria Logo" />
       <Span>Croqueteria</Span>
     </StyledLogo>
   );

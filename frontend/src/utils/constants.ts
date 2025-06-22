@@ -1,8 +1,8 @@
 export const ROUTES = {
-  CROQUETTES: "croquettes",
-  CREATE_CROQUETTE: "createCroquette",
-  USER: "user",
-  LOGIN: "login",
-  SIGNUP: "signup",
-  RECOMMENDATIONS: "recommendations",
+  CROQUETTES: "ui/croquettes",
+  CREATE_CROQUETTE: "ui/createCroquette",
+  USER: "/ui/user",
+  LOGIN: "ui/login",
+  SIGNUP: "ui/signup",
+  RECOMMENDATIONS: "ui/recommendations",
 };
