@@ -5,7 +5,12 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType
 import io.swagger.v3.oas.annotations.info.Info
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.security.SecurityScheme
+import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.servers.Server
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+
 
 @Configuration
 @OpenAPIDefinition(
@@ -22,4 +27,13 @@ import org.springframework.context.annotation.Configuration
     scheme = "bearer",
     bearerFormat = "JWT"
 )
-class SwaggerConfig
+class SwaggerConfig{
+    @Value("\${swagger.server.url}")
+    private val swaggerUrl: String? = null
+
+    @Bean
+    fun customOpenAPI(): OpenAPI? {
+        return OpenAPI()
+            .addServersItem(Server().url(swaggerUrl))
+    }
+}

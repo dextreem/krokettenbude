@@ -12,6 +12,7 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - SWAGGER_UI_URL=http://localhost:8080/swagger-ui.html
       - SPRING_CROQUETERIA_LLM_URL=http://localhost:11434/api/generate
+      - SPRING_CROQUETERIA_JWT_SECRET=replace with your secret
     networks:
       - app-network
 

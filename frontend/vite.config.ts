@@ -6,9 +6,6 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     plugins: [react()],
-    define: {
-      "process.env": env,
-    },
     server:
       command === "serve"
         ? {
