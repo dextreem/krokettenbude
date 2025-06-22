@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import type { CommentResponse } from "../../api-client";
 import Heading from "../../components/Heading";
 import CommentListItem from "./CommentListItem";
 import { useGetCommentsForCroquette } from "../../hooks/api/useCommentApi";

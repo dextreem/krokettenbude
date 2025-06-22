@@ -1,4 +1,4 @@
-import TextArea from "../../components/TexxtArea";
+import TextArea from "../../components/TextArea";
 import Button from "../../components/Button";
 import { type CroquetteLLMRecommendationRequest } from "../../api-client";
 import { useForm } from "react-hook-form";

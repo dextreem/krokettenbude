@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import ThreeColumnCardLayout from "../../components/ThreRowCardLayout";
-import type { CroquetteRecommendationResponse } from "../../api-client";
 import CroquetteCard from "../../components/croquetteCard/CroquetteCard";
 import styled from "styled-components";
 import { scoreToPercentage } from "../../utils/textUtils";
+import type { CroquetteRecommendationResponse } from "../../api-client";
 
 const StyledDiv = styled.div`
   display: flex;

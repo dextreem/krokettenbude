@@ -1,0 +1,55 @@
+name: Frontend CI and Docker Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: false
+          tags: croqueteria-frontend-ci:latest
+          outputs: type=docker,dest=/tmp/image.tar
+
+      - name: Upload Docker image as artifact (GitHub only)
+        if: env.BUILD_ENVIRONMENT == 'GITHUB'
+        uses: actions/upload-artifact@v4
+        with:
+          name: croqueteria-frontend-ci-image
+          path: /tmp/image.tar
+
+      - name: Move image tar to workspace (local only)
+        if: ${{ !env.BUILD_ENVIRONMENT || env.BUILD_ENVIRONMENT != 'GITHUB' }}
+        run: mv /tmp/image.tar $GITHUB_WORKSPACE/croqueteria-frontend-ci-image.tar

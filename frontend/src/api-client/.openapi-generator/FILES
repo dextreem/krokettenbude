@@ -12,6 +12,7 @@ models/CommentUpdateRequest.ts
 models/CroquetteCreateRequest.ts
 models/CroquetteLLMRecommendationRequest.ts
 models/CroquetteRecommendationRequest.ts
+models/CroquetteRecommendationResponse.ts
 models/CroquetteResponse.ts
 models/CroquetteUpdateRequest.ts
 models/LoginRequest.ts

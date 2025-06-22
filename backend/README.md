@@ -1,104 +1,136 @@
-# Developer Guide
+# 🛠️ Developer Guide
 
-## Concept and API Documentation
+Comprehensive guide for contributing to or extending the Croqueteria backend service.
 
-The concept can be found [here](../docs/concept/concept.md).
-After starting the service, swagger is available at [http//localhost:8080/docs]()
+---
 
-## Dev Setup
+## 📘 Concept and API Documentation
 
-The backend a regular Spring Boot application on Kotlin; it's recommended to use IDEA.
-After cloning the repository, IDEA should be able to import the gradle project upon opening the folder.
+- Project concept is available [here](../docs/concept/concept.md)
+- After running the service, Swagger UI is available at: [http://localhost:8080/docs](http://localhost:8080/docs)
 
-## Enable LLM
+---
 
-To enable LLM croquette recommendation, set `spring.croqueteria.enable.llm=true`.
-This requires a running `ollama` model on port `11434`.
-For demonstrating purposes, `deepseek-r1:1.5b` is used within the scope of this project.
-See [LLM](../llm/README.md) for more information.
+## 🧑‍💻 Development Setup
 
-## Tests
+This is a Spring Boot application written in Kotlin. IntelliJ IDEA is the recommended IDE.
 
-From within IDEA, you can run the gradle Task `croquetteria/Tasks/verification/test`.
+Steps:
 
-Via command line:
+1. Clone the repository
+2. Open the project folder in IntelliJ IDEA
+3. The Gradle project will be auto-imported
+
+---
+
+## 🧠 Enable LLM Support
+
+To enable croquette recommendation via LLM:
+
+- Add the following to your configuration:
+
+```properties
+spring.croqueteria.enable.llm=true
+```
+
+- Ensure an `ollama` instance is running on port `11434`
+- This project uses `deepseek-r1:1.5b` as the default LLM (see [LLM module](../llm/README.md))
+
+---
+
+## ✅ Tests
+
+### From IntelliJ IDEA
+
+Run the Gradle task: `croqueteria > Tasks > verification > test`
+
+### From CLI
 
 ```bash
 ./gradlew test
 ```
 
-The test task triggers multiple things:
+### Included in Test Task:
 
-- Unit tests
-- Integration tests
-- Jacoco test report
+- Unit Tests
+- Integration Tests
+- Jacoco Coverage Report → `build/reports/jacoco/test/html/index.html`
 
-The report can then be found in `build/reports/jacoco/test/html/index.html`
+---
 
-## Build and run The Service
+## 🚀 Build and Run the Service
 
-From within IDEA, you can run the gradle Task `croqueteria/Tasks/application/bootRun`.
-Via Command line:
+### From IntelliJ IDEA
+
+Run the Gradle task: `croqueteria > Tasks > application > bootRun`
+
+### From CLI
 
 ```bash
 cd backend
 ./gradlew bootRun
 ```
 
-To build the project, run `croqueteria/Tasks/build/bootJar`.
-Via command line:
+### Build JAR
 
 ```bash
 cd backend
 ./gradlew bootJar
 ```
 
-## Docker Image
+---
 
-Building a docker image is the easiest way to bundle the application.
+## 📦 Docker Image
 
-### Manually
+Containerizing the backend is recommended for deployment.
 
-Run these commands to build and bundle the project:
+### 🧪 Manual Build
 
 ```bash
 cd backend
-./gradlew bootJar # Only required to make sure the backend is building successfully
+./gradlew bootJar
 podman build -t croqueteria-backend .
 podman run -p 8080:8080 croqueteria-backend
-
 ```
 
-### Using GitHub
+### 🤖 GitHub CI
 
-[ci.ml](.github/workflows/ci.yml) provides a workflow that builds a docker image and uploads it as artifact to GitHub.
+- See: [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
+- Builds the backend and uploads the image as a GitHub artifact
 
-### Using Act
+### 🧰 Local CI with Act
 
-Install `act` following the [official guide](https://github.com/nektos/act), in my case:
+Install `act` ([installation guide](https://github.com/nektos/act)):
 
 ```bash
 yum -S act
 ```
 
-Run build and test job:
+Run the CI pipeline locally:
 
 ```bash
-act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-and-test -P ubuntu-latest=catthehacker/ubuntu:act-latest
+act --env BUILD_ENVIRONMENT=LOCAL --bind $(pwd):/github/workspace -j build-and-test-backend -P ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
 
-Load the docker image:
+Load Docker image from artifact:
 
 ```bash
 podman load -i artifacts/image.tar
 ```
 
-## Known limitations
+---
 
-- No pagination: The service always returns everything.
-- LLM reasoning is slow and works only 50% of the time. Should be replaced by a proper external service. ChatGPT works fine.
-- LLM is disabled for tests. This requires some effort to spin up the LLM and test properly.
-- average rating is calculated for every request that is not cached. For now that's fine, but as soon as the croquette numbers will rise (and they will!) this can be a bottleneck
-  - Solution: Update the average rating upon new ratings (event-driven?)
-- Everybody can register a MANAGER user
-- Refreshing a JWT is not implemented.
+## ⚠️ Known Limitations
+
+- No pagination: All results are returned at once
+- LLM inference is slow and only 50% reliable
+
+  - Consider using an external API like ChatGPT
+
+- LLM disabled in tests due to setup complexity
+- Average rating is recalculated for every uncached request
+
+  - Suggestion: Use event-driven updates for ratings
+
+- Manager accounts can be freely registered
+- JWT refresh tokens not implemented

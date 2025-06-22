@@ -7,7 +7,7 @@ import { useCreateCroquette } from "../../hooks/api/useCroquetteApi";
 import Spinner from "../../components/Spinner";
 import Input from "../../components/Input";
 import styled from "styled-components";
-import TextArea from "../../components/TexxtArea";
+import TextArea from "../../components/TextArea";
 import croquetteSeeds from "../../data/croquette_countries_refined.json";
 
 const StyledDiv = styled.div`

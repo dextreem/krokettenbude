@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TextArea from "../../components/TexxtArea";
+import TextArea from "../../components/TextArea";
 import Button from "../../components/Button";
 import { useState } from "react";
 import CommentList from "./CommentList";
@@ -14,10 +14,6 @@ const StyledDiv = styled.div`
 
 const StyledTextArea = styled(TextArea)`
   width: 50rem;
-  margin: auto;
-`;
-
-const StyledP = styled.div`
   margin: auto;
 `;
 

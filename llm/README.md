@@ -1,18 +1,27 @@
-# Small Local LLM for Recommendation System
+# 🧠 Small Local LLM for Recommendation System
 
-This LLM is based on `deepseek-r1:1.5b`, a very small LLM that can run on laptops.
+This module leverages `deepseek-r1:1.5b`, a compact language model suitable for running directly on laptops. It's used to interpret user preferences for croquettes in a structured format.
 
-## How to build
+---
 
-Prepare the ollama container and run it:
+## 🏗️ How to Build
+
+Prepare and run the local Ollama container:
+
 ```bash
 podman build -t localhost/deepseek-local .
 podman run -d --name ollama-deepseek -p 11434:11434 localhost/deepseek-local
 ```
 
-## How to Use
+Ensure `podman` is installed and configured properly.
 
-Return in JSON format
+---
+
+## 🚀 How to Use
+
+### JSON Response Format
+
+Query the LLM to return structured JSON data:
 
 ```bash
 curl http://localhost:11434/api/generate -d '{
@@ -22,7 +31,9 @@ curl http://localhost:11434/api/generate -d '{
 }'
 ```
 
-Return in Text form
+### Plain Text Format
+
+Query the LLM to return the values in plain text:
 
 ```bash
 curl http://localhost:11434/api/generate -d '{
@@ -31,3 +42,11 @@ curl http://localhost:11434/api/generate -d '{
   "stream": false
 }'
 ```
+
+---
+
+## 📝 Notes
+
+- Designed for local development use
+- Lightweight model suitable for machines without GPUs
+- Ideal for structured preference extraction from user input

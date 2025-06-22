@@ -20,79 +20,79 @@ import { mapValues } from '../runtime';
  */
 export interface CroquetteRecommendationResponse {
     /**
-     * 
+     * Unique identifier of the croquette
      * @type {number}
      * @memberof CroquetteRecommendationResponse
      */
     id?: number;
     /**
-     * 
+     * Name of the croquette
      * @type {string}
      * @memberof CroquetteRecommendationResponse
      */
     name: string;
     /**
-     * 
+     * Country of origin
      * @type {string}
      * @memberof CroquetteRecommendationResponse
      */
     country: string;
     /**
-     * 
+     * Detailed description of the croquette
      * @type {string}
      * @memberof CroquetteRecommendationResponse
      */
     description: string;
     /**
-     * 
+     * Crunchiness level (1 to 5)
      * @type {number}
      * @memberof CroquetteRecommendationResponse
      */
     crunchiness: number;
     /**
-     * 
+     * Spiciness level (1 to 5)
      * @type {number}
      * @memberof CroquetteRecommendationResponse
      */
     spiciness: number;
     /**
-     * 
+     * Whether the croquette is vegan
      * @type {boolean}
      * @memberof CroquetteRecommendationResponse
      */
     vegan: boolean;
     /**
-     * 
+     * Form or shape of the croquette
      * @type {string}
      * @memberof CroquetteRecommendationResponse
      */
     form: string;
     /**
-     * 
+     * Image URL representing the croquette
      * @type {string}
      * @memberof CroquetteRecommendationResponse
      */
     imageUrl: string;
     /**
-     * 
+     * Creation timestamp
      * @type {Date}
      * @memberof CroquetteRecommendationResponse
      */
     createdAt?: Date;
     /**
-     * 
+     * Last update timestamp
      * @type {Date}
      * @memberof CroquetteRecommendationResponse
      */
     updatedAt?: Date;
     /**
-     * 
+     * Average rating given by users
      * @type {number}
      * @memberof CroquetteRecommendationResponse
      */
     averageRating?: number;
     /**
-     * 
+     * Score from recommendation engine
      * @type {number}
      * @memberof CroquetteRecommendationResponse
      */

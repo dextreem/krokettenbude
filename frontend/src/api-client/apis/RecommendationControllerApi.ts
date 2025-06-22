@@ -17,15 +17,15 @@ import * as runtime from '../runtime';
 import type {
   CroquetteLLMRecommendationRequest,
   CroquetteRecommendationRequest,
-  CroquetteResponse,
+  CroquetteRecommendationResponse,
 } from '../models/index';
 import {
     CroquetteLLMRecommendationRequestFromJSON,
     CroquetteLLMRecommendationRequestToJSON,
     CroquetteRecommendationRequestFromJSON,
     CroquetteRecommendationRequestToJSON,
-    CroquetteResponseFromJSON,
-    CroquetteResponseToJSON,
+    CroquetteRecommendationResponseFromJSON,
+    CroquetteRecommendationResponseToJSON,
 } from '../models/index';
 
 export interface RecommendCroquettesRequest {
@@ -45,7 +45,7 @@ export class RecommendationControllerApi extends runtime.BaseAPI {
      * Provides a recommendation of croquettes best fitting for certain parameters.
      * Calculate best fitting croquette.
      */
-    async recommendCroquettesRaw(requestParameters: RecommendCroquettesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CroquetteResponse>>> {
+    async recommendCroquettesRaw(requestParameters: RecommendCroquettesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CroquetteRecommendationResponse>>> {
         if (requestParameters['croquetteRecommendationRequest'] == null) {
             throw new runtime.RequiredError(
                 'croquetteRecommendationRequest',
@@ -67,14 +67,14 @@ export class RecommendationControllerApi extends runtime.BaseAPI {
             body: CroquetteRecommendationRequestToJSON(requestParameters['croquetteRecommendationRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CroquetteResponseFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CroquetteRecommendationResponseFromJSON));
     }
 
     /**
      * Provides a recommendation of croquettes best fitting for certain parameters.
      * Calculate best fitting croquette.
      */
-    async recommendCroquettes(requestParameters: RecommendCroquettesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CroquetteResponse>> {
+    async recommendCroquettes(requestParameters: RecommendCroquettesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CroquetteRecommendationResponse>> {
         const response = await this.recommendCroquettesRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -83,7 +83,7 @@ export class RecommendationControllerApi extends runtime.BaseAPI {
      * Provides a recommendation of croquettes best fitting for certain parameters.
      * Calculate best fitting croquette by user text.
      */
-    async recommendCroquettesByTextRaw(requestParameters: RecommendCroquettesByTextRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CroquetteResponse>>> {
+    async recommendCroquettesByTextRaw(requestParameters: RecommendCroquettesByTextRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CroquetteRecommendationResponse>>> {
         if (requestParameters['croquetteLLMRecommendationRequest'] == null) {
             throw new runtime.RequiredError(
                 'croquetteLLMRecommendationRequest',
@@ -105,14 +105,14 @@ export class RecommendationControllerApi extends runtime.BaseAPI {
             body: CroquetteLLMRecommendationRequestToJSON(requestParameters['croquetteLLMRecommendationRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CroquetteResponseFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CroquetteRecommendationResponseFromJSON));
     }
 
     /**
      * Provides a recommendation of croquettes best fitting for certain parameters.
      * Calculate best fitting croquette by user text.
      */
-    async recommendCroquettesByText(requestParameters: RecommendCroquettesByTextRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CroquetteResponse>> {
+    async recommendCroquettesByText(requestParameters: RecommendCroquettesByTextRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CroquetteRecommendationResponse>> {
         const response = await this.recommendCroquettesByTextRaw(requestParameters, initOverrides);
         return await response.value();
     }
