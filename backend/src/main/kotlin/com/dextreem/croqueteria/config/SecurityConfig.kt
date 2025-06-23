@@ -53,7 +53,6 @@ class SecurityConfig(
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors { }
             .headers { headers ->
                 headers.frameOptions { frameOptions ->
                     frameOptions.sameOrigin()
@@ -73,11 +72,16 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.PUT, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(
-                        "/docs",
-                        "/v3/api-docs/**",
-                        "/swagger-ui/**",
                         "/swagger-ui.html",
-                        "/h2-console/**"
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/docs",
+                        "/h2-console/**",
+                        "/api/swagger-ui.html",
+                        "/api/swagger-ui/**",
+                        "/api/v3/api-docs/**",
+                        "/api/docs",
+                        "/api/h2-console/**"
                     ).permitAll()
                     .anyRequest().authenticated()
             }
@@ -93,19 +97,6 @@ class SecurityConfig(
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
-    }
-
-    @Bean
-    fun corsConfigurationSource(): CorsConfigurationSource {
-        val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("https://krokettenbude.dobuch.de")
-        configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        configuration.allowedHeaders = listOf("*")
-        configuration.allowCredentials = true
-
-        val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", configuration)
-        return source
     }
 
 }

@@ -28,12 +28,17 @@ import org.springframework.context.annotation.Configuration
     bearerFormat = "JWT"
 )
 class SwaggerConfig{
-    @Value("\${swagger.server.url}")
+    @Value("\${swagger.server.url:}")
     private val swaggerUrl: String? = null
 
     @Bean
     fun customOpenAPI(): OpenAPI? {
-        return OpenAPI()
-            .addServersItem(Server().url(swaggerUrl))
+        println("swaggerUrl=$swaggerUrl")
+        return if (!swaggerUrl.isNullOrBlank()) {
+            OpenAPI().addServersItem(Server().url(swaggerUrl))
+        } else {
+            null
+        }
     }
+
 }
