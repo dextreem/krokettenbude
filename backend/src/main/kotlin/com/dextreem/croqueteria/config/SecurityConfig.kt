@@ -72,11 +72,16 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.PUT, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/croquettes/**").hasRole("MANAGER")
                     .requestMatchers(
-                        "/docs",
-                        "/v3/api-docs/**",
-                        "/swagger-ui/**",
                         "/swagger-ui.html",
-                        "/h2-console/**"
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/docs",
+                        "/h2-console/**",
+                        "/api/swagger-ui.html",
+                        "/api/swagger-ui/**",
+                        "/api/v3/api-docs/**",
+                        "/api/docs",
+                        "/api/h2-console/**"
                     ).permitAll()
                     .anyRequest().authenticated()
             }
