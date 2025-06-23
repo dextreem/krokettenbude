@@ -6,6 +6,13 @@ _Explore, describe, and celebrate the beauty of croquettes worldwide._
 
 ---
 
+## 🌐 Demo Application
+
+A Demo application can be found here: [https://krokettenbude.dobuch.de](https://krokettenbude.dobuch.de).
+API documentation can be found here: [https://krokettenbude.dobuch.de/api/docs](https://krokettenbude.dobuch.de/api/docs).
+
+---
+
 ## 📁 Project Structure
 
 Croqueteria is organized into two main components:

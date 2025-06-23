@@ -223,7 +223,7 @@ A pragmatic testing approach combining **TDD** and **TLD**:
 ## 📚 Documentation
 
 - **Developer Guide**: [GitHub Repo](https://github.com/dextreem/krokettenbude)
-- **API Docs**: [Swagger UI](http://localhost:8080/swagger-ui/index.html)
+- **API Docs**: [Swagger UI](http://localhost:8080/api/swagger-ui/index.html)
 
 ---
 
