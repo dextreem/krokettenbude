@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # Remove host port mapping, expose only inside docker network
+    expose:
+      - "8080"
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CROQUETERIA_LLM_URL=http://localhost:11434/api/generate
+      - SPRING_CROQUETERIA_JWT_SECRET=${JWT_TOKEN}
+    volumes:
+      - ./data:/app/data
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_PATH: ${VITE_API_BASE_PATH}
+    expose:
+      - "80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8081:80" # Host port 80 → Nginx container port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    environment:
+      VIRTUAL_HOST: krokettenbude.dobuch.de
+      LETSENCRYPT_HOST: krokettenbude.dobuch.de
+      LETSENCRYPT_EMAIL: dominic+krokette@dobuch.de
+    networks:
+      - app-network
+      - proxy_default
+
+networks:
+  app-network:
+    driver: bridge
+  proxy_default:
+    external: true
