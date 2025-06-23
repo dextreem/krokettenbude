@@ -14,6 +14,8 @@ services:
       - SWAGGER_UI_URL=http://backend:8080/api/swagger-ui.html
       - SPRING_CROQUETERIA_LLM_URL=http://localhost:11434/api/generate
       - SPRING_CROQUETERIA_JWT_SECRET=${JWT_TOKEN}
+    volumes:
+      - ./data:/app/data
     networks:
       - app-network
 
