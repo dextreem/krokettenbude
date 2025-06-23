@@ -96,3 +96,4 @@ podman run --rm -v ${PWD}:/local docker.io/openapitools/openapi-generator-cli ge
 - Linting partially disabled due to auto-generated code
 - Backend user management not yet integrated
 - No mobile view
+- User Guide missing
